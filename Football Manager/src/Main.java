@@ -225,22 +225,6 @@ public class Main {
     //Clase Main gestionará los menus y dispondrá de los listados con todos los equipos, jugadores y entrenadores disponibles para fichar, y un objeto que represente la liga
     //La información de la liga no se guardará en la ejecución del programa ni de la aplicación
 
-    //Clase Jugadores y Entrenadores
-    //Atributos (Los dos): nombre, apellido, día de nacimiento, nivel motivación(1-10), sueldo salarial
-    //Atributos (Entrenador): número torneos ganados, ha estado seleccionador nacional(booleano)
-    //Atributos (Jugadores): Dorsal, posición en la que juegan (POR, DEF, MIG, DAV), puntuación del 30 al 100, calidad.
-    //Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
-
-    //Método jugadores: canviDePosicio(), tendrá un 5 de probabilidad de generar un cambio de posición del jugador. Si se produce, saldrá un mensaje y hacer el cambios ademas de sumar 1 punto de calidad del jugador.
-    //Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%
-
-    //Clase equipos
-    //Atributos: nombre, año fundación, ciudad, nombre del estadio(opcional), nombre presidente(opcional)
-    //Podemos crear equipos sin indicar obligatoriamente los campos opcionales
-    //Los equipos de los datos anteriores, tienen un entrenador y un listado de jugadores
-
-    //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
-
     //Menu principal de admin (opción 2):
     //Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
     //Solo se pedirá el resto de datos si el equipo no existe, en caso contrario se mostrará un mensaje de error y volverá a pedir otro nombre, se repetirá tantas veces hasta que ponga un nombre que exista.
@@ -296,10 +280,6 @@ public class Main {
     //En caso afirmativo se pedirá el nuevo dorsal del jugador transferido (habrá que verificar si está disponible).
     //Se pedirá el dorsal hasta que se proporcione uno que esté disponible.
 
-    //Clase Lliga:
-    //Atributos: Nombre, cantidad de equipos, lista de equipos.
-    //Métodos: agregarEquipos(), disputarPartidos(), consultarGolesFavor(), consultarGolesContra(), mostrarClasificación.
-
     //Menu principal gestor de equipos(opción 1):
     //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
     //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
@@ -324,7 +304,7 @@ public class Main {
 
     //Adicional:
     //Saber cuantos jugadores se han creado hasta el momento en la aplicación.
-    //La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
+    //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
     //La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     //Los jugadores extienden el método entrenamiento de la clase padre.
     //Ademas de ejecutar el código de la clase padre, la calidad del jugador aumentara en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.
