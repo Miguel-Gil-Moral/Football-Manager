@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Football Manager Java.iml" filepath="$PROJECT_DIR$/Football Manager Java.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Football Manager.iml" filepath="$PROJECT_DIR$/Football Manager.iml" />
     </modules>
   </component>
 </project>
