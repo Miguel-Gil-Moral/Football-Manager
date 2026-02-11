@@ -2,13 +2,12 @@ package clasesCreadas;
 
 import java.time.LocalDate;
 
-public class Persona {
+public abstract class Persona {
     protected String nombre, apellido;
     protected LocalDate fechaNacimiento;
-    protected int nivMotivacion;
-    protected double sueldoSalarial;
+    protected double nivMotivacion, sueldoSalarial;
 
-    private void entrenamiento() {
-
+    protected void entrenamiento() {
+        this.nivMotivacion += 0.2;
     }
 }

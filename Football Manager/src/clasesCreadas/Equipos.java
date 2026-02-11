@@ -10,6 +10,9 @@ public class Equipos {
     private String nombre, ciudad, nombreEstadio, nombrePresidente;
     private int anyoFundacion;
 
+    public Equipos() {
+    }
+
     private void calcularMediaEquipo() {
 
     }

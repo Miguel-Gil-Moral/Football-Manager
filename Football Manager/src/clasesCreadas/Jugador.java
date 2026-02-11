@@ -10,6 +10,9 @@ public class Jugador extends Persona {
     private int dorsal, puntuacion;
     private String posicion, calidad;
 
+    public Jugador() {
+    }
+
     private void cambiarDePosicion() {
 
     }

@@ -1,3 +1,9 @@
+import clasesCreadas.Equipos;
+import clasesCreadas.Liga;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -7,9 +13,11 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
+        String[][] listaFichajes = cargarFichajes();
+        String[] listaEquipos = new String[1];
         String rol = pedirRol();
         int opcion, opcionSubmenu;
-        boolean salirBucle = false;
+        boolean salirBucle = false, equipoExistente;
 
         do {
             System.out.println("Welcome to Politècnics Football Manager:");
@@ -21,7 +29,7 @@ public class Main {
                             verClasificacionLiga();
                             break;
                         case 2:
-                            darAltaEquipo();
+                            darAltaEquipo(listaEquipos);
                             break;
                         case 3:
                             darAltaPersona();
@@ -56,23 +64,28 @@ public class Main {
                             //Menu principal de gestor de equipos (opción 2):
                             //Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
                             //Si se encuentra el equipo, se mostrará un submenu específico.
-                            opcionSubmenu = submenuGestorEquipos();
-                            switch (opcionSubmenu) {
-                                case 1:
-                                    darBajaEquipo();
-                                    break;
-                                case 2:
-                                    modificarPresidente();
-                                    break;
-                                case 3:
-                                       destituirEntrenador();
-                                       break;
-                                case 4:
-                                    ficharPersona();
-                                    break;
-                                case 0:
-                                    salirBucle = true;
-                                    break;
+                            equipoExistente = revisarEquipo();
+                            if (equipoExistente) {
+                                opcionSubmenu = submenuGestorEquipos();
+                                switch (opcionSubmenu) {
+                                    case 1:
+                                        darBajaEquipo();
+                                        break;
+                                    case 2:
+                                        modificarPresidente();
+                                        break;
+                                    case 3:
+                                        destituirEntrenador();
+                                        break;
+                                    case 4:
+                                        ficharPersona();
+                                        break;
+                                    case 0:
+                                        salirBucle = true;
+                                        break;
+                                }
+                            } else {
+                                System.out.println("No existe el equipo que desea gestionar");
                             }
                             break;
                         case 3:
@@ -94,7 +107,33 @@ public class Main {
                     break;
             }
         } while (!salirBucle);
+    }
 
+    //Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
+    /**
+     * @since 1.0
+     * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una matriz
+     */
+    public static String[][] cargarFichajes() {
+        final String archivo = "src/ficheros/mercat_fitxatges.txt";
+        BufferedReader br;
+        String linea;
+        String[] separado;
+        String[][] listaFichajes = new String[30][9];
+        int numFila = 0;
+
+        try {
+            br = new BufferedReader(new FileReader(archivo));
+            while ((linea = br.readLine()) != null) {
+                separado = linea.split(";");
+                listaFichajes[numFila] = separado;
+                numFila++;
+            }
+        } catch (IOException e) {
+            System.out.println("Error al abrir el archivo");
+        }
+
+        return listaFichajes;
     }
 
     //Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
@@ -209,8 +248,20 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void darAltaEquipo() {
+    public static void darAltaEquipo(String[] listaEquipos) {
+        Scanner sc = new Scanner(System.in);
+        Equipos equipo = new Equipos();
+        boolean nombreVacio;
 
+        do {
+            System.out.print("Ingrese el nombre del equipo: ");
+            String nombre = sc.next();
+            nombreVacio = false;
+            if (nombre.length() < 1) {
+                System.out.println("Invalido, coloque un nombre para el equipo");
+                nombreVacio = true;
+            }
+        } while (nombreVacio);
     }
 
     //Menu principal de admin (opción 3):
@@ -256,7 +307,7 @@ public class Main {
      * @since 1.0
      */
     public static void disputarNuevaLiga() {
-
+        Liga lliga = new Liga();
     }
 
     //Menu principal admin (opción 7):
@@ -336,6 +387,13 @@ public class Main {
      */
     public static void transferirJugador(){
 
+    }
+
+    public static boolean revisarEquipo(){
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Escriba el nombre del equipo: ");
+        String nombre = sc.nextLine();
+        return false;
     }
 
     //Submenu para gestor de mi propio equipo(opcion 2):
@@ -429,7 +487,6 @@ public class Main {
     //Revisar para aplicar patrones de refactoring.
     //Colocar JavaDoc mientras vamos acabando con las funciones o métodos.
 
-    //Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
     //Cargar todos los equipos y su información relacionada.
 
     //Clase Main gestionará los menus y dispondrá de los listados con todos los equipos, jugadores y entrenadores disponibles para fichar, y un objeto que represente la liga
@@ -450,12 +507,12 @@ public class Main {
     //Adicional:
     //Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
-    //La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
+    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     //Los jugadores extienden el método entrenamiento de la clase padre.
     //Ademas de ejecutar el código de la clase padre, la calidad del jugador aumentara en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.
     //Aparte de realizar incrementos, se mostrará quien ha estado en el resultado.
-    //Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
-    //Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
+    //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
+    //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
     //Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
     //Dos jugadores se consideran iguales si coinciden con el mismo nombre y su dorsal.
     //Podemos ordenar los jugadores de dos maneras diferentes:
