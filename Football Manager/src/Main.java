@@ -1,10 +1,11 @@
-import clasesCreadas.Equipos;
-import clasesCreadas.Liga;
+import clasesCreadas.*;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -13,8 +14,8 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        String[][] listaFichajes = cargarFichajes();
-        String[] listaEquipos = new String[1];
+        ArrayList<Persona> listaFichajes = cargarFichajes();
+        ArrayList<Equipos> listaEquipos = new ArrayList<>();
         String rol = pedirRol();
         int opcion, opcionSubmenu;
         boolean salirBucle = false, equipoExistente;
@@ -32,13 +33,13 @@ public class Main {
                             darAltaEquipo(listaEquipos);
                             break;
                         case 3:
-                            darAltaPersona();
+                            darAltaPersona(listaFichajes);
                             break;
                         case 4:
                             consultarDatosEquipo();
                             break;
                         case 5:
-                            consultarDatosPersona();
+                            consultarDatosPersona(listaFichajes);
                             break;
                         case 6:
                             disputarNuevaLiga();
@@ -92,7 +93,7 @@ public class Main {
                             consultarDatosEquipo();
                             break;
                         case 4:
-                            consultarDatosPersona();
+                            consultarDatosPersona(listaFichajes);
                             break;
                         case 5:
                             transferirJugador();
@@ -109,34 +110,36 @@ public class Main {
         } while (!salirBucle);
     }
 
-    //Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
+    //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
     /**
      * @since 1.0
-     * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una matriz
+     * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una lista de personas
      */
-    public static String[][] cargarFichajes() {
-        final String archivo = "src/ficheros/mercat_fitxatges.txt";
-        BufferedReader br;
+    public static ArrayList<Persona> cargarFichajes() {
         String linea;
         String[] separado;
-        String[][] listaFichajes = new String[30][9];
-        int numFila = 0;
+        ArrayList<Persona> listaFichajes = new ArrayList<>();
 
         try {
-            br = new BufferedReader(new FileReader(archivo));
+            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/mercat_fitxatges.txt"));
             while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
-                listaFichajes[numFila] = separado;
-                numFila++;
+                if (separado[0].equals("J")) {
+                    listaFichajes.add(new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                            Integer.parseInt(separado[5]), Integer.parseInt(separado[6]),
+                            separado[7], Integer.parseInt(separado[8])));
+                } else if (separado[0].equals("E")) {
+                    listaFichajes.add(new Entrenador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                            Integer.parseInt(separado[5]), Integer.parseInt(separado[6]), Boolean.parseBoolean(separado[7])));
+                }
             }
         } catch (IOException e) {
             System.out.println("Error al abrir el archivo");
         }
-
         return listaFichajes;
     }
 
-    //Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
+    //✅ Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
     /**
      * @since 1.0
      * @return Nombre del rol escogido por el usuario de estos siguientes: <ul>
@@ -241,40 +244,284 @@ public class Main {
 
     }
 
-    //Menu principal de admin (opción 2):
-    //Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
-    //Solo se pedirá el resto de datos si el equipo no existe, en caso contrario se mostrará un mensaje de error y volverá a pedir otro nombre, se repetirá tantas veces hasta que ponga un nombre que exista.
-    //Cuando tenga el nombre del equipo, pedirá los demás datos principales, estarán también las dos opciones opcionales.
+    //✅ Menu principal de admin (opción 2):
+    //✅ Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
+    //✅ Solo se pedirá el resto de datos si el equipo no existe, en caso contrario se mostrará un mensaje de error y volverá a pedir otro nombre, se repetirá tantas veces hasta que ponga un nombre que exista.
+    //✅ Cuando tenga el nombre del equipo, pedirá los demás datos principales, estarán también las dos opciones opcionales.
     /**
      * @since 1.0
+     * @return Lista con el equipo añadido que se ha dado de alta
      */
-    public static void darAltaEquipo(String[] listaEquipos) {
+    public static ArrayList<Equipos> darAltaEquipo(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
-        Equipos equipo = new Equipos();
-        boolean nombreVacio;
+        boolean salirBucle;
+        String nombre, ciudad, nombreEstadio, nombrePresidente;
+        int anyoFundacion = 0;
 
         do {
             System.out.print("Ingrese el nombre del equipo: ");
-            String nombre = sc.next();
-            nombreVacio = false;
-            if (nombre.length() < 1) {
-                System.out.println("Invalido, coloque un nombre para el equipo");
-                nombreVacio = true;
+            nombre = sc.next();
+            salirBucle = true;
+            for (Equipos eq: listaEquipos) {
+                String nombreEquipo = eq.getNombre();
+                if (nombreEquipo.equals(nombre)) {
+                    System.out.println("El nombre del equipo ya existe en uno, escoja otro nombre");
+                    salirBucle = false;
+                }
             }
-        } while (nombreVacio);
+        } while (!salirBucle);
+        do {
+            try {
+                System.out.print("¿En que año se fundo el equipo?: ");
+                anyoFundacion = sc.nextInt();
+                salirBucle = true;
+                if (anyoFundacion < 1850 || anyoFundacion > 2026) {
+                    System.out.println("Opción invalida, escriba un año entre 1850 y 2026");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escriba solo números enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        System.out.print("¿En que ciudad reside?: ");
+        ciudad = sc.next();
+        System.out.print("Escribe el nombre del estadio (Opcional): ");
+        nombreEstadio = sc.nextLine();
+        System.out.print("Escribe el nombre del presidente (Opcional): ");
+        nombrePresidente = sc.nextLine();
+
+        Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad);
+        if (nombreEstadio.length() != 0) {
+            equipos.setNombrePresidente(nombrePresidente);
+        } else if (nombrePresidente.length() != 0) {
+            equipos.setNombreEstadio(nombreEstadio);
+        } else {
+            equipos.setNombreEstadio(nombreEstadio);
+            equipos.setNombrePresidente(nombrePresidente);
+        }
+
+        return listaEquipos;
     }
 
     //Menu principal de admin (opción 3):
-    //Preguntará si quiere dar de alta a un jugador o a un entrenador.
+    //✅ Preguntará si quiere dar de alta a un jugador o a un entrenador.
     //Al dar de alta, todos los datos serán obligatorio.
     //Para asegurar que todos los valores són valídos, la calidad del jugador se generará con un número aleatorio, la motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
-    //El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
+    //(✅ y medio) El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
     //(Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
     /**
      * @since 1.0
      */
-    public static void darAltaPersona() {
+    public static ArrayList<Persona> darAltaPersona(ArrayList<Persona> listaFichajes) {
+        Scanner sc = new Scanner(System.in);
+        Random random = new Random();
+        boolean salirBucle, seleccionadorNacional;
+        String nombre, apellido, fechaNacimiento;
+        int dorsalJugador, numTorneosGanados, sueldoSalarial, calidadJugador;
 
+        do {
+            try {
+                System.out.println("Que rol quiere dar de alta:");
+                System.out.println("1- Jugador/a");
+                System.out.println("2- Entrenador/a");
+                System.out.print("Opción: ");
+                int opcion = sc.nextInt();
+                salirBucle = true;
+                switch (opcion) {
+                    case 1:
+                        nombre = pedirNombrePersona();
+                        apellido = pedirApellidoPersona();
+                        fechaNacimiento = asignarNacimiento();
+                        sueldoSalarial = asignarSueldoSalarial();
+                        dorsalJugador = asignarDorsalJugador();
+                        calidadJugador = random.nextInt(100);
+                        break;
+                    case 2:
+                        nombre = pedirNombrePersona();
+                        apellido = pedirApellidoPersona();
+                        fechaNacimiento = asignarNacimiento();
+                        sueldoSalarial = asignarSueldoSalarial();
+                        numTorneosGanados = asignarTorneosGanado();
+                        seleccionadorNacional = esSeleccionadorNacional();
+                        Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5.0, sueldoSalarial, numTorneosGanados, seleccionadorNacional);
+                        listaFichajes.add(entrenador);
+                        break;
+                    default:
+                        System.out.println("Opción invalido, escoja 1 o 2");
+                        break;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escoja una opción de la pantalla");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return listaFichajes;
+    }
+
+    /**
+     * @since 1.0
+     * @return El nombre de la persona
+     */
+    private static String pedirNombrePersona() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese el nombre de la persona: ");
+        return sc.next();
+    }
+
+    /**
+     * @since 1.0
+     * @return El apellido de la persona
+     */
+    private static String pedirApellidoPersona() {
+        Scanner sc = new Scanner(System.in);
+        System.out.print("Ingrese el apellido de la persona: ");
+        return sc.next();
+    }
+
+    /**
+     * @since 1.0
+     * @return Fecha de nacimiento en formato dd/MM/aaaa de tipo String
+     */
+    public static String asignarNacimiento() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle;
+        int diaNacimiento = 0, mesNacimiento = 0, anoNacimiento = 0;
+
+        do {
+            try {
+                System.out.println("Introduzca su fecha de nacimiento");
+                System.out.print("Día: ");
+                diaNacimiento = sc.nextInt();
+                System.out.print("Més: ");
+                mesNacimiento = sc.nextInt();
+                System.out.print("Año: ");
+                anoNacimiento = sc.nextInt();
+                salirBucle = true;
+                if (diaNacimiento < 0 || diaNacimiento > 31
+                        || mesNacimiento < 0 || mesNacimiento > 12
+                        || anoNacimiento < 1980 || anoNacimiento > 2026) {
+                    System.out.println("El valor del día, mes o año no son correctos, por favor establece un valor coherente entre el año 1980 y 2026");
+                    salirBucle = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Valor invalido, escriba números enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+
+
+
+        return String.format(diaNacimiento + "/"
+                + mesNacimiento + "/"
+                + anoNacimiento);
+    }
+
+    /**
+     * @since 1.0
+     * @return El sueldo que ganará la persona
+     */
+    public static int asignarSueldoSalarial() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle;
+        int sueldoSalarial = 0;
+        do {
+            try {
+                System.out.print("Introduzca sueldo de sueldo: ");
+                sueldoSalarial = sc.nextInt();
+                salirBucle = true;
+                if (sueldoSalarial < 0) {
+                    System.out.println("Valor invalido, no puede trabajar sin tener un sueldo");
+                    salirBucle = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Valor invalido, escriba un número enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return sueldoSalarial;
+    }
+
+    /**
+     * @since 1.0
+     * @return Número del dorsal no escogido para el jugador
+     */
+    public static int asignarDorsalJugador() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle;
+        int dorsalJugador = 0;
+
+        do {
+            try {
+                System.out.print("Introduzca un dorsal el jugador: ");
+                dorsalJugador = sc.nextInt();
+                salirBucle = true;
+                if (dorsalJugador == 0) {
+                    System.out.println("Opción invalida, coloque un número de dorsal");
+                    salirBucle = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, por favor coloque números enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return dorsalJugador;
+    }
+
+    /**
+     * @since 1.0
+     * @return La cantidad de torneos que el entrenador ha ganado
+     */
+    public static int asignarTorneosGanado() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle;
+        int torneosGanado = 0;
+
+        do {
+            try {
+                System.out.print("¿Cuantos torneos gano este entrenador?: ");
+                torneosGanado = sc.nextInt();
+                salirBucle = true;
+                if (torneosGanado < 0) {
+                    System.out.println("Opción invalida, escriba un valor mayor o igual a 0");
+                    salirBucle = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escriba solo números enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return torneosGanado;
+    }
+
+    /**
+     * @since 1.0
+     * @return Resultado sobre el entrenador de estos siguientes:<ul>
+     *     <li>True: El entrenador ha estado seleccionador nacional</li>
+     *     <li>False: El entrenador no ha estado seleccionador nacional</li>
+     * </ul>
+     */
+    public static boolean esSeleccionadorNacional() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle, esSeleccionadorNacional = false;
+
+        do {
+            try {
+                System.out.print("¿El entrenador ha estado seleccionador nacional?: ");
+                esSeleccionadorNacional = sc.nextBoolean();
+                salirBucle = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escriba solo true o false");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return esSeleccionadorNacional;
     }
 
     //Menu principal de admin (opción 4):
@@ -294,12 +541,12 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void consultarDatosPersona() {
+    public static void consultarDatosPersona(ArrayList<Persona> listaFichajes) {
 
     }
 
     //Menu principal de admin (opción 6):
-    //Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
+    //✅ Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
     //Se le asignará al objeto "Lliga" de la clase a la aplicación.
     //Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
     //Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
@@ -307,7 +554,25 @@ public class Main {
      * @since 1.0
      */
     public static void disputarNuevaLiga() {
+        Scanner sc = new Scanner(System.in);
         Liga lliga = new Liga();
+        boolean salirBucle;
+        String nombre;
+        int numEquipos;
+
+        System.out.print("Escoga un nombre para la liga: ");
+        nombre = sc.next();
+        do {
+            try {
+                System.out.print("¿Cuantos equipos participaran?: ");
+                numEquipos = sc.nextInt();
+                salirBucle = true;
+            } catch (InputMismatchException e) {
+                System.out.println("Opción incorrecta, escriba la cantidad de equipos en números enteros");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
     }
 
     //Menu principal admin (opción 7):
@@ -513,10 +778,6 @@ public class Main {
     //Aparte de realizar incrementos, se mostrará quien ha estado en el resultado.
     //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
     //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
-    //Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
-    //Dos jugadores se consideran iguales si coinciden con el mismo nombre y su dorsal.
-    //Podemos ordenar los jugadores de dos maneras diferentes:
-    //Por su calidad (mayor a menor). Si son iguales se ordenara de mayor a menor la motivación, y si también son iguales se ordena alfabéticamente por el apellido.
     //Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
     //Por su posición (Orden alfabético). Si tienen la misma posición, ordenaremos de mayor a menor la calidad.
     //Se aplicará cada vez que listemos los jugadores de un equipo.
