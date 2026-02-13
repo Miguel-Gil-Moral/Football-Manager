@@ -1,8 +1,10 @@
 import clasesCreadas.*;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -36,7 +38,7 @@ public class Main {
                             darAltaPersona(listaFichajes);
                             break;
                         case 4:
-                            consultarDatosEquipo();
+                            consultarDatosEquipo(listaEquipos);
                             break;
                         case 5:
                             consultarDatosPersona(listaFichajes);
@@ -65,15 +67,15 @@ public class Main {
                             //Menu principal de gestor de equipos (opción 2):
                             //Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
                             //Si se encuentra el equipo, se mostrará un submenu específico.
-                            equipoExistente = revisarEquipo();
+                            equipoExistente = revisarEquipo(listaEquipos);
                             if (equipoExistente) {
                                 opcionSubmenu = submenuGestorEquipos();
                                 switch (opcionSubmenu) {
                                     case 1:
-                                        darBajaEquipo();
+                                        darBajaEquipo(listaEquipos);
                                         break;
                                     case 2:
-                                        modificarPresidente();
+                                        modificarPresidente(listaEquipos);
                                         break;
                                     case 3:
                                         destituirEntrenador();
@@ -90,7 +92,7 @@ public class Main {
                             }
                             break;
                         case 3:
-                            consultarDatosEquipo();
+                            consultarDatosEquipo(listaEquipos);
                             break;
                         case 4:
                             consultarDatosPersona(listaFichajes);
@@ -108,6 +110,7 @@ public class Main {
                     break;
             }
         } while (!salirBucle);
+        actualizarFichero(listaFichajes);
     }
 
     //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
@@ -292,9 +295,9 @@ public class Main {
         nombrePresidente = sc.nextLine();
 
         Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad);
-        if (nombreEstadio.length() != 0) {
+        if (nombreEstadio.isEmpty()) { //Iba a ponerlo con .length, pero el programa me lo recomendó de esta manera. Esta prueba de que no lo hice con chatgpt. Merequetenge
             equipos.setNombrePresidente(nombrePresidente);
-        } else if (nombrePresidente.length() != 0) {
+        } else if (nombrePresidente.isEmpty()) {
             equipos.setNombreEstadio(nombreEstadio);
         } else {
             equipos.setNombreEstadio(nombreEstadio);
@@ -306,9 +309,10 @@ public class Main {
 
     //Menu principal de admin (opción 3):
     //✅ Preguntará si quiere dar de alta a un jugador o a un entrenador.
-    //Al dar de alta, todos los datos serán obligatorio.
-    //Para asegurar que todos los valores són valídos, la calidad del jugador se generará con un número aleatorio, la motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
-    //(✅ y medio) El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
+    //✅ Al dar de alta, todos los datos serán obligatorio.
+    //✅ Para asegurar que todos los valores són valídos, la calidad del jugador se generará con un número aleatorio
+    //✅ La motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
+    //✅ El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
     //(Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
     /**
      * @since 1.0
@@ -317,7 +321,7 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         boolean salirBucle, seleccionadorNacional;
-        String nombre, apellido, fechaNacimiento;
+        String nombre, apellido, fechaNacimiento, posicionJugador;
         int dorsalJugador, numTorneosGanados, sueldoSalarial, calidadJugador;
 
         do {
@@ -336,6 +340,9 @@ public class Main {
                         sueldoSalarial = asignarSueldoSalarial();
                         dorsalJugador = asignarDorsalJugador();
                         calidadJugador = random.nextInt(100);
+                        posicionJugador = asignarPosicionJugador();
+                        Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, calidadJugador);
+                        listaFichajes.add(jugador);
                         break;
                     case 2:
                         nombre = pedirNombrePersona();
@@ -344,7 +351,7 @@ public class Main {
                         sueldoSalarial = asignarSueldoSalarial();
                         numTorneosGanados = asignarTorneosGanado();
                         seleccionadorNacional = esSeleccionadorNacional();
-                        Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5.0, sueldoSalarial, numTorneosGanados, seleccionadorNacional);
+                        Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, numTorneosGanados, seleccionadorNacional);
                         listaFichajes.add(entrenador);
                         break;
                     default:
@@ -474,6 +481,57 @@ public class Main {
 
     /**
      * @since 1.0
+     * @return La posición que jugara el jugador de estos siguientes: <ul>
+     *     <li>POR: Posición de portero</li>
+     *     <li>DEF: Posición de defensa</li>
+     *     <li>MIG: Posición de mediocampista</li>
+     *     <li>DAV: Posición de delantero</li>
+     * </ul>
+     */
+    public static String asignarPosicionJugador() {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle;
+        int opcion;
+        String posicionJugador = "";
+
+        do {
+            try {
+                System.out.println("Escoja la posición del jugador que va a jugar:");
+                System.out.println("1- POR (Portero)");
+                System.out.println("2- DEF (Defensa)");
+                System.out.println("3- MIG (Mediocampista)");
+                System.out.println("4- DAV (Delantero)");
+                System.out.print("Opción: ");
+                opcion = sc.nextInt();
+                salirBucle = true;
+                switch (opcion) {
+                    case 1:
+                        posicionJugador = "POR";
+                        break;
+                    case 2:
+                        posicionJugador = "DEF";
+                        break;
+                    case 3:
+                        posicionJugador = "MIG";
+                        break;
+                    case 4:
+                        posicionJugador = "DAV";
+                        break;
+                    default:
+                        System.out.println("Opción invalida, escoga un número entre el 1 y 4");
+                        salirBucle = false;
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escoga las opciones que se muestra en pantalla");
+                sc.next();
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return posicionJugador;
+    }
+
+    /**
+     * @since 1.0
      * @return La cantidad de torneos que el entrenador ha ganado
      */
     public static int asignarTorneosGanado() {
@@ -530,7 +588,7 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void consultarDatosEquipo() {
+    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos) {
 
     }
 
@@ -654,8 +712,9 @@ public class Main {
 
     }
 
-    public static boolean revisarEquipo(){
+    public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos){
         Scanner sc = new Scanner(System.in);
+
         System.out.print("Escriba el nombre del equipo: ");
         String nombre = sc.nextLine();
         return false;
@@ -710,7 +769,7 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void darBajaEquipo() {
+    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos) {
 
     }
 
@@ -721,7 +780,7 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void modificarPresidente() {
+    public static void modificarPresidente(ArrayList<Equipos> listaEquipos) {
 
     }
 
@@ -742,6 +801,21 @@ public class Main {
      * @since 1.0
      */
     public static void ficharPersona() {
+
+    }
+
+    public static void actualizarFichero(ArrayList<Persona> listaFichajes){
+        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/ficheros/mercat_fitxatges.txt"))){
+            for (Persona persona : listaFichajes) {
+                if (persona instanceof Jugador) {
+                    bw.write(((Jugador) persona).toString());
+                } else if (persona instanceof Entrenador) {
+                    bw.write(((Entrenador) persona).toString());
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("Error al escribir el fichero de texto");
+        }
 
     }
 

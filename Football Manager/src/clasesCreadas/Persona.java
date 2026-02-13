@@ -6,7 +6,6 @@ public abstract class Persona {
     protected double nivMotivacion;
     protected int sueldoSalarial;
 
-
     public Persona(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial) {
         this.nombre = nombre;
         this.apellido = apellido;
@@ -15,6 +14,14 @@ public abstract class Persona {
         this.sueldoSalarial = sueldoSalarial;
     }
 
+    @Override
+    public String toString() {
+        return nombre + ";" +
+                apellido + ";" +
+                fechaNacimiento + ";" +
+                nivMotivacion + ";" +
+                sueldoSalarial;
+    }
 
     protected void entrenamiento() {
         this.nivMotivacion += 0.2;

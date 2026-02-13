@@ -1,9 +1,7 @@
 package clasesCreadas;
 
-
 import java.util.Objects;
 import java.util.Random;
-
 
 //Clase Jugadores y Entrenadores
 //✅ Atributos (Los dos): nombre, apellido, día de nacimiento, nivel motivación(1-10), sueldo salarial
@@ -18,14 +16,12 @@ public class Jugador extends Persona {
     private int dorsal, calidad, puntuacion;
     private String posicion;
 
-
     public Jugador(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial, int dorsal, String posicion, int calidad) {
         super(nombre, apellido, fechaNacimiento, nivMotivacion, sueldoSalarial);
         this.dorsal = dorsal;
         this.posicion = posicion;
         this.calidad = calidad;
     }
-
 
     private void cambiarDePosicion(String posicion) {
         Random rand = new Random();
@@ -39,12 +35,17 @@ public class Jugador extends Persona {
         }
     }
 
-
-    //Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
+    @Override
+    public String toString() {
+        return "J;" + super.toString() + ";" +
+                dorsal + ";" +
+                posicion + ";" +
+                calidad + "\n";
+    }
+//Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
     //Dos jugadores se consideran iguales si coinciden con el mismo nombre y su dorsal.
     //Podemos ordenar los jugadores de dos maneras diferentes:
     //Por su calidad (mayor a menor). Si son iguales se ordenará de mayor a menor la motivación, y si también son iguales se ordena alfabéticamente por el apellido.
-
 
     @Override
     public boolean equals(Object o) {
@@ -52,7 +53,6 @@ public class Jugador extends Persona {
         Jugador jugador = (Jugador) o;
         return Double.compare(nivMotivacion, jugador.nivMotivacion) == 0 && Double.compare(sueldoSalarial, jugador.sueldoSalarial) == 0 && dorsal == jugador.dorsal && calidad == jugador.calidad && Objects.equals(nombre, jugador.nombre) && Objects.equals(apellido, jugador.apellido) && Objects.equals(fechaNacimiento, jugador.fechaNacimiento) && Objects.equals(posicion, jugador.posicion);
     }
-
 
     @Override
     public int hashCode() {
