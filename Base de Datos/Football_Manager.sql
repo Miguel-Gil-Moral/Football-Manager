@@ -1,134 +1,440 @@
+-- MySQL dump 10.13  Distrib 8.0.36, for Linux (x86_64)
+--
+-- Host: localhost    Database: football_manager
+-- ------------------------------------------------------
+-- Server version	9.6.0
+
 drop database football_manager;
 create database football_manager;
-
 use football_manager;
 
-create table posicions (
-	id int auto_increment,
-    posicio varchar(45) not null,
-    constraint pk_posicions primary key (id)
-);
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!50503 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+SET @MYSQLDUMP_TEMP_LOG_BIN = @@SESSION.SQL_LOG_BIN;
+SET @@SESSION.SQL_LOG_BIN= 0;
 
-create table persones (
-	id int auto_increment,
-    nom varchar(45) not null,
-    data_naixament date not null,
-    nivell_motivacio int not null,
-    sou float not null,
-    tipus_persona varchar(45) not null,
-    constraint pk_persones primary key (id)
-);
+--
+-- GTID state at the beginning of the backup 
+--
 
-create table entrenadors (
-	persones_id int not null,
-    num_tornejos int not null,
-    es_seleccionador tinyint not null,
-    constraint pk_entrenadors primary key (persones_id),
-    constraint fk_persones_entrenadors foreign key (persones_id) references persones(id)
-);
+SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '55840fee-006a-11f1-9f85-fec17bbb991a:1-448';
 
-create table estadis (
-	id int auto_increment,
-    nom varchar(45) not null,
-    num_espectadors int not null,
-    constraint pk_estadis primary key (id)
-);
+--
+-- Table structure for table `ciutats`
+--
 
-create table ciutats (
-	id int auto_increment,
-    nom varchar(45) not null,
-    constraint pk_ciutats primary key (id)
-);
+DROP TABLE IF EXISTS `ciutats`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `ciutats` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table equips (
-	id int auto_increment,
-    nom varchar(45) not null,
-    any_fundacio int not null,
-    nom_president varchar(45),
-    ciutats_id int not null,
-    estadis_id int not null,
-    filial_equips_id int,
-    constraint pk_equips primary key (id),
-    constraint fk_ciutats_equips foreign key (ciutats_id) references ciutats(id),
-    constraint fk_estadis_equips foreign key (estadis_id) references estadis(id),
-    constraint fk_equips_equips foreign key (filial_equips_id) references equips (id)
-);
+--
+-- Dumping data for table `ciutats`
+--
 
-create table entrenar_equips (
-	data_fitxatge date not null,
-    entrenadors_id int not null,
-    equips_id int not null,
-    data_baixa date,
-    constraint pk_entrenar_equips primary key (data_fitxatge, entrenadors_id),
-    constraint fk_entrenadors foreign key (entrenadors_id) references entrenadors(persones_id),
-    constraint fk_equips_entrenar_equips foreign key (equips_id) references equips(id)
-);
+LOCK TABLES `ciutats` WRITE;
+/*!40000 ALTER TABLE `ciutats` DISABLE KEYS */;
+INSERT INTO `ciutats` VALUES (1,'Barcelona'),(2,'Madrid'),(3,'València'),(4,'Sevilla'),(5,'Donostia-San Sebastián'),(6,'Bilbao'),(7,'Vila-real'),(8,'Vigo'),(9,'Mallorca'),(10,'Girona'),(11,'Pamplona'),(12,'Getafe'),(13,'Las Palmas'),(14,'Leganés'),(15,'Vitòria'),(16,'Valladolid'),(17,'Cornellà de Llobregat'),(18,'A Corunya'),(19,'Granada'),(20,'San Sebastian de los Reyes'),(21,'Eibar');
+/*!40000 ALTER TABLE `ciutats` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table lligues (
-	id int auto_increment,
-    nom varchar(45) not null,
-    temporada year not null,
-    constraint pk_lligues primary key (id)
-);
+--
+-- Table structure for table `entrenadors`
+--
 
-create table participar_lligues (
-	equips_id int not null,
-    lligues_id int not null,
-    constraint pk_participar_lligues primary key (equips_id, lligues_id),
-    constraint fk_equips_participar_lligues foreign key (equips_id) references equips(id),
-    constraint fk_lligues_participar_lligues foreign key (lligues_id) references lligues(id)
-);
+DROP TABLE IF EXISTS `entrenadors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entrenadors` (
+  `persones_id` int NOT NULL,
+  `num_tornejos` int NOT NULL,
+  `es_selecionador` tinyint NOT NULL,
+  PRIMARY KEY (`persones_id`),
+  CONSTRAINT `fk_entrenadors_persones` FOREIGN KEY (`persones_id`) REFERENCES `persones` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table jornades (
-	id int auto_increment,
-    jornada int not null,
-    data date not null,
-    lligues_id int not null,
-    constraint pk_jornades primary key (id),
-    constraint fk_lligues_jornades foreign key (lligues_id) references lligues(id)
-);
+--
+-- Dumping data for table `entrenadors`
+--
 
-create table jugadors (
-	persones_id int not null,
-    dorsal int not null,
-    qualitat int not null,
-    posicions_id int not null,
-    constraint pk_jugadors primary key (persones_id),
-    constraint fk_persones_jugadors foreign key (persones_id) references persones(id),
-    constraint fk_posicions_jugadors foreign key (posicions_id) references posicions(id)
-);
+LOCK TABLES `entrenadors` WRITE;
+/*!40000 ALTER TABLE `entrenadors` DISABLE KEYS */;
+INSERT INTO `entrenadors` VALUES (1,15,0),(2,25,0),(3,12,0),(4,5,0),(5,10,0),(6,18,0),(7,20,0),(8,14,0),(9,10,0),(10,8,0),(11,30,0),(12,6,0),(13,15,0),(14,35,0),(15,20,0),(16,7,0),(17,10,0),(18,5,0),(19,12,0),(20,25,0),(186,12,1),(187,1,0),(188,1,0),(189,1,0),(190,0,0),(191,0,0),(192,0,0),(193,0,0),(194,0,0),(195,0,0),(196,0,0),(197,0,0),(198,0,0);
+/*!40000 ALTER TABLE `entrenadors` ENABLE KEYS */;
+UNLOCK TABLES;
 
-create table jugadors_equips (
-	data_fitxatge date,
-    jugadors_id int not null,
-    equips_id int not null,
-    data_baixa date,
-    constraint pk_jugadors_equips primary key (data_fitxatge, jugadors_id),
-    constraint fk_jugadors_jugadors_equips foreign key (jugadors_id) references jugadors(persones_id),
-    constraint fk_equips_jugadors_equips foreign key (equips_id) references equips(id)
-);
+--
+-- Table structure for table `entrenar_equips`
+--
 
-create table partits (
-	id int auto_increment,
-    gols_local int not null,
-    gols_visitant int not null,
-    punts_local int not null,
-    punts_visitant int not null,
-    jornades_id int not null,
-    equips_id_local int not null,
-    equips_id_visitant int not null,
-    constraint pk_partits primary key (id),
-    constraint fk_jornades_partits foreign key (jornades_id) references jornades(id),
-    constraint fk_equips_local_partits foreign key (equips_id_local) references equips(id),
-    constraint fk_equips_visitant_partits foreign key (equips_id_visitant) references equips(id)
-);
+DROP TABLE IF EXISTS `entrenar_equips`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `entrenar_equips` (
+  `data_fitxatge` date NOT NULL,
+  `entrenadors_id` int NOT NULL,
+  `equips_id` int NOT NULL,
+  `data_baixa` date DEFAULT NULL,
+  PRIMARY KEY (`data_fitxatge`,`entrenadors_id`),
+  KEY `fk_equips_has_entrenadors_entrenadors1_idx` (`entrenadors_id`),
+  KEY `fk_equips_has_entrenadors_equips1_idx` (`equips_id`),
+  CONSTRAINT `fk_equips_has_entrenadors_entrenadors1` FOREIGN KEY (`entrenadors_id`) REFERENCES `entrenadors` (`persones_id`),
+  CONSTRAINT `fk_equips_has_entrenadors_equips1` FOREIGN KEY (`equips_id`) REFERENCES `equips` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
 
-create table partits_gols (
-	partits_id int not null,
-    jugadors_id int not null,
-    minut int auto_increment,
-    es_penal tinyint not null,
-    constraint pk_partits_gols primary key (minut, partits_id, jugadors_id),
-    constraint fk_partits_partits_gols foreign key (partits_id) references partits(id),
-    constraint fk_jugadors_partits_gols foreign key (jugadors_id) references jugadors(persones_id)
-);
+--
+-- Dumping data for table `entrenar_equips`
+--
+
+LOCK TABLES `entrenar_equips` WRITE;
+/*!40000 ALTER TABLE `entrenar_equips` DISABLE KEYS */;
+INSERT INTO `entrenar_equips` VALUES ('2015-04-21',190,29,NULL),('2015-05-31',187,26,NULL),('2015-10-16',195,34,NULL),('2018-09-06',191,30,NULL),('2019-01-18',192,31,NULL),('2019-02-16',189,28,NULL),('2019-07-08',198,37,NULL),('2020-01-05',196,35,NULL),('2020-05-19',193,32,NULL),('2020-05-19',197,36,NULL),('2020-10-01',188,27,NULL),('2023-04-08',186,25,NULL),('2023-07-05',194,33,NULL),('2024-07-01',3,13,NULL),('2024-07-02',7,14,NULL),('2024-07-03',15,5,NULL),('2024-07-04',19,9,NULL),('2024-07-05',9,19,NULL),('2024-07-06',13,11,NULL),('2024-07-07',17,4,NULL),('2024-07-08',5,20,NULL),('2024-07-11',12,10,NULL),('2024-07-12',1,7,NULL),('2024-07-12',2,3,NULL),('2024-07-13',16,18,NULL),('2024-07-14',10,16,NULL),('2024-07-15',8,12,NULL),('2024-07-17',4,17,NULL),('2024-07-18',14,2,NULL),('2024-07-19',20,8,NULL),('2024-07-20',18,15,NULL),('2024-07-21',11,6,NULL),('2024-07-23',6,1,NULL);
+/*!40000 ALTER TABLE `entrenar_equips` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `equips`
+--
+
+DROP TABLE IF EXISTS `equips`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `equips` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  `any_fundacio` int NOT NULL,
+  `nom_president` varchar(45) DEFAULT NULL,
+  `ciutats_id` int NOT NULL,
+  `estadis_id` int NOT NULL,
+  `filial_equips_id` int DEFAULT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_equips_ciutats1_idx` (`ciutats_id`),
+  KEY `fk_equips_estadis1_idx` (`estadis_id`),
+  KEY `fk_equips_equips1_idx` (`filial_equips_id`),
+  CONSTRAINT `fk_equips_ciutats1` FOREIGN KEY (`ciutats_id`) REFERENCES `ciutats` (`id`),
+  CONSTRAINT `fk_equips_equips1` FOREIGN KEY (`filial_equips_id`) REFERENCES `equips` (`id`),
+  CONSTRAINT `fk_equips_estadis1` FOREIGN KEY (`estadis_id`) REFERENCES `estadis` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=38 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `equips`
+--
+
+LOCK TABLES `equips` WRITE;
+/*!40000 ALTER TABLE `equips` DISABLE KEYS */;
+INSERT INTO `equips` VALUES (1,'FC Barcelona',1899,'Joan Laporta',1,1,NULL),(2,'Real Madrid CF',1902,'Florentino Pérez',2,2,NULL),(3,'Atlético de Madrid',1903,'Enrique Cerezo',2,3,NULL),(4,'Sevilla FC',1890,'José Castro',4,4,NULL),(5,'Real Sociedad',1909,'Jokin Aperribay',5,5,NULL),(6,'Real Betis',1907,'Ángel Haro',4,6,NULL),(7,'Athletic Club',1898,'Jon Uriarte',6,7,NULL),(8,'Villarreal CF',1923,'Fernando Roig',7,8,NULL),(9,'Valencia CF',1919,'Layhoon Chan',3,9,NULL),(10,'RC Celta de Vigo',1923,'Carlos Mouriño',8,10,NULL),(11,'RCD Mallorca',1916,'Andy Kohlberg',9,11,NULL),(12,'Girona FC',1930,'Delfí Geli',10,12,NULL),(13,'CA Osasuna',1920,'Luis Sabalza',11,13,NULL),(14,'Getafe CF',1946,'Ángel Torres',12,14,NULL),(15,'UD Las Palmas',1949,'Miguel Ángel Ramírez',13,17,NULL),(16,'RCD Espanyol',1900,'Chen Yansheng',1,15,NULL),(17,'CD Leganés',1928,'Jeff Luhnow',14,16,NULL),(18,'Real Valladolid CF',1928,'Ronaldo Nazário',16,18,NULL),(19,'Rayo Vallecano',1924,'Raúl Martín Presa',2,20,NULL),(20,'Deportivo Alavés',1921,'Alfonso Fernández',15,19,NULL),(21,'Barça Atlètic',2007,'Joan Laporta',1,21,1),(22,'Real Madrid Castilla',1930,'Florentino Pérez',2,22,2),(23,'Atlético B',2003,'Enrique Cerezo',6,23,3),(24,'Sevilla Atlético',1958,'José Castro',4,24,4),(25,'FC Barcelona Femení',2002,'Joan Laporta',1,21,NULL),(26,'Real Madrid CF Femenino',2020,'Florentino Pérez',2,22,NULL),(27,'Atlético de Madrid Femení',2001,'Enrique Cerezo',2,23,NULL),(28,'Athletic Club Femenino',2002,'Jon Uriarte',6,25,NULL),(29,'RCD Espanyol Femení',1970,'Chen Yansheng',17,26,NULL),(30,'Sevilla FC Femení',2007,'José Castro Carmona',4,24,NULL),(31,'Valencia CF Femení',2009,'Layhoon Chan',3,27,NULL),(32,'Deportivo Abanca',2016,'Antonio Couceiro',18,28,NULL),(33,'Granada CF Femení',2003,'Francisco Rodríguez',19,29,NULL),(34,'Real Sociedad Femení',2004,'Jokin Aperribay',5,30,NULL),(35,'Levante UD Femení',1909,'Pablo Sánchez',3,31,NULL),(36,'Real Betis Femení',2011,'Ángel Haro',4,32,NULL),(37,'SD Eibar Femení',1940,'Amaia Gorostiza',21,33,NULL);
+/*!40000 ALTER TABLE `equips` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `estadis`
+--
+
+DROP TABLE IF EXISTS `estadis`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `estadis` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  `num_espectadors` int NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `estadis`
+--
+
+LOCK TABLES `estadis` WRITE;
+/*!40000 ALTER TABLE `estadis` DISABLE KEYS */;
+INSERT INTO `estadis` VALUES (1,'Estadi Olímpic Lluís Companys',55000),(2,'Santiago Bernabéu',81000),(3,'Estadi Civitas Metropolitano',68000),(4,'Estadi Ramón Sánchez-Pizjuán',43000),(5,'Reale Arena',39000),(6,'Estadi Benito Villamarín',60000),(7,'San Mamés',53000),(8,'Estadi de la Ceràmica',23500),(9,'Mestalla',49000),(10,'Estadi Municipal de Balaídos',29000),(11,'Estadi Mallorca Son Moix',23000),(12,'Estadi Montilivi',13500),(13,'Estadi El Sadar',23500),(14,'Coliseum Alfonso Pérez',17393),(15,'RCDE Stadium',40500),(16,'Estadi de Butarque',12000),(17,'Gran Canaria',32200),(18,'José Zorrilla',27000),(19,'Mendizorroza',15435),(20,'Estadi Martínez Valero',33000),(21,'Estadi Johan Cruyff',6000),(22,'Estadi Alfredo Di Stéfano',6000),(23,'Centro Deportivo Alcalá de Henares',3500),(24,'Estadi Jesús Navas',7500),(25,'Lezama',3250),(26,'Ciutat Esportiva Dani Jarque',2500),(27,'Ciutat Esportiva de Paterna',3000),(28,'Ciudad Deportiva de Abegondo',3000),(29,'Estadio de la Juventud',1000),(30,'Zubieta',3500),(31,'Ciudad Deportiva de Buñol',600),(32,'Ciudad Deportiva Luís del Sol',3500),(33,'Ipurua',8154);
+/*!40000 ALTER TABLE `estadis` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jornades`
+--
+
+DROP TABLE IF EXISTS `jornades`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jornades` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `jornada` int NOT NULL,
+  `data` date NOT NULL,
+  `lligues_id` int NOT NULL,
+  PRIMARY KEY (`id`),
+  KEY `fk_partits_lligues1_idx` (`lligues_id`),
+  CONSTRAINT `fk_partits_lligues1` FOREIGN KEY (`lligues_id`) REFERENCES `lligues` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=39 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jornades`
+--
+
+LOCK TABLES `jornades` WRITE;
+/*!40000 ALTER TABLE `jornades` DISABLE KEYS */;
+INSERT INTO `jornades` VALUES (1,1,'2024-08-20',1),(2,2,'2024-08-27',1),(3,3,'2024-09-03',1),(4,4,'2024-09-10',1),(5,5,'2024-09-17',1),(6,6,'2024-09-24',1),(7,7,'2024-10-01',1),(8,8,'2024-10-08',1),(9,9,'2024-10-15',1),(10,10,'2024-10-22',1),(11,11,'2024-10-29',1),(12,12,'2024-11-05',1),(13,13,'2024-11-12',1),(14,14,'2024-11-19',1),(15,15,'2024-11-26',1),(16,16,'2024-12-03',1),(17,17,'2024-12-10',1),(18,18,'2024-12-17',1),(19,19,'2024-12-24',1),(20,20,'2024-12-31',1),(21,21,'2025-01-07',1),(22,22,'2025-01-14',1),(23,23,'2025-01-21',1),(24,24,'2025-01-28',1),(25,25,'2025-02-04',1),(26,26,'2025-02-11',1),(27,27,'2025-02-18',1),(28,28,'2025-02-25',1),(29,29,'2025-03-04',1),(30,30,'2025-03-11',1),(31,31,'2025-03-18',1),(32,32,'2025-03-25',1),(33,33,'2025-04-01',1),(34,34,'2025-04-08',1),(35,35,'2025-04-15',1),(36,36,'2025-04-22',1),(37,37,'2025-04-29',1),(38,38,'2025-05-06',1);
+/*!40000 ALTER TABLE `jornades` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jugadors`
+--
+
+DROP TABLE IF EXISTS `jugadors`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jugadors` (
+  `persones_id` int NOT NULL,
+  `dorsal` int NOT NULL,
+  `qualitat` int NOT NULL,
+  `posicions_id` int NOT NULL,
+  PRIMARY KEY (`persones_id`),
+  KEY `fk_jugadors_posicions1_idx` (`posicions_id`),
+  CONSTRAINT `fk_jugadors_persones1` FOREIGN KEY (`persones_id`) REFERENCES `persones` (`id`),
+  CONSTRAINT `fk_jugadors_posicions1` FOREIGN KEY (`posicions_id`) REFERENCES `posicions` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jugadors`
+--
+
+LOCK TABLES `jugadors` WRITE;
+/*!40000 ALTER TABLE `jugadors` DISABLE KEYS */;
+INSERT INTO `jugadors` VALUES (21,1,90,1),(22,3,85,2),(23,5,88,3),(24,10,95,4),(25,7,94,4),(26,9,89,4),(27,19,87,3),(28,8,86,3),(29,4,88,2),(30,17,85,2),(31,10,84,4),(32,18,83,2),(33,20,82,3),(34,11,80,4),(35,21,85,3),(36,6,86,3),(37,7,87,4),(38,13,88,1),(39,8,85,3),(40,14,84,3),(41,23,83,4),(42,9,82,4),(43,22,81,4),(44,16,84,3),(45,15,83,3),(46,19,82,4),(47,5,85,2),(48,12,84,2),(49,3,83,2),(50,2,82,2),(51,14,85,3),(52,18,84,4),(53,20,83,4),(54,21,82,3),(55,4,81,3),(56,11,80,2),(57,24,79,3),(58,25,78,2),(59,13,77,1),(60,12,76,3),(61,2,75,4),(62,5,74,4),(63,1,73,2),(64,6,72,3),(65,3,80,1),(66,22,85,2),(67,15,84,2),(68,10,85,3),(69,17,86,4),(70,18,84,3),(71,19,83,3),(72,9,82,4),(73,7,81,4),(74,14,82,3),(75,11,80,4),(76,8,79,4),(77,3,78,2),(78,2,77,2),(79,16,76,3),(80,4,75,4),(81,21,88,3),(82,6,86,2),(83,5,85,2),(84,11,85,4),(85,7,84,4),(86,10,83,3),(87,13,82,3),(88,20,82,3),(89,2,81,3),(90,18,80,3),(91,23,79,1),(92,9,85,4),(93,17,92,4),(94,15,81,3),(95,8,82,3),(96,30,80,4),(97,6,83,2),(98,24,80,4),(99,29,79,3),(100,11,78,3),(101,14,77,2),(102,5,76,2),(103,13,79,1),(104,22,78,2),(105,12,77,2),(106,18,76,3),(107,20,75,3),(108,7,85,4),(109,21,82,4),(110,25,81,2),(111,19,79,3),(112,3,85,3),(113,12,82,1),(114,10,84,3),(115,16,80,3),(116,8,78,4),(117,14,79,3),(118,2,81,2),(119,27,78,3),(120,22,82,4),(121,25,80,1),(122,17,89,4),(123,2,85,2),(124,10,71,4),(125,12,87,3),(126,20,86,4),(127,24,82,3),(128,7,83,2),(129,12,74,2),(130,13,86,1),(131,22,72,4),(132,8,99,3),(133,32,87,2),(134,9,94,4),(135,21,95,3),(136,10,73,3),(137,20,72,4),(138,6,88,3),(139,21,81,3),(140,1,77,1),(141,1,90,1),(142,23,89,3),(143,9,96,4),(144,10,71,3),(145,15,85,4),(146,18,91,4),(147,11,78,2),(148,5,90,2),(149,19,84,2),(150,30,97,2),(151,4,91,3),(152,8,99,3),(153,22,80,4),(154,6,79,3),(155,30,88,4),(156,9,91,4),(157,20,90,4),(158,5,78,3),(159,19,76,2),(160,1,75,1),(161,28,93,4),(162,15,93,3),(163,9,84,3),(164,23,93,4),(165,5,97,2),(166,30,96,4),(167,29,74,3),(168,6,90,2),(169,11,89,3),(170,23,95,4),(171,4,70,2),(172,28,85,3),(173,6,100,3),(174,11,98,4),(175,27,77,4),(176,19,77,4),(177,27,72,3),(178,6,80,3),(179,11,74,4),(180,17,85,4),(181,33,71,4),(182,23,80,3),(183,2,95,2),(184,11,81,3),(185,24,99,4);
+/*!40000 ALTER TABLE `jugadors` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `jugadors_equips`
+--
+
+DROP TABLE IF EXISTS `jugadors_equips`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `jugadors_equips` (
+  `data_fitxatge` date NOT NULL,
+  `jugadors_id` int NOT NULL,
+  `equips_id` int NOT NULL,
+  `data_baixa` date DEFAULT NULL,
+  PRIMARY KEY (`data_fitxatge`,`jugadors_id`),
+  KEY `fk_jugadors_has_equips_equips1_idx` (`equips_id`),
+  KEY `fk_jugadors_has_equips_jugadors1_idx` (`jugadors_id`),
+  CONSTRAINT `fk_jugadors_has_equips_equips1` FOREIGN KEY (`equips_id`) REFERENCES `equips` (`id`),
+  CONSTRAINT `fk_jugadors_has_equips_jugadors1` FOREIGN KEY (`jugadors_id`) REFERENCES `jugadors` (`persones_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `jugadors_equips`
+--
+
+LOCK TABLES `jugadors_equips` WRITE;
+/*!40000 ALTER TABLE `jugadors_equips` DISABLE KEYS */;
+INSERT INTO `jugadors_equips` VALUES ('2014-02-15',148,36,NULL),('2014-10-06',133,27,NULL),('2014-10-31',182,35,NULL),('2015-02-18',123,25,NULL),('2015-06-13',181,35,NULL),('2015-09-29',136,30,NULL),('2015-10-20',143,34,NULL),('2015-11-29',155,28,NULL),('2015-12-17',159,31,NULL),('2016-02-21',179,33,NULL),('2016-03-16',125,25,NULL),('2016-03-28',122,25,NULL),('2016-04-12',134,27,NULL),('2016-05-07',126,26,NULL),('2016-12-01',144,34,NULL),('2016-12-29',150,36,NULL),('2017-04-25',131,27,NULL),('2017-10-06',172,37,NULL),('2017-10-19',158,31,NULL),('2018-01-29',146,36,NULL),('2018-04-12',153,28,NULL),('2018-04-22',161,29,NULL),('2018-06-29',124,25,NULL),('2018-07-28',121,25,NULL),('2019-01-26',178,33,NULL),('2019-03-11',154,28,NULL),('2019-03-16',138,30,NULL),('2019-03-18',168,32,NULL),('2019-08-01',137,30,NULL),('2019-08-12',177,33,NULL),('2019-09-29',139,30,NULL),('2019-11-23',141,34,NULL),('2020-06-04',160,31,NULL),('2020-06-06',128,26,NULL),('2020-08-07',175,37,NULL),('2020-12-03',165,29,NULL),('2020-12-11',129,26,NULL),('2021-01-16',166,32,NULL),('2021-02-03',142,34,NULL),('2021-05-28',130,26,NULL),('2021-05-28',162,29,NULL),('2021-05-30',185,35,NULL),('2021-06-01',170,32,NULL),('2021-07-10',149,36,NULL),('2022-03-26',167,32,NULL),('2022-04-04',132,27,NULL),('2022-06-06',157,31,NULL),('2022-06-10',183,35,NULL),('2022-10-16',176,33,NULL),('2023-01-03',147,36,NULL),('2023-02-06',156,31,NULL),('2023-03-23',173,37,NULL),('2023-06-01',26,2,NULL),('2023-06-01',86,14,NULL),('2023-06-05',41,5,NULL),('2023-06-10',106,18,NULL),('2023-06-20',116,16,NULL),('2023-06-25',31,3,NULL),('2023-06-25',96,20,NULL),('2023-07-01',21,1,NULL),('2023-07-01',36,4,NULL),('2023-07-01',46,6,NULL),('2023-07-01',51,7,NULL),('2023-07-01',61,9,NULL),('2023-07-01',66,10,NULL),('2023-07-01',71,11,NULL),('2023-07-01',76,12,NULL),('2023-07-01',81,13,NULL),('2023-07-01',91,15,NULL),('2023-07-01',101,17,NULL),('2023-07-05',94,15,NULL),('2023-07-05',111,19,NULL),('2023-07-10',27,2,NULL),('2023-07-10',44,5,NULL),('2023-07-10',99,20,NULL),('2023-07-15',37,4,NULL),('2023-07-15',49,6,NULL),('2023-07-15',56,8,NULL),('2023-07-15',89,14,NULL),('2023-07-15',107,18,NULL),('2023-07-15',114,19,NULL),('2023-07-20',24,1,NULL),('2023-07-20',74,11,NULL),('2023-07-20',84,13,NULL),('2023-07-20',92,15,NULL),('2023-07-20',104,17,NULL),('2023-07-25',79,12,NULL),('2023-07-30',42,5,NULL),('2023-07-30',117,16,NULL),('2023-08-01',29,2,NULL),('2023-08-01',39,4,NULL),('2023-08-01',54,7,NULL),('2023-08-01',72,11,NULL),('2023-08-01',82,13,NULL),('2023-08-05',62,9,NULL),('2023-08-05',119,16,NULL),('2023-08-10',87,14,NULL),('2023-08-10',109,18,NULL),('2023-08-15',22,1,NULL),('2023-08-15',47,6,NULL),('2023-08-15',77,12,NULL),('2023-08-15',97,20,NULL),('2023-08-20',112,19,NULL),('2023-08-25',67,10,NULL),('2023-08-25',102,17,NULL),('2023-08-30',35,3,NULL),('2023-09-01',32,3,NULL),('2023-09-01',52,7,NULL),('2023-09-01',95,15,NULL),('2023-09-05',25,1,NULL),('2023-09-05',80,12,NULL),('2023-09-05',90,14,NULL),('2023-09-09',152,28,NULL),('2023-09-10',57,8,NULL),('2023-09-10',69,10,NULL),('2023-09-10',85,13,NULL),('2023-09-10',115,19,NULL),('2023-09-15',105,17,NULL),('2023-09-20',64,9,NULL),('2023-09-27',163,29,NULL),('2023-10-01',75,11,NULL),('2023-10-10',34,3,NULL),('2023-10-15',59,8,NULL),('2023-11-05',45,5,NULL),('2023-11-18',127,26,NULL),('2023-11-25',120,16,NULL),('2023-12-01',55,7,NULL),('2023-12-01',110,18,NULL),('2023-12-10',100,20,NULL),('2023-12-15',70,10,NULL),('2023-12-20',30,2,NULL),('2024-01-05',33,3,NULL),('2024-01-10',23,1,NULL),('2024-01-10',63,9,NULL),('2024-01-10',108,18,NULL),('2024-01-15',43,5,NULL),('2024-01-15',78,12,NULL),('2024-01-15',118,16,NULL),('2024-01-20',48,6,NULL),('2024-01-20',88,14,NULL),('2024-01-21',184,35,NULL),('2024-01-25',40,4,NULL),('2024-01-25',93,15,NULL),('2024-01-30',58,8,NULL),('2024-02-01',50,6,NULL),('2024-02-01',68,10,NULL),('2024-02-01',83,13,NULL),('2024-02-01',98,20,NULL),('2024-02-12',135,27,NULL),('2024-02-15',28,2,NULL),('2024-02-15',65,9,NULL),('2024-02-20',113,19,NULL),('2024-02-25',53,7,NULL),('2024-03-01',38,4,NULL),('2024-03-01',73,11,NULL),('2024-03-01',103,17,NULL),('2024-03-10',60,8,NULL),('2024-03-25',151,28,NULL),('2024-05-26',174,37,NULL),('2024-06-25',180,33,NULL),('2024-10-01',171,37,NULL),('2024-10-11',164,29,NULL),('2024-11-23',169,32,NULL),('2024-12-21',140,30,NULL),('2024-12-28',145,34,NULL);
+/*!40000 ALTER TABLE `jugadors_equips` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `lligues`
+--
+
+DROP TABLE IF EXISTS `lligues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `lligues` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  `temporada` year NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `lligues`
+--
+
+LOCK TABLES `lligues` WRITE;
+/*!40000 ALTER TABLE `lligues` DISABLE KEYS */;
+INSERT INTO `lligues` VALUES (1,'La Liga EA Sports',2024),(2,'Liga F Moeve',2024);
+/*!40000 ALTER TABLE `lligues` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `participar_lligues`
+--
+
+DROP TABLE IF EXISTS `participar_lligues`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `participar_lligues` (
+  `equips_id` int NOT NULL,
+  `lligues_id` int NOT NULL,
+  PRIMARY KEY (`equips_id`,`lligues_id`),
+  KEY `fk_equips_has_lligues_lligues1_idx` (`lligues_id`),
+  KEY `fk_equips_has_lligues_equips1_idx` (`equips_id`),
+  CONSTRAINT `fk_equips_has_lligues_equips1` FOREIGN KEY (`equips_id`) REFERENCES `equips` (`id`),
+  CONSTRAINT `fk_equips_has_lligues_lligues1` FOREIGN KEY (`lligues_id`) REFERENCES `lligues` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `participar_lligues`
+--
+
+LOCK TABLES `participar_lligues` WRITE;
+/*!40000 ALTER TABLE `participar_lligues` DISABLE KEYS */;
+INSERT INTO `participar_lligues` VALUES (1,1),(2,1),(3,1),(4,1),(5,1),(6,1),(7,1),(8,1),(9,1),(10,1),(11,1),(12,1),(13,1),(14,1),(15,1),(16,1),(17,1),(18,1),(19,1),(20,1),(26,2),(27,2),(28,2),(29,2),(30,2),(31,2),(32,2),(33,2),(34,2),(35,2),(36,2),(37,2);
+/*!40000 ALTER TABLE `participar_lligues` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `partits`
+--
+
+DROP TABLE IF EXISTS `partits`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `partits` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `gols_local` int NOT NULL,
+  `gols_visitant` int NOT NULL,
+  `punts_local` int NOT NULL,
+  `punts_visitant` int NOT NULL,
+  `jornades_id` int NOT NULL,
+  `equips_id_local` int NOT NULL,
+  `equips_id_visitant` int NOT NULL,
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `uk_partits` (`equips_id_local`,`equips_id_visitant`,`jornades_id`),
+  KEY `fk_partits_equips1_idx` (`equips_id_local`),
+  KEY `fk_partits_equips2_idx` (`equips_id_visitant`),
+  KEY `fk_partits_jornades1_idx` (`jornades_id`),
+  CONSTRAINT `fk_partits_equips1` FOREIGN KEY (`equips_id_local`) REFERENCES `equips` (`id`),
+  CONSTRAINT `fk_partits_equips2` FOREIGN KEY (`equips_id_visitant`) REFERENCES `equips` (`id`),
+  CONSTRAINT `fk_partits_jornades1` FOREIGN KEY (`jornades_id`) REFERENCES `jornades` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=381 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `partits`
+--
+
+LOCK TABLES `partits` WRITE;
+/*!40000 ALTER TABLE `partits` DISABLE KEYS */;
+INSERT INTO `partits` VALUES (1,4,5,0,3,1,1,20),(2,4,4,1,1,1,2,19),(3,3,4,0,3,1,3,18),(4,1,5,0,3,1,4,17),(5,3,0,3,0,1,5,16),(6,3,4,0,3,1,6,15),(7,0,1,0,3,1,7,14),(8,1,1,1,1,1,8,13),(9,5,1,3,0,1,9,12),(10,3,4,0,3,1,10,11),(11,5,3,3,0,2,1,19),(12,3,2,3,0,2,20,18),(13,0,4,0,3,2,2,17),(14,0,0,1,1,2,3,16),(15,5,2,3,0,2,4,15),(16,5,4,3,0,2,5,14),(17,2,5,0,3,2,6,13),(18,4,2,3,0,2,7,12),(19,4,0,3,0,2,8,11),(20,5,4,3,0,2,9,10),(21,0,0,1,1,3,1,18),(22,5,2,3,0,3,19,17),(23,3,4,0,3,3,20,16),(24,1,5,0,3,3,2,15),(25,2,5,0,3,3,3,14),(26,2,3,0,3,3,4,13),(27,1,3,0,3,3,5,12),(28,1,0,3,0,3,6,11),(29,5,3,3,0,3,7,10),(30,4,3,3,0,3,8,9),(31,0,3,0,3,4,1,17),(32,5,0,3,0,4,18,16),(33,5,5,1,1,4,19,15),(34,5,5,1,1,4,20,14),(35,2,1,3,0,4,2,13),(36,1,0,3,0,4,3,12),(37,3,4,0,3,4,4,11),(38,3,0,3,0,4,5,10),(39,3,3,1,1,4,6,9),(40,0,5,0,3,4,7,8),(41,4,5,0,3,5,1,16),(42,2,0,3,0,5,17,15),(43,0,1,0,3,5,18,14),(44,3,4,0,3,5,19,13),(45,0,2,0,3,5,20,12),(46,0,5,0,3,5,2,11),(47,4,0,3,0,5,3,10),(48,1,2,0,3,5,4,9),(49,2,5,0,3,5,5,8),(50,0,5,0,3,5,6,7),(51,5,4,3,0,6,1,15),(52,4,3,3,0,6,16,14),(53,0,1,0,3,6,17,13),(54,2,1,3,0,6,18,12),(55,4,2,3,0,6,19,11),(56,3,3,1,1,6,20,10),(57,0,4,0,3,6,2,9),(58,2,4,0,3,6,3,8),(59,1,1,1,1,6,4,7),(60,4,4,1,1,6,5,6),(61,2,0,3,0,7,1,14),(62,3,4,0,3,7,15,13),(63,4,3,3,0,7,16,12),(64,0,3,0,3,7,17,11),(65,4,2,3,0,7,18,10),(66,5,2,3,0,7,19,9),(67,1,3,0,3,7,20,8),(68,3,0,3,0,7,2,7),(69,1,3,0,3,7,3,6),(70,5,3,3,0,7,4,5),(71,0,2,0,3,8,1,13),(72,1,4,0,3,8,14,12),(73,0,5,0,3,8,15,11),(74,4,2,3,0,8,16,10),(75,5,5,1,1,8,17,9),(76,3,3,1,1,8,18,8),(77,2,4,0,3,8,19,7),(78,5,1,3,0,8,20,6),(79,2,5,0,3,8,2,5),(80,4,4,1,1,8,3,4),(81,3,1,3,0,9,1,12),(82,3,3,1,1,9,13,11),(83,5,0,3,0,9,14,10),(84,3,1,3,0,9,15,9),(85,4,1,3,0,9,16,8),(86,1,1,1,1,9,17,7),(87,1,0,3,0,9,18,6),(88,2,5,0,3,9,19,5),(89,1,2,0,3,9,20,4),(90,0,2,0,3,9,2,3),(91,0,2,0,3,10,1,11),(92,5,0,3,0,10,12,10),(93,4,1,3,0,10,13,9),(94,0,4,0,3,10,14,8),(95,2,3,0,3,10,15,7),(96,1,5,0,3,10,16,6),(97,0,0,1,1,10,17,5),(98,2,0,3,0,10,18,4),(99,2,4,0,3,10,19,3),(100,3,4,0,3,10,20,2),(101,2,2,1,1,11,1,10),(102,2,2,1,1,11,11,9),(103,1,4,0,3,11,12,8),(104,2,2,1,1,11,13,7),(105,3,0,3,0,11,14,6),(106,3,3,1,1,11,15,5),(107,4,3,3,0,11,16,4),(108,5,5,1,1,11,17,3),(109,1,0,3,0,11,18,2),(110,3,4,0,3,11,19,20),(111,0,1,0,3,12,1,9),(112,1,4,0,3,12,10,8),(113,2,2,1,1,12,11,7),(114,4,4,1,1,12,12,6),(115,2,1,3,0,12,13,5),(116,2,1,3,0,12,14,4),(117,3,1,3,0,12,15,3),(118,1,0,3,0,12,16,2),(119,0,3,0,3,12,17,20),(120,1,1,1,1,12,18,19),(121,0,0,1,1,13,1,8),(122,3,1,3,0,13,9,7),(123,5,5,1,1,13,10,6),(124,0,5,0,3,13,11,5),(125,4,3,3,0,13,12,4),(126,3,4,0,3,13,13,3),(127,1,4,0,3,13,14,2),(128,1,0,3,0,13,15,20),(129,4,4,1,1,13,16,19),(130,1,3,0,3,13,17,18),(131,5,3,3,0,14,1,7),(132,3,2,3,0,14,8,6),(133,4,4,1,1,14,9,5),(134,3,3,1,1,14,10,4),(135,3,4,0,3,14,11,3),(136,2,5,0,3,14,12,2),(137,1,5,0,3,14,13,20),(138,4,3,3,0,14,14,19),(139,5,4,3,0,14,15,18),(140,5,5,1,1,14,16,17),(141,0,5,0,3,15,1,6),(142,0,4,0,3,15,7,5),(143,0,0,1,1,15,8,4),(144,0,0,1,1,15,9,3),(145,2,4,0,3,15,10,2),(146,1,1,1,1,15,11,20),(147,0,3,0,3,15,12,19),(148,1,2,0,3,15,13,18),(149,5,1,3,0,15,14,17),(150,5,5,1,1,15,15,16),(151,4,2,3,0,16,1,5),(152,4,4,1,1,16,6,4),(153,5,2,3,0,16,7,3),(154,2,4,0,3,16,8,2),(155,3,5,0,3,16,9,20),(156,5,5,1,1,16,10,19),(157,2,2,1,1,16,11,18),(158,1,3,0,3,16,12,17),(159,1,2,0,3,16,13,16),(160,0,5,0,3,16,14,15),(161,1,2,0,3,17,1,4),(162,3,1,3,0,17,5,3),(163,5,3,3,0,17,6,2),(164,0,0,1,1,17,7,20),(165,0,3,0,3,17,8,19),(166,3,1,3,0,17,9,18),(167,2,5,0,3,17,10,17),(168,5,3,3,0,17,11,16),(169,3,5,0,3,17,12,15),(170,3,3,1,1,17,13,14),(171,0,2,0,3,18,1,3),(172,4,4,1,1,18,4,2),(173,3,5,0,3,18,5,20),(174,4,0,3,0,18,6,19),(175,2,1,3,0,18,7,18),(176,3,2,3,0,18,8,17),(177,3,2,3,0,18,9,16),(178,5,3,3,0,18,10,15),(179,1,5,0,3,18,11,14),(180,5,1,3,0,18,12,13),(181,5,4,3,0,19,1,2),(182,3,2,3,0,19,3,20),(183,4,3,3,0,19,4,19),(184,0,2,0,3,19,5,18),(185,5,3,3,0,19,6,17),(186,2,4,0,3,19,7,16),(187,0,0,1,1,19,8,15),(188,3,2,3,0,19,9,14),(189,2,1,3,0,19,10,13),(190,0,5,0,3,19,11,12),(191,4,0,3,0,20,20,1),(192,5,5,1,1,20,19,2),(193,0,3,0,3,20,18,3),(194,2,4,0,3,20,17,4),(195,0,4,0,3,20,16,5),(196,5,3,3,0,20,15,6),(197,0,2,0,3,20,14,7),(198,0,2,0,3,20,13,8),(199,0,4,0,3,20,12,9),(200,0,5,0,3,20,11,10),(201,4,4,1,1,21,19,1),(202,3,4,0,3,21,18,20),(203,5,2,3,0,21,17,2),(204,5,0,3,0,21,16,3),(205,1,0,3,0,21,15,4),(206,0,2,0,3,21,14,5),(207,4,0,3,0,21,13,6),(208,2,1,3,0,21,12,7),(209,1,0,3,0,21,11,8),(210,2,2,1,1,21,10,9),(211,0,3,0,3,22,18,1),(212,2,5,0,3,22,17,19),(213,2,4,0,3,22,16,20),(214,0,4,0,3,22,15,2),(215,0,5,0,3,22,14,3),(216,2,4,0,3,22,13,4),(217,5,2,3,0,22,12,5),(218,1,3,0,3,22,11,6),(219,2,1,3,0,22,10,7),(220,2,3,0,3,22,9,8),(221,4,0,3,0,23,17,1),(222,1,5,0,3,23,16,18),(223,5,4,3,0,23,15,19),(224,2,5,0,3,23,14,20),(225,0,0,1,1,23,13,2),(226,2,5,0,3,23,12,3),(227,1,1,1,1,23,11,4),(228,0,0,1,1,23,10,5),(229,5,4,3,0,23,9,6),(230,5,0,3,0,23,8,7),(231,3,0,3,0,24,16,1),(232,5,3,3,0,24,15,17),(233,2,1,3,0,24,14,18),(234,2,3,0,3,24,13,19),(235,4,4,1,1,24,12,20),(236,4,4,1,1,24,11,2),(237,5,4,3,0,24,10,3),(238,5,4,3,0,24,9,4),(239,5,0,3,0,24,8,5),(240,1,2,0,3,24,7,6),(241,1,1,1,1,25,15,1),(242,3,3,1,1,25,14,16),(243,1,2,0,3,25,13,17),(244,0,0,1,1,25,12,18),(245,5,1,3,0,25,11,19),(246,3,4,0,3,25,10,20),(247,3,5,0,3,25,9,2),(248,0,0,1,1,25,8,3),(249,1,2,0,3,25,7,4),(250,4,5,0,3,25,6,5),(251,5,3,3,0,26,14,1),(252,3,0,3,0,26,13,15),(253,2,1,3,0,26,12,16),(254,3,5,0,3,26,11,17),(255,3,1,3,0,26,10,18),(256,4,1,3,0,26,9,19),(257,0,3,0,3,26,8,20),(258,4,3,3,0,26,7,2),(259,1,4,0,3,26,6,3),(260,5,5,1,1,26,5,4),(261,1,3,0,3,27,13,1),(262,5,5,1,1,27,12,14),(263,4,4,1,1,27,11,15),(264,1,0,3,0,27,10,16),(265,2,3,0,3,27,9,17),(266,4,1,3,0,27,8,18),(267,2,2,1,1,27,7,19),(268,4,2,3,0,27,6,20),(269,2,4,0,3,27,5,2),(270,2,0,3,0,27,4,3),(271,1,5,0,3,28,12,1),(272,5,1,3,0,28,11,13),(273,4,5,0,3,28,10,14),(274,5,2,3,0,28,9,15),(275,2,0,3,0,28,8,16),(276,5,4,3,0,28,7,17),(277,0,5,0,3,28,6,18),(278,1,0,3,0,28,5,19),(279,3,4,0,3,28,4,20),(280,0,2,0,3,28,3,2),(281,3,4,0,3,29,11,1),(282,2,1,3,0,29,10,12),(283,5,5,1,1,29,9,13),(284,2,0,3,0,29,8,14),(285,4,0,3,0,29,7,15),(286,2,0,3,0,29,6,16),(287,5,1,3,0,29,5,17),(288,4,2,3,0,29,4,18),(289,5,5,1,1,29,3,19),(290,1,1,1,1,29,2,20),(291,5,5,1,1,30,10,1),(292,2,4,0,3,30,9,11),(293,0,2,0,3,30,8,12),(294,3,1,3,0,30,7,13),(295,1,5,0,3,30,6,14),(296,3,4,0,3,30,5,15),(297,0,0,1,1,30,4,16),(298,4,4,1,1,30,3,17),(299,2,4,0,3,30,2,18),(300,5,0,3,0,30,20,19),(301,1,2,0,3,31,9,1),(302,3,1,3,0,31,8,10),(303,1,4,0,3,31,7,11),(304,0,2,0,3,31,6,12),(305,5,3,3,0,31,5,13),(306,1,5,0,3,31,4,14),(307,4,0,3,0,31,3,15),(308,0,1,0,3,31,2,16),(309,0,3,0,3,31,20,17),(310,1,1,1,1,31,19,18),(311,3,4,0,3,32,8,1),(312,4,1,3,0,32,7,9),(313,4,2,3,0,32,6,10),(314,4,2,3,0,32,5,11),(315,1,1,1,1,32,4,12),(316,1,5,0,3,32,3,13),(317,3,1,3,0,32,2,14),(318,1,0,3,0,32,20,15),(319,0,2,0,3,32,19,16),(320,2,1,3,0,32,18,17),(321,5,1,3,0,33,7,1),(322,1,3,0,3,33,6,8),(323,5,3,3,0,33,5,9),(324,0,5,0,3,33,4,10),(325,4,1,3,0,33,3,11),(326,5,1,3,0,33,2,12),(327,1,3,0,3,33,20,13),(328,5,2,3,0,33,19,14),(329,2,0,3,0,33,18,15),(330,3,0,3,0,33,17,16),(331,3,3,1,1,34,6,1),(332,1,5,0,3,34,5,7),(333,2,0,3,0,34,4,8),(334,5,3,3,0,34,3,9),(335,1,0,3,0,34,2,10),(336,3,3,1,1,34,20,11),(337,3,0,3,0,34,19,12),(338,0,3,0,3,34,18,13),(339,4,2,3,0,34,17,14),(340,2,2,1,1,34,16,15),(341,2,1,3,0,35,5,1),(342,1,0,3,0,35,4,6),(343,5,4,3,0,35,3,7),(344,5,0,3,0,35,2,8),(345,0,4,0,3,35,20,9),(346,3,3,1,1,35,19,10),(347,4,3,3,0,35,18,11),(348,5,5,1,1,35,17,12),(349,4,3,3,0,35,16,13),(350,5,2,3,0,35,15,14),(351,2,4,0,3,36,4,1),(352,4,4,1,1,36,3,5),(353,4,4,1,1,36,2,6),(354,2,1,3,0,36,20,7),(355,3,1,3,0,36,19,8),(356,1,2,0,3,36,18,9),(357,0,3,0,3,36,17,10),(358,4,2,3,0,36,16,11),(359,3,5,0,3,36,15,12),(360,3,3,1,1,36,14,13),(361,5,2,3,0,37,3,1),(362,1,4,0,3,37,2,4),(363,2,4,0,3,37,20,5),(364,1,2,0,3,37,19,6),(365,4,5,0,3,37,18,7),(366,2,2,1,1,37,17,8),(367,1,3,0,3,37,16,9),(368,0,3,0,3,37,15,10),(369,1,4,0,3,37,14,11),(370,2,3,0,3,37,13,12),(371,2,2,1,1,38,2,1),(372,0,3,0,3,38,20,3),(373,2,1,3,0,38,19,4),(374,1,5,0,3,38,18,5),(375,5,5,1,1,38,17,6),(376,5,4,3,0,38,16,7),(377,2,2,1,1,38,15,8),(378,0,1,0,3,38,14,9),(379,2,1,3,0,38,13,10),(380,0,4,0,3,38,12,11);
+/*!40000 ALTER TABLE `partits` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `partits_gols`
+--
+
+DROP TABLE IF EXISTS `partits_gols`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `partits_gols` (
+  `partits_id` int NOT NULL,
+  `jugadors_id` int NOT NULL,
+  `minut` int NOT NULL,
+  `es_penal` tinyint NOT NULL DEFAULT '0',
+  PRIMARY KEY (`partits_id`,`jugadors_id`,`minut`),
+  KEY `fk_partits_has_jugadors_jugadors1_idx` (`jugadors_id`),
+  KEY `fk_partits_has_jugadors_partits1_idx` (`partits_id`),
+  CONSTRAINT `fk_partits_has_jugadors_jugadors1` FOREIGN KEY (`jugadors_id`) REFERENCES `jugadors` (`persones_id`),
+  CONSTRAINT `fk_partits_has_jugadors_partits1` FOREIGN KEY (`partits_id`) REFERENCES `partits` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `partits_gols`
+--
+
+LOCK TABLES `partits_gols` WRITE;
+/*!40000 ALTER TABLE `partits_gols` DISABLE KEYS */;
+INSERT INTO `partits_gols` VALUES (1,22,12,0),(1,23,38,0),(1,23,51,0),(1,25,16,0),(1,96,3,0),(1,96,82,1),(1,98,2,0),(1,99,5,0),(1,99,82,0),(2,27,42,0),(2,29,68,0),(2,30,16,0),(2,30,48,0),(2,112,4,0),(2,112,78,0),(2,114,43,0),(2,115,55,0),(3,31,62,0),(3,32,19,0),(3,32,60,0),(3,107,17,0),(3,110,1,0),(3,110,25,0),(3,110,33,0),(4,36,18,0),(4,102,86,0),(4,104,45,0),(4,104,61,0),(4,104,75,1),(4,105,28,0),(5,41,76,1),(5,44,17,0),(5,45,81,0),(6,46,82,0),(6,50,10,0),(6,50,63,0),(6,92,27,0),(6,95,1,0),(6,95,40,0),(6,95,66,0),(7,89,86,1),(8,60,40,0),(8,81,68,0),(9,62,9,0),(9,62,38,0),(9,62,60,0),(9,62,61,0),(9,63,25,0),(9,76,25,0),(10,68,17,0),(10,69,30,0),(10,70,56,0),(10,71,68,0),(10,72,83,0),(10,74,45,0),(10,75,12,0),(11,23,53,0),(11,24,74,1),(11,24,87,1),(11,25,70,0),(11,25,80,0),(11,111,77,0),(11,112,19,0),(11,114,76,1),(12,96,31,0),(12,98,90,0),(12,100,53,0),(12,109,17,0),(12,109,76,0),(13,102,55,0),(13,104,14,0),(13,104,27,0),(13,104,68,0),(15,37,33,0),(15,37,48,0),(15,37,90,0),(15,39,39,0),(15,39,50,0),(15,92,84,1),(15,95,72,1),(16,42,41,0),(16,42,70,0),(16,42,89,1),(16,43,82,0),(16,44,9,0),(16,86,88,0),(16,87,57,0),(16,89,6,0),(16,90,21,0),(17,48,79,0),(17,50,70,0),(17,81,25,0),(17,81,47,0),(17,81,85,0),(17,85,27,0),(17,85,46,0),(18,51,17,0),(18,52,4,0),(18,52,40,0),(18,54,79,0),(18,79,24,0),(18,80,70,0),(19,56,55,0),(19,56,69,0),(19,57,14,0),(19,58,43,0),(20,61,40,0),(20,62,27,0),(20,63,49,0),(20,64,36,0),(20,64,62,0),(20,66,1,0),(20,66,89,1),(20,70,38,0),(20,70,59,0),(22,104,10,0),(22,105,49,0),(22,111,55,0),(22,111,85,0),(22,111,88,0),(22,111,90,1),(22,112,15,0),(23,96,2,0),(23,100,18,0),(23,100,25,0),(23,116,57,0),(23,118,14,0),(23,118,73,1),(23,120,70,0),(24,29,10,0),(24,92,1,0),(24,93,37,0),(24,93,83,0),(24,93,90,0),(24,94,29,0),(25,31,30,0),(25,34,42,0),(25,86,78,0),(25,86,84,0),(25,87,69,0),(25,87,83,0),(25,88,70,1),(26,36,22,0),(26,36,87,1),(26,81,30,0),(26,82,9,0),(26,82,20,0),(27,41,24,0),(27,76,60,0),(27,78,21,0),(27,78,74,1),(28,49,2,0),(29,51,68,0),(29,53,53,0),(29,54,5,0),(29,54,72,0),(29,55,73,1),(29,68,40,0),(29,70,24,0),(29,70,46,0),(30,58,58,0),(30,58,80,1),(30,60,24,0),(30,60,69,0),(30,63,33,0),(30,63,84,1),(30,64,67,0),(31,101,83,0),(31,102,51,0),(31,105,85,1),(32,106,32,0),(32,106,51,0),(32,109,11,0),(32,110,3,0),(32,110,25,0),(33,92,2,0),(33,92,17,0),(33,92,44,0),(33,94,19,0),(33,95,60,0),(33,111,15,0),(33,111,33,0),(33,111,64,0),(33,112,63,0),(33,115,77,0),(34,87,77,1),(34,87,87,0),(34,89,3,0),(34,89,62,0),(34,90,63,0),(34,96,13,0),(34,96,64,0),(34,98,65,0),(34,99,1,0),(34,100,12,0),(35,29,51,0),(35,29,54,0),(35,83,57,0),(36,33,27,0),(37,39,21,0),(37,39,49,0),(37,40,65,0),(37,72,56,0),(37,73,28,0),(37,73,40,0),(37,74,71,0),(38,43,31,0),(38,45,58,0),(38,45,69,0),(39,47,19,0),(39,49,9,0),(39,49,74,1),(39,62,3,0),(39,62,30,0),(39,64,12,0),(40,56,33,0),(40,57,66,0),(40,57,82,0),(40,57,87,1),(40,60,2,0),(41,22,26,0),(41,22,30,0),(41,22,62,0),(41,25,50,0),(41,116,44,0),(41,116,60,0),(41,116,85,1),(41,117,3,0),(41,119,64,0),(42,101,24,0),(42,105,13,0),(43,89,5,0),(44,81,9,0),(44,82,49,0),(44,85,22,0),(44,85,56,0),(44,111,79,1),(44,114,82,1),(44,115,60,0),(45,77,72,1),(45,77,90,0),(46,72,38,0),(46,72,70,0),(46,74,74,0),(46,74,75,1),(46,74,89,1),(47,33,12,0),(47,34,51,0),(47,34,60,0),(47,35,3,0),(48,36,68,0),(48,61,63,0),(48,63,25,0),(49,42,87,0),(49,45,6,0),(49,56,14,0),(49,58,13,0),(49,60,18,0),(49,60,65,0),(49,60,69,0),(50,52,81,0),(50,53,78,1),(50,54,82,0),(50,55,20,0),(50,55,71,1),(51,23,31,0),(51,23,57,0),(51,24,9,0),(51,25,26,0),(51,25,47,0),(51,92,87,0),(51,94,23,0),(51,95,44,0),(51,95,83,0),(52,88,69,0),(52,90,17,0),(52,90,30,0),(52,116,34,0),(52,117,57,0),(52,119,87,0),(52,120,33,0),(53,83,72,1),(54,79,60,0),(54,107,15,0),(54,109,81,1),(55,72,4,0),(55,74,71,1),(55,111,6,0),(55,111,61,0),(55,111,83,1),(55,115,72,1),(56,66,18,0),(56,69,9,0),(56,70,51,0),(56,98,77,0),(56,99,32,0),(56,100,16,0),(57,61,84,0),(57,62,3,0),(57,64,61,0),(57,64,63,0),(58,31,53,0),(58,33,1,0),(58,56,73,0),(58,58,60,0),(58,60,7,0),(58,60,43,0),(59,37,58,0),(59,52,85,1),(60,41,33,0),(60,42,88,1),(60,43,26,0),(60,43,50,0),(60,46,9,0),(60,47,67,0),(60,49,42,0),(60,49,78,1),(61,23,23,0),(61,23,56,0),(62,83,35,0),(62,83,57,0),(62,84,39,0),(62,85,40,0),(62,93,87,0),(62,94,7,0),(62,94,72,0),(63,76,58,0),(63,78,8,0),(63,79,60,0),(63,117,7,0),(63,117,26,0),(63,118,21,0),(63,120,65,0),(64,71,23,0),(64,71,35,0),(64,75,69,0),(65,66,6,0),(65,68,22,0),(65,107,84,0),(65,109,50,0),(65,109,75,0),(65,110,47,0),(66,61,49,0),(66,63,25,0),(66,111,17,0),(66,111,41,0),(66,112,65,0),(66,112,82,0),(66,115,88,0),(67,56,7,0),(67,56,42,0),(67,56,71,0),(67,96,73,0),(68,26,46,0),(68,26,64,0),(68,28,53,0),(69,32,84,0),(69,46,73,1),(69,47,58,0),(69,49,10,0),(70,37,76,0),(70,39,37,0),(70,39,41,0),(70,39,89,1),(70,40,86,1),(70,42,36,0),(70,45,51,0),(70,45,57,0),(71,81,48,0),(71,84,34,0),(72,76,84,1),(72,78,64,0),(72,79,51,0),(72,80,78,1),(72,90,14,0),(73,72,73,1),(73,73,24,0),(73,74,89,1),(73,75,50,0),(73,75,60,0),(74,67,8,0),(74,70,5,0),(74,116,48,0),(74,118,19,0),(74,120,79,0),(74,120,84,1),(75,61,6,0),(75,61,12,0),(75,63,9,0),(75,63,71,1),(75,64,19,0),(75,101,41,0),(75,102,33,0),(75,102,87,0),(75,104,64,0),(75,105,40,0),(76,56,8,0),(76,56,44,0),(76,56,61,0),(76,107,21,0),(76,110,31,0),(76,110,82,0),(77,51,38,0),(77,51,57,0),(77,51,62,0),(77,52,44,0),(77,114,13,0),(77,115,47,0),(78,49,2,0),(78,97,75,0),(78,99,23,0),(78,100,13,0),(78,100,56,0),(78,100,80,1),(79,27,84,1),(79,29,62,0),(79,42,25,0),(79,43,37,0),(79,43,68,0),(79,44,73,0),(79,45,49,0),(80,31,29,0),(80,33,79,1),(80,34,48,0),(80,35,38,0),(80,36,11,0),(80,37,37,0),(80,40,31,0),(80,40,75,0),(81,22,23,0),(81,23,27,0),(81,24,4,0),(81,78,24,0),(82,71,7,0),(82,73,40,0),(82,75,9,0),(82,83,33,0),(82,84,88,1),(82,85,26,0),(83,88,26,0),(83,89,48,0),(83,90,27,0),(83,90,60,0),(83,90,82,1),(84,63,56,0),(84,92,40,0),(84,93,49,0),(84,93,63,0),(85,56,30,0),(85,116,31,0),(85,116,66,0),(85,117,5,0),(85,117,53,0),(86,51,83,1),(86,102,34,0),(87,110,46,0),(88,42,45,0),(88,42,75,0),(88,43,15,0),(88,44,69,0),(88,45,3,0),(88,112,18,0),(88,114,87,1),(89,37,52,0),(89,37,85,0),(89,96,20,0),(90,34,31,0),(90,35,75,0),(91,71,22,0),(91,73,28,0),(92,76,27,0),(92,77,70,0),(92,79,1,0),(92,79,12,0),(92,80,42,0),(93,61,46,0),(93,81,62,0),(93,82,20,0),(93,83,66,0),(93,84,58,0),(94,56,4,0),(94,56,9,0),(94,57,1,0),(94,57,56,0),(95,53,16,0),(95,54,82,1),(95,55,63,0),(95,92,30,0),(95,92,37,0),(96,47,80,0),(96,48,12,0),(96,48,60,0),(96,50,9,0),(96,50,63,0),(96,117,90,1),(98,108,11,0),(98,110,56,0),(99,33,89,1),(99,34,73,1),(99,35,72,1),(99,35,78,0),(99,111,27,0),(99,114,57,0),(100,26,16,0),(100,27,81,0),(100,28,52,0),(100,30,9,0),(100,96,18,0),(100,99,60,0),(101,22,23,0),(101,22,26,0),(101,69,29,0),(101,70,24,0),(102,62,35,0),(102,63,65,0),(102,71,14,0),(102,74,8,0),(103,56,4,0),(103,56,45,0),(103,57,54,0),(103,58,38,0),(103,78,55,0),(104,53,64,0),(104,54,74,0),(104,82,17,0),(104,84,11,0),(105,86,82,1),(105,88,64,0),(105,88,88,1),(106,42,77,1),(106,43,39,0),(106,44,47,0),(106,92,46,0),(106,92,90,1),(106,94,76,1),(107,39,4,0),(107,40,8,0),(107,40,17,0),(107,116,19,0),(107,118,53,0),(107,120,12,0),(107,120,35,0),(108,31,39,0),(108,32,15,0),(108,32,20,0),(108,33,39,0),(108,33,63,0),(108,101,19,0),(108,102,74,1),(108,104,22,0),(108,104,44,0),(108,105,11,0),(109,108,25,0),(110,96,78,0),(110,98,24,0),(110,98,57,0),(110,100,61,0),(110,112,17,0),(110,114,23,0),(110,114,70,0),(111,61,1,0),(112,56,1,0),(112,56,21,0),(112,56,47,0),(112,58,71,1),(112,69,63,0),(113,51,1,0),(113,55,64,0),(113,71,71,0),(113,72,60,0),(114,47,30,0),(114,47,66,0),(114,49,40,0),(114,50,55,0),(114,78,19,0),(114,78,82,1),(114,79,62,0),(114,79,73,1),(115,42,23,0),(115,83,21,0),(115,84,82,0),(116,37,48,0),(116,87,5,0),(116,90,86,0),(117,35,77,1),(117,94,12,0),(117,94,24,0),(117,95,58,0),(118,119,24,0),(119,98,9,0),(119,98,49,0),(119,100,68,0),(120,109,5,0),(120,115,79,1),(122,52,41,0),(122,61,28,0),(122,62,42,0),(122,64,74,1),(123,46,62,0),(123,47,36,0),(123,48,7,0),(123,49,22,0),(123,50,9,0),(123,66,1,0),(123,67,24,0),(123,70,11,0),(123,70,61,0),(123,70,73,1),(124,41,40,0),(124,42,10,0),(124,42,35,0),(124,42,62,0),(124,45,2,0),(125,37,10,0),(125,37,27,0),(125,39,16,0),(125,76,27,0),(125,76,77,1),(125,78,59,0),(125,80,61,0),(126,32,2,0),(126,33,84,0),(126,35,64,0),(126,35,70,1),(126,81,72,1),(126,82,56,0),(126,85,13,0),(127,27,21,0),(127,29,12,0),(127,29,17,0),(127,30,20,0),(127,86,83,0),(128,95,49,0),(129,111,25,0),(129,111,27,0),(129,114,10,0),(129,114,39,0),(129,116,89,1),(129,119,17,0),(129,119,35,0),(129,119,52,0),(130,101,43,0),(130,106,45,0),(130,107,86,1),(130,109,11,0),(131,22,72,1),(131,23,57,0),(131,23,82,0),(131,24,71,0),(131,25,18,0),(131,51,41,0),(131,53,65,0),(131,55,49,0),(132,46,48,0),(132,46,83,1),(132,57,19,0),(132,57,61,0),(132,58,6,0),(133,41,47,0),(133,42,7,0),(133,43,82,0),(133,44,38,0),(133,61,77,0),(133,62,57,0),(133,63,14,0),(133,64,90,1),(134,39,87,1),(134,40,17,0),(134,40,79,1),(134,66,77,1),(134,69,69,0),(134,70,89,0),(135,33,25,0),(135,34,65,0),(135,35,60,0),(135,35,62,0),(135,72,59,0),(135,72,82,1),(135,75,28,0),(136,26,32,0),(136,26,73,0),(136,27,40,0),(136,28,27,0),(136,29,61,0),(136,76,55,0),(136,77,42,0),(137,82,12,0),(137,96,90,0),(137,97,56,0),(137,98,61,0),(137,99,88,0),(137,100,70,0),(138,86,61,0),(138,87,5,0),(138,87,36,0),(138,89,28,0),(138,112,68,0),(138,115,53,0),(138,115,54,0),(139,92,8,0),(139,93,64,0),(139,93,66,0),(139,93,74,1),(139,95,87,1),(139,107,34,0),(139,108,68,0),(139,110,42,0),(139,110,56,0),(140,101,2,0),(140,102,14,0),(140,102,48,0),(140,104,11,0),(140,104,20,0),(140,117,1,0),(140,118,22,0),(140,119,71,0),(140,119,83,1),(140,120,25,0),(141,47,17,0),(141,48,4,0),(141,49,62,0),(141,50,75,1),(141,50,83,1),(142,42,5,0),(142,42,13,0),(142,43,41,0),(142,45,20,0),(145,26,11,0),(145,26,31,0),(145,27,37,0),(145,28,36,0),(145,66,51,0),(145,67,55,0),(146,73,2,0),(146,97,87,1),(147,111,26,0),(147,111,87,0),(147,114,44,0),(148,82,2,0),(148,108,23,0),(148,109,32,0),(149,86,37,0),(149,87,19,0),(149,89,4,0),(149,89,80,1),(149,90,31,0),(149,102,77,0),(150,92,1,0),(150,92,82,0),(150,92,84,0),(150,92,85,1),(150,95,73,0),(150,117,21,0),(150,118,33,0),(150,118,87,1),(150,119,27,0),(150,120,39,0),(151,22,8,0),(151,22,14,0),(151,23,77,1),(151,25,69,0),(151,42,59,0),(151,45,4,0),(152,36,59,0),(152,37,14,0),(152,37,57,0),(152,37,70,0),(152,47,34,0),(152,48,9,0),(152,49,30,0),(152,49,90,0),(153,34,86,0),(153,35,51,0),(153,52,74,1),(153,54,21,0),(153,54,37,0),(153,54,43,0),(153,55,53,0),(154,28,32,0),(154,29,6,0),(154,29,82,1),(154,30,46,0),(154,58,5,0),(154,58,63,0),(155,62,2,0),(155,62,81,0),(155,64,25,0),(155,96,9,0),(155,96,49,0),(155,97,3,0),(155,99,64,0),(155,100,28,0),(156,66,32,0),(156,67,69,0),(156,68,28,0),(156,69,64,0),(156,70,25,0),(156,111,6,0),(156,111,39,0),(156,112,55,0),(156,115,13,0),(156,115,70,0),(157,73,24,0),(157,74,42,0),(157,110,19,0),(157,110,64,0),(158,79,9,0),(158,102,65,0),(158,104,17,0),(158,105,19,0),(159,85,72,0),(159,116,25,0),(159,118,59,0),(160,93,21,0),(160,93,60,0),(160,94,5,0),(160,95,37,0),(160,95,70,0),(161,24,60,0),(161,36,43,0),(161,37,50,0),(162,32,9,0),(162,44,80,0),(162,45,55,0),(162,45,68,0),(163,26,12,0),(163,27,34,0),(163,28,23,0),(163,46,1,0),(163,46,37,0),(163,47,51,0),(163,50,26,0),(163,50,36,0),(165,114,23,0),(165,114,64,0),(165,115,56,0),(166,63,2,0),(166,63,7,0),(166,64,47,0),(166,109,21,0),(167,66,23,0),(167,67,63,0),(167,101,51,0),(167,101,57,0),(167,102,32,0),(167,102,83,1),(167,105,14,0),(168,71,21,0),(168,71,79,0),(168,72,43,0),(168,72,60,0),(168,73,32,0),(168,118,19,0),(168,119,42,0),(168,120,57,0),(169,78,7,0),(169,79,3,0),(169,80,41,0),(169,92,14,0),(169,92,44,0),(169,92,70,0),(169,92,74,1),(169,92,90,1),(170,81,72,1),(170,82,89,1),(170,85,59,0),(170,90,77,1),(170,90,81,0),(170,90,88,0),(171,31,25,0),(171,31,40,0),(172,26,12,0),(172,26,34,0),(172,29,30,0),(172,30,52,0),(172,37,33,0),(172,37,79,0),(172,39,26,0),(172,40,10,0),(173,43,59,0),(173,44,33,0),(173,45,64,0),(173,96,21,0),(173,99,40,0),(173,99,41,0),(173,100,28,0),(173,100,56,0),(174,46,8,0),(174,48,17,0),(174,48,88,0),(174,49,26,0),(175,51,85,0),(175,53,83,1),(175,106,90,0),(176,58,71,0),(176,60,3,0),(176,60,12,0),(176,102,61,0),(176,105,4,0),(177,61,36,0),(177,61,80,0),(177,64,52,0),(177,117,54,0),(177,119,33,0),(178,66,76,1),(178,67,7,0),(178,67,89,0),(178,69,22,0),(178,70,18,0),(178,92,84,0),(178,95,17,0),(178,95,67,0),(179,73,16,0),(179,86,70,0),(179,88,62,0),(179,88,76,1),(179,88,88,0),(179,89,68,0),(180,77,58,0),(180,78,3,0),(180,78,6,0),(180,78,29,0),(180,79,58,0),(180,85,10,0),(181,23,30,0),(181,23,70,0),(181,23,75,0),(181,24,36,0),(181,24,46,0),(181,26,48,0),(181,27,53,0),(181,27,55,0),(181,28,38,0),(182,32,8,0),(182,32,66,0),(182,35,45,0),(182,98,22,0),(182,100,26,0),(183,36,41,0),(183,37,23,0),(183,39,18,0),(183,40,68,0),(183,111,2,0),(183,111,48,0),(183,112,28,0),(184,108,8,0),(184,109,46,0),(185,46,26,0),(185,46,90,1),(185,47,57,0),(185,48,7,0),(185,50,65,0),(185,101,89,1),(185,102,53,0),(185,102,77,1),(186,51,78,0),(186,53,12,0),(186,116,24,0),(186,116,33,0),(186,119,64,0),(186,119,84,1),(188,61,44,0),(188,61,69,0),(188,63,55,0),(188,87,37,0),(188,88,79,1),(189,67,80,0),(189,69,53,0),(189,85,29,0),(190,76,18,0),(190,76,24,0),(190,76,41,0),(190,76,54,0),(190,80,47,0),(191,96,90,0),(191,97,68,0),(191,98,81,0),(191,98,86,0),(192,26,45,0),(192,27,1,0),(192,28,44,0),(192,29,29,0),(192,30,48,0),(192,111,28,0),(192,111,34,0),(192,112,57,0),(192,112,84,1),(192,115,3,0),(193,33,10,0),(193,33,65,0),(193,34,80,0),(194,37,3,0),(194,37,20,0),(194,37,23,0),(194,37,74,1),(194,102,75,0),(194,104,1,0),(195,41,3,0),(195,43,1,0),(195,43,29,0),(195,45,87,1),(196,47,29,0),(196,50,34,0),(196,50,53,0),(196,92,37,0),(196,92,69,0),(196,92,81,0),(196,93,67,0),(196,95,76,0),(197,54,35,0),(197,55,48,0),(198,57,71,0),(198,58,17,0),(199,61,78,1),(199,62,89,0),(199,63,74,0),(199,64,18,0),(200,68,3,0),(200,68,49,0),(200,69,13,0),(200,70,16,0),(200,70,80,0),(201,24,56,0),(201,24,83,1),(201,25,32,0),(201,25,47,0),(201,112,60,0),(201,114,53,0),(201,114,84,1),(201,115,62,0),(202,96,17,0),(202,98,39,0),(202,99,38,0),(202,100,18,0),(202,106,55,0),(202,107,85,0),(202,109,72,0),(203,26,15,0),(203,26,87,0),(203,101,24,0),(203,101,68,0),(203,102,1,0),(203,102,64,0),(203,105,70,0),(204,116,13,0),(204,116,14,0),(204,116,72,1),(204,117,82,0),(204,118,41,0),(205,95,84,1),(206,42,67,0),(206,45,11,0),(207,82,26,0),(207,82,30,0),(207,83,21,0),(207,85,17,0),(208,54,79,1),(208,77,12,0),(208,79,9,0),(209,73,90,1),(210,61,51,0),(210,63,6,0),(210,66,74,1),(210,66,82,1),(211,22,19,0),(211,23,50,0),(211,24,68,0),(212,104,78,0),(212,105,11,0),(212,112,25,0),(212,114,17,0),(212,115,21,0),(212,115,26,0),(212,115,81,0),(213,96,67,0),(213,97,57,0),(213,99,54,0),(213,99,65,0),(213,119,18,0),(213,120,30,0),(214,27,63,0),(214,28,74,1),(214,29,31,0),(214,29,38,0),(215,31,44,0),(215,31,60,0),(215,32,51,0),(215,32,77,0),(215,32,82,1),(216,36,8,0),(216,36,51,0),(216,37,35,0),(216,40,33,0),(216,82,81,0),(216,83,61,0),(217,41,18,0),(217,43,16,0),(217,76,15,0),(217,76,60,0),(217,77,31,0),(217,78,47,0),(217,80,53,0),(218,46,90,1),(218,49,1,0),(218,50,54,0),(218,75,77,0),(219,54,64,0),(219,67,36,0),(219,70,88,0),(220,57,54,0),(220,58,33,0),(220,60,72,1),(220,62,36,0),(220,63,38,0),(221,101,71,1),(221,105,8,0),(221,105,68,0),(221,105,87,0),(222,106,78,0),(222,107,16,0),(222,108,25,0),(222,108,54,0),(222,108,87,0),(222,118,73,1),(223,92,77,0),(223,93,38,0),(223,93,84,1),(223,94,75,0),(223,95,73,1),(223,111,90,0),(223,112,36,0),(223,112,48,0),(223,112,60,0),(224,89,46,0),(224,90,52,0),(224,97,40,0),(224,97,55,0),(224,98,54,0),(224,100,5,0),(224,100,84,1),(226,32,46,0),(226,32,71,1),(226,32,80,1),(226,35,41,0),(226,35,52,0),(226,76,86,1),(226,78,77,1),(227,37,61,0),(227,75,12,0),(229,47,10,0),(229,47,45,0),(229,48,67,0),(229,49,24,0),(229,61,64,0),(229,63,21,0),(229,64,17,0),(229,64,20,0),(229,64,89,0),(230,56,2,0),(230,56,88,0),(230,57,25,0),(230,57,82,0),(230,60,57,0),(231,117,1,0),(231,118,76,1),(231,119,47,0),(232,92,25,0),(232,92,53,0),(232,93,52,0),(232,94,82,0),(232,101,10,0),(232,104,12,0),(233,86,53,0),(233,88,6,0),(233,108,16,0),(234,81,27,0),(234,84,70,0),(234,111,85,0),(234,114,37,0),(235,76,71,0),(235,77,51,0),(235,79,46,0),(235,80,79,0),(235,97,86,1),(235,99,27,0),(235,99,68,0),(235,100,28,0),(236,27,3,0),(236,27,59,0),(236,27,81,0),(236,28,20,0),(236,72,4,0),(236,73,14,0),(236,75,42,0),(236,75,81,0),(237,31,28,0),(237,32,40,0),(237,35,29,0),(237,35,75,0),(237,68,5,0),(237,69,20,0),(237,69,70,0),(237,69,84,0),(237,70,46,0),(238,36,18,0),(238,37,49,0),(238,39,24,0),(238,40,2,0),(238,61,51,0),(238,61,82,0),(238,63,30,0),(238,63,39,0),(238,64,73,0),(239,56,75,1),(239,56,88,0),(239,57,14,0),(239,58,7,0),(239,58,32,0),(240,46,48,0),(240,47,12,0),(240,55,33,0),(241,24,38,0),(241,95,22,0),(242,87,73,0),(242,88,85,1),(242,89,14,0),(242,117,34,0),(242,117,74,0),(242,117,90,1),(243,81,52,0),(243,104,35,0),(243,105,9,0),(245,71,41,0),(245,73,22,0),(245,73,52,0),(245,74,49,0),(245,74,51,0),(245,114,16,0),(246,67,22,0),(246,70,29,0),(246,70,38,0),(246,97,43,0),(246,100,10,0),(246,100,24,0),(246,100,79,1),(247,26,75,0),(247,26,86,1),(247,28,21,0),(247,29,85,1),(247,30,49,0),(247,61,27,0),(247,61,34,0),(247,61,72,1),(249,37,36,0),(249,37,42,0),(249,52,87,1),(250,41,34,0),(250,42,51,0),(250,42,78,0),(250,43,72,0),(250,44,66,0),(250,46,25,0),(250,46,60,0),(250,49,15,0),(250,49,17,0),(251,22,26,0),(251,25,41,0),(251,25,78,1),(251,87,8,0),(251,88,33,0),(251,88,37,0),(251,88,70,0),(251,89,32,0),(252,81,51,0),(252,81,72,0),(252,82,9,0),(253,76,87,1),(253,79,19,0),(253,116,53,0),(254,71,24,0),(254,72,83,0),(254,75,39,0),(254,101,54,0),(254,102,61,0),(254,102,63,0),(254,104,75,1),(254,105,34,0),(255,67,10,0),(255,67,35,0),(255,70,48,0),(255,107,55,0),(256,61,79,1),(256,61,82,0),(256,62,9,0),(256,63,2,0),(256,111,10,0),(257,98,44,0),(257,99,8,0),(257,100,87,1),(258,26,62,0),(258,28,77,0),(258,30,31,0),(258,52,32,0),(258,53,60,0),(258,53,72,1),(258,54,74,0),(259,31,52,0),(259,33,47,0),(259,35,25,0),(259,35,81,0),(259,47,6,0),(260,37,37,0),(260,37,56,0),(260,39,39,0),(260,39,53,0),(260,39,67,0),(260,41,15,0),(260,41,32,0),(260,43,27,0),(260,43,41,0),(260,44,4,0),(261,23,62,0),(261,25,60,0),(261,25,79,1),(261,83,17,0),(262,76,63,0),(262,76,76,0),(262,77,42,0),(262,77,62,0),(262,77,81,0),(262,86,33,0),(262,86,53,0),(262,88,21,0),(262,89,89,0),(262,90,19,0),(263,72,56,0),(263,74,10,0),(263,74,61,0),(263,75,3,0),(263,92,58,0),(263,94,67,0),(263,95,42,0),(263,95,54,0),(264,69,63,0),(265,63,83,1),(265,64,83,1),(265,102,43,0),(265,104,21,0),(265,104,75,0),(266,56,22,0),(266,57,30,0),(266,57,38,0),(266,60,64,0),(266,109,54,0),(267,55,55,0),(267,55,81,0),(267,111,9,0),(267,112,53,0),(268,46,30,0),(268,48,21,0),(268,50,37,0),(268,50,89,1),(268,96,74,1),(268,97,13,0),(269,29,58,0),(269,30,14,0),(269,30,32,0),(269,30,76,1),(269,45,9,0),(269,45,12,0),(270,37,87,1),(270,40,50,0),(271,22,25,0),(271,23,18,0),(271,24,32,0),(271,24,39,0),(271,25,52,0),(271,79,28,0),(272,71,71,1),(272,74,24,0),(272,74,55,0),(272,75,29,0),(272,75,49,0),(272,84,39,0),(273,69,58,0),(273,70,17,0),(273,70,19,0),(273,70,84,1),(273,86,29,0),(273,86,68,0),(273,87,6,0),(273,88,55,0),(273,89,9,0),(274,61,55,0),(274,61,59,0),(274,61,87,0),(274,62,21,0),(274,62,80,1),(274,92,79,0),(274,95,39,0),(275,56,29,0),(275,60,72,1),(276,52,83,0),(276,53,90,0),(276,54,82,0),(276,55,9,0),(276,55,73,0),(276,101,24,0),(276,102,54,0),(276,104,35,0),(276,104,76,0),(277,106,6,0),(277,106,71,0),(277,107,16,0),(277,108,22,0),(277,109,20,0),(278,43,84,1),(279,37,4,0),(279,39,56,0),(279,40,36,0),(279,97,61,0),(279,98,57,0),(279,99,21,0),(279,99,31,0),(280,26,2,0),(280,30,70,0),(281,23,5,0),(281,24,13,0),(281,25,24,0),(281,25,49,0),(281,71,25,0),(281,73,22,0),(281,73,57,0),(282,67,47,0),(282,67,51,0),(282,76,13,0),(283,61,54,0),(283,61,71,0),(283,61,83,1),(283,62,26,0),(283,64,5,0),(283,81,13,0),(283,81,33,0),(283,82,38,0),(283,84,67,0),(283,85,90,1),(284,57,18,0),(284,57,57,0),(285,51,79,0),(285,53,18,0),(285,53,19,0),(285,53,27,0),(286,46,47,0),(286,48,14,0),(287,41,74,1),(287,43,25,0),(287,43,63,0),(287,45,4,0),(287,45,87,0),(287,105,28,0),(288,37,40,0),(288,37,67,0),(288,39,67,0),(288,40,39,0),(288,106,56,0),(288,108,2,0),(289,31,53,0),(289,31,79,0),(289,32,85,0),(289,33,61,0),(289,34,26,0),(289,111,86,0),(289,114,10,0),(289,114,16,0),(289,114,67,0),(289,115,38,0),(290,28,83,1),(290,97,2,0),(291,22,8,0),(291,23,8,0),(291,23,69,0),(291,24,65,1),(291,24,79,1),(291,66,75,1),(291,67,68,0),(291,69,46,0),(291,70,6,0),(291,70,45,0),(292,61,45,0),(292,64,63,0),(292,74,27,0),(292,74,31,0),(292,74,56,0),(292,74,61,0),(293,76,46,0),(293,80,5,0),(294,54,10,0),(294,54,19,0),(294,54,86,1),(294,84,30,0),(295,47,43,0),(295,87,14,0),(295,87,62,0),(295,89,22,0),(295,89,36,0),(295,89,42,0),(296,44,4,0),(296,44,59,0),(296,45,18,0),(296,92,11,0),(296,94,2,0),(296,94,69,0),(296,95,54,0),(298,31,45,0),(298,31,64,0),(298,33,17,0),(298,33,68,0),(298,102,43,0),(298,102,83,0),(298,104,13,0),(298,105,81,1),(299,28,64,0),(299,28,65,0),(299,106,41,0),(299,108,5,0),(299,108,39,0),(299,109,19,0),(300,97,28,0),(300,98,8,0),(300,98,68,0),(300,98,80,1),(300,98,85,1),(301,24,38,0),(301,24,71,0),(301,63,2,0),(302,56,83,1),(302,57,86,0),(302,58,43,0),(302,68,65,0),(303,53,15,0),(303,71,60,0),(303,71,77,0),(303,75,77,0),(303,75,82,1),(304,76,69,0),(304,79,23,0),(305,41,31,0),(305,42,53,0),(305,43,85,0),(305,44,2,0),(305,44,80,0),(305,82,83,0),(305,83,63,1),(305,84,22,0),(306,37,50,0),(306,87,18,0),(306,87,27,0),(306,87,53,0),(306,87,76,0),(306,88,52,0),(307,31,15,0),(307,32,12,0),(307,34,79,1),(307,35,16,0),(308,116,72,0),(309,101,89,0),(309,102,72,0),(309,105,48,0),(310,110,38,0),(310,111,40,0),(311,22,45,0),(311,24,18,0),(311,24,74,1),(311,25,70,0),(311,57,40,0),(311,58,8,0),(311,58,68,0),(312,52,29,0),(312,53,55,0),(312,53,74,1),(312,54,66,0),(312,64,53,0),(313,46,40,0),(313,49,54,0),(313,50,83,1),(313,50,88,1),(313,66,30,0),(313,66,32,0),(314,42,59,0),(314,43,25,0),(314,44,18,0),(314,45,46,0),(314,71,44,0),(314,74,55,0),(315,36,73,1),(315,76,15,0),(316,35,15,0),(316,81,8,0),(316,81,9,0),(316,84,37,0),(316,84,56,0),(316,84,79,1),(317,28,1,0),(317,29,25,0),(317,29,79,0),(317,88,77,1),(318,97,18,0),(319,116,89,1),(319,118,59,0),(320,105,22,0),(320,107,51,0),(320,109,37,0),(321,24,29,0),(321,52,24,0),(321,52,82,0),(321,54,51,0),(321,55,1,0),(321,55,72,0),(322,47,84,1),(322,57,39,0),(322,58,72,1),(322,60,19,0),(323,41,21,0),(323,41,39,0),(323,41,53,0),(323,43,3,0),(323,43,73,0),(323,61,34,0),(323,61,66,0),(323,62,45,0),(324,67,61,0),(324,69,49,0),(324,69,68,0),(324,70,34,0),(324,70,45,0),(325,31,79,0),(325,33,82,1),(325,34,47,0),(325,35,83,0),(325,71,4,0),(326,27,28,0),(326,28,37,0),(326,28,67,0),(326,29,35,0),(326,30,65,0),(326,77,40,0),(327,81,74,0),(327,83,21,0),(327,84,58,0),(327,100,72,0),(328,87,41,0),(328,90,69,0),(328,111,11,0),(328,111,14,0),(328,112,3,0),(328,114,36,0),(328,114,37,0),(329,108,70,0),(329,110,41,0),(330,102,7,0),(330,102,18,0),(330,102,47,0),(331,22,74,1),(331,23,10,0),(331,25,12,0),(331,47,49,0),(331,48,2,0),(331,50,56,0),(332,42,12,0),(332,52,21,0),(332,52,32,0),(332,52,87,1),(332,53,1,0),(332,53,84,0),(333,40,15,0),(333,40,17,0),(334,34,23,0),(334,34,41,0),(334,34,60,0),(334,35,32,0),(334,35,54,0),(334,61,1,0),(334,61,62,0),(334,64,83,1),(335,29,71,1),(336,72,15,0),(336,73,46,0),(336,75,9,0),(336,96,52,0),(336,97,37,0),(336,97,54,0),(337,111,46,0),(337,114,25,0),(337,114,65,0),(338,82,56,0),(338,83,37,0),(338,85,26,0),(339,87,39,0),(339,88,69,0),(339,101,73,1),(339,102,56,0),(339,102,59,0),(339,104,80,0),(340,92,16,0),(340,92,55,0),(340,116,17,0),(340,118,59,0),(341,22,32,0),(341,43,19,0),(341,45,16,0),(342,39,83,1),(343,31,32,0),(343,32,10,0),(343,32,30,0),(343,32,60,0),(343,34,18,0),(343,51,8,0),(343,51,31,0),(343,51,86,1),(343,52,72,1),(344,27,48,0),(344,27,83,1),(344,28,79,1),(344,29,63,0),(344,30,85,1),(345,62,15,0),(345,62,39,0),(345,62,47,0),(345,62,67,0),(346,66,28,0),(346,67,43,0),(346,67,46,0),(346,111,74,0),(346,112,72,0),(346,112,88,0),(347,74,23,0),(347,74,66,0),(347,75,70,0),(347,108,57,0),(347,108,60,0),(347,109,20,0),(347,109,53,0),(348,76,43,0),(348,76,90,0),(348,78,63,0),(348,79,89,0),(348,80,47,0),(348,101,45,0),(348,101,61,0),(348,101,82,0),(348,102,70,0),(348,105,23,0),(349,82,24,0),(349,83,70,0),(349,85,80,0),(349,116,48,0),(349,117,36,0),(349,118,74,1),(349,119,14,0),(350,87,9,0),(350,88,38,0),(350,92,23,0),(350,92,25,0),(350,92,85,0),(350,93,46,0),(350,95,24,0),(351,22,57,0),(351,22,59,0),(351,23,44,0),(351,24,18,0),(351,37,51,0),(351,40,20,0),(352,31,13,0),(352,31,39,0),(352,33,37,0),(352,34,70,0),(352,42,17,0),(352,44,46,0),(352,44,90,1),(352,45,6,0),(353,26,16,0),(353,27,38,0),(353,28,6,0),(353,30,1,0),(353,47,26,0),(353,47,84,1),(353,48,41,0),(353,50,31,0),(354,55,19,0),(354,97,67,0),(354,98,21,0),(355,58,81,0),(355,111,36,0),(355,114,45,0),(355,115,43,0),(356,61,11,0),(356,61,80,1),(356,107,47,0),(357,69,9,0),(357,69,26,0),(357,69,35,0),(358,71,46,0),(358,75,90,0),(358,116,50,0),(358,117,88,0),(358,118,69,0),(358,120,26,0),(359,76,85,1),(359,77,68,0),(359,78,44,0),(359,79,27,0),(359,80,65,0),(359,93,23,0),(359,93,46,0),(359,95,13,0),(360,81,34,0),(360,81,55,0),(360,84,65,0),(360,87,61,0),(360,88,35,0),(360,90,59,0),(361,22,12,0),(361,25,60,0),(361,32,14,0),(361,32,39,0),(361,34,4,0),(361,34,28,0),(361,34,62,0),(362,27,29,0),(362,36,7,0),(362,36,37,0),(362,40,8,0),(362,40,73,0),(363,41,89,0),(363,42,11,0),(363,42,41,0),(363,44,74,0),(363,97,5,0),(363,98,84,1),(364,47,27,0),(364,48,68,0),(364,112,72,1),(365,51,20,0),(365,51,37,0),(365,51,75,1),(365,52,72,0),(365,55,29,0),(365,106,76,1),(365,108,31,0),(365,108,65,1),(365,109,14,0),(366,56,22,0),(366,58,69,0),(366,101,73,0),(366,102,11,0),(367,61,89,1),(367,63,90,0),(367,64,25,0),(367,117,32,0),(368,66,3,0),(368,68,29,0),(368,68,72,1),(369,72,37,0),(369,73,27,0),(369,75,30,0),(369,75,31,0),(369,86,55,0),(370,76,17,0),(370,76,29,0),(370,76,87,1),(370,81,64,0),(370,83,63,0),(371,23,11,0),(371,24,72,0),(371,29,52,0),(371,30,82,0),(372,31,34,0),(372,33,75,1),(372,34,58,0),(373,40,24,0),(373,114,48,0),(373,114,56,0),(374,43,53,0),(374,43,65,0),(374,43,70,0),(374,45,6,0),(374,45,51,0),(374,107,24,0),(375,46,33,0),(375,46,80,1),(375,48,26,0),(375,48,50,0),(375,50,86,0),(375,102,65,0),(375,102,84,1),(375,104,44,0),(375,104,62,0),(375,105,40,0),(376,52,4,0),(376,54,44,0),(376,55,24,0),(376,55,58,0),(376,116,32,0),(376,116,54,0),(376,117,46,0),(376,118,57,0),(376,120,84,1),(377,56,28,0),(377,58,80,1),(377,92,12,0),(377,92,14,0),(378,61,25,0),(379,67,81,1),(379,81,75,1),(379,82,6,0),(380,71,62,0),(380,72,41,0),(380,74,61,0),(380,74,73,1);
+/*!40000 ALTER TABLE `partits_gols` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `persones`
+--
+
+DROP TABLE IF EXISTS `persones`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persones` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `nom` varchar(45) NOT NULL,
+  `cognoms` varchar(45) NOT NULL,
+  `data_naixement` date NOT NULL,
+  `nivell_motivacio` int NOT NULL,
+  `sou` float NOT NULL,
+  `tipus_persona` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=199 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persones`
+--
+
+LOCK TABLES `persones` WRITE;
+/*!40000 ALTER TABLE `persones` DISABLE KEYS */;
+INSERT INTO `persones` VALUES (1,'Ernesto','Valverde','1964-02-09',85,3000000,'entrenador'),(2,'Diego Pablo','Simeone','1970-04-28',95,10000000,'entrenador'),(3,'Vicente','Moreno','1974-10-26',80,2500000,'entrenador'),(4,'Borja','Jiménez','1984-03-15',70,1800000,'entrenador'),(5,'Luis','García Plaza','1972-12-01',78,2000000,'entrenador'),(6,'Hansi','Flick','1965-02-24',90,8500000,'entrenador'),(7,'José','Bordalás','1964-11-05',82,3200000,'entrenador'),(8,'Míchel','Sánchez','1975-08-01',88,2800000,'entrenador'),(9,'Francisco','Rodríguez','1978-06-07',75,2100000,'entrenador'),(10,'Manolo','González','1970-09-18',70,1500000,'entrenador'),(11,'Manuel','Pellegrini','1953-09-16',85,5500000,'entrenador'),(12,'Claudio','Giráldez','1979-01-10',72,1700000,'entrenador'),(13,'Jagoba','Arrasate','1978-04-22',85,2600000,'entrenador'),(14,'Carlo','Ancelotti','1959-06-10',95,12000000,'entrenador'),(15,'Imanol','Alguacil','1971-07-04',88,4000000,'entrenador'),(16,'Paulo','Pezzolano','1983-12-29',75,1900000,'entrenador'),(17,'García','Pimienta','1983-08-03',76,2300000,'entrenador'),(18,'Luis','Carrión','1979-02-25',70,1600000,'entrenador'),(19,'Rubén','Baraja','1975-07-06',78,2400000,'entrenador'),(20,'Marcelino','García Toral','1965-08-14',85,4500000,'entrenador'),(21,'Marc-André','ter Stegen','1992-04-30',90,7000000,'jugador'),(22,'Pau','Cubarsí','1987-02-02',85,5000000,'jugador'),(23,'Dani','Olmo','1988-07-16',88,6000000,'jugador'),(24,'Lamine','Yamal','1987-06-24',95,10000000,'jugador'),(25,'Robert','Lewandowski','1985-02-05',94,9500000,'jugador'),(26,'Vinicius','Junior','1987-12-19',89,8000000,'jugador'),(27,'Luka','Modric','1985-09-09',87,7500000,'jugador'),(28,'Jude','Bellingham','1990-01-04',86,7200000,'jugador'),(29,'Antonio','Rüdiger','1986-03-30',88,7000000,'jugador'),(30,'Dani','Carvajal','1992-04-07',85,6500000,'jugador'),(31,'Raúl','Morata','1987-08-01',84,6000000,'jugador'),(32,'José María','Giménez','1989-03-21',83,5800000,'jugador'),(33,'Koke','Resurrección','1992-02-07',82,5500000,'jugador'),(34,'Antoine','Griezman','2002-10-31',80,5000000,'jugador'),(35,'Pablo','Barrios','2002-11-25',85,6000000,'jugador'),(36,'Saúl','Ñiguez','1997-05-12',86,7000000,'jugador'),(37,'Isaac','Romero','1991-03-21',87,7500000,'jugador'),(38,'Orjan','Dyland','1993-01-07',88,8000000,'jugador'),(39,'Nemanja','Gudelj','1992-01-08',85,6500000,'jugador'),(40,'Djibril','Sow','1994-11-21',84,6000000,'jugador'),(41,'Mikel','Oyarzabal','1999-11-10',83,7000000,'jugador'),(42,'Take','Kubo','1992-10-23',82,5500000,'jugador'),(43,'Sheraldo','Becker','1993-09-04',81,5000000,'jugador'),(44,'Brais','Méndez','1995-01-30',84,6000000,'jugador'),(45,'Martín','Zubimendi','1994-05-24',83,5800000,'jugador'),(46,'Ez','Abde','1995-11-12',82,5500000,'jugador'),(47,'Héctor','Bellerín','1995-01-20',85,6500000,'jugador'),(48,'Diego','Llorente','1991-01-08',84,6000000,'jugador'),(49,'Marc','Bartra','1998-04-08',83,5800000,'jugador'),(50,'Ricardo','Rodríguez','1990-09-19',82,5500000,'jugador'),(51,'Oihan','Sancet','1991-02-16',85,6500000,'jugador'),(52,'Iñaki','Williams','1993-07-18',84,6000000,'jugador'),(53,'Nico','Williams','1993-01-17',83,5800000,'jugador'),(54,'Ander','Herrera','1992-04-07',82,5500000,'jugador'),(55,'Beñat','Prados','1994-04-12',81,5000000,'jugador'),(56,'Raúl','Albiol','1991-01-15',80,4800000,'jugador'),(57,'Álex','Baena','1993-06-08',79,4500000,'jugador'),(58,'Logan','Costa','1999-01-14',78,4000000,'jugador'),(59,'Diego','Conde','1983-04-13',77,3500000,'jugador'),(60,'Dani','Parejo','1996-03-22',76,3000000,'jugador'),(61,'Hugo','Duro','1993-05-20',75,2800000,'jugador'),(62,'Diego','López','1991-08-11',74,2500000,'jugador'),(63,'José','Gayà','1986-09-28',73,2000000,'jugador'),(64,'Javi','Guerra','1981-07-21',72,1500000,'jugador'),(65,'Giorgi','Mamardashvili','1989-06-28',80,4800000,'jugador'),(66,'Marcos','Alonso','1997-01-16',85,6500000,'jugador'),(67,'Óscar','Mingueza','1985-09-04',84,6000000,'jugador'),(68,'Ilaix','Moriba','1989-04-16',85,6500000,'jugador'),(69,'Iago','Aspas','1992-04-07',86,7000000,'jugador'),(70,'Luca','de la Torre','1991-10-17',84,5800000,'jugador'),(71,'Samu','Costa','1988-07-11',83,5500000,'jugador'),(72,'Vedat','Muriqui','1998-01-12',82,5000000,'jugador'),(73,'Abdón','Prats','1996-04-09',81,4800000,'jugador'),(74,'Sergi','Darder','1991-05-13',82,5200000,'jugador'),(75,'Cyle','Larin','1999-05-22',80,4500000,'jugador'),(76,'Abel','Ruíz','2001-07-20',79,4200000,'jugador'),(77,'Miguel','Gutiérrez','1999-11-17',78,3800000,'jugador'),(78,'Daley','Blind','1992-07-05',77,3500000,'jugador'),(79,'Oriol','Romeu','2000-10-24',76,3200000,'jugador'),(80,'Cristhian','Stuani','1994-06-23',75,3000000,'jugador'),(81,'Aimar','Oroz','2004-08-05',88,6800000,'jugador'),(82,'Nacho','Vidal','1999-03-07',86,7500000,'jugador'),(83,'Juan','Cruz','1998-11-12',85,7000000,'jugador'),(84,'Ante','Budimir','1996-12-14',85,7200000,'jugador'),(85,'Bryan','Zaragoza','2000-02-29',84,6500000,'jugador'),(86,'Luis','Milla','2003-10-18',83,6000000,'jugador'),(87,'Carles','Aleñá','1991-09-24',82,5800000,'jugador'),(88,'Álex','Sola','1996-04-10',82,5700000,'jugador'),(89,'Christantus','Uche','2001-01-09',81,5000000,'jugador'),(90,'Mauro','Arambarri','1990-12-28',80,4800000,'jugador'),(91,'Peter','Cillessen','1999-03-02',79,4500000,'jugador'),(92,'Sandro','Ramírez','1994-02-13',85,7200000,'jugador'),(93,'Jaime','Mata','1988-08-21',92,10500000,'jugador'),(94,'Javi','Muñoz','1993-02-12',81,5000000,'jugador'),(95,'Alberto','Moleiro','1996-12-19',82,5800000,'jugador'),(96,'Asier','Villalibre','2007-07-13',80,3800000,'jugador'),(97,'Manu','Sánchez','1990-11-26',83,5500000,'jugador'),(98,'Kike','García','1999-11-10',80,4000000,'jugador'),(99,'Jon','Guridi','2003-01-19',79,3700000,'jugador'),(100,'Luka','Romero','1999-05-05',78,3500000,'jugador'),(101,'Javi','Hernández','1995-01-18',77,3200000,'jugador'),(102,'Jorge','Sáez','1996-12-19',76,3000000,'jugador'),(103,'Marko','Dmitrovic','2000-09-29',79,4500000,'jugador'),(104,'Sergio','González','1999-03-09',78,4000000,'jugador'),(105,'Enric','Franquesa','2000-10-23',77,3500000,'jugador'),(106,'Raúl','Moro','1993-03-23',76,3200000,'jugador'),(107,'Mario','Martín','1997-11-21',75,3000000,'jugador'),(108,'Marcos','André','1987-02-14',85,6000000,'jugador'),(109,'Juanmi','Latasa','1996-10-20',82,5200000,'jugador'),(110,'David','Torres','1996-12-26',81,5000000,'jugador'),(111,'James','Rodríguez','2002-11-29',79,4200000,'jugador'),(112,'Unai','López','1995-05-25',85,7000000,'jugador'),(113,'Augusto','Batalla','1989-04-22',82,5800000,'jugador'),(114,'Isaac','Palazón','1997-01-02',84,6000000,'jugador'),(115,'Óscar','Trejo','1998-03-10',80,4800000,'jugador'),(116,'Pere','Milla','1999-12-23',78,4000000,'jugador'),(117,'José','Gragera','2000-01-31',79,3700000,'jugador'),(118,'Leandro','Cabrera','1989-05-31',81,5000000,'jugador'),(119,'Álvaro','Aguado','1992-06-10',78,3800000,'jugador'),(120,'Javier','Puado','1996-08-14',82,5200000,'jugador'),(121,'Ellie','Roebuck','2007-01-01',84,8376570,'jugador'),(122,'Ewa','Pajor','1996-12-03',72,3859730,'jugador'),(123,'Irene','Paredes','1991-07-04',100,8062880,'jugador'),(124,'Caroline','Graham','1995-02-18',96,6457060,'jugador'),(125,'Patricia','Guijarro','1998-05-17',96,7297020,'jugador'),(126,'Naomie Noëlle','Feller','2001-11-06',99,9697840,'jugador'),(127,'Melanie','Leupolz','2000-12-22',79,3623800,'jugador'),(128,'Olga','Carmona García','2001-11-02',98,4101940,'jugador'),(129,'Yasmim','Assis Ribeiro','1996-10-28',71,7347580,'jugador'),(130,'Mylene','Chavas','2003-01-15',82,8444940,'jugador'),(131,'Luany Vitória','Da Silva Rosa','2003-02-03',74,7588850,'jugador'),(132,'Gabriela Antonia','García Segura','2004-02-11',92,3932590,'jugador'),(133,'Laura','Tanarro Suárez','2008-10-06',72,7854940,'jugador'),(134,'Sheila','Guijarro Gómez','1996-09-26',77,8892960,'jugador'),(135,'Fiamma','Benítez Iannuzzi','2004-01-19',81,1475580,'jugador'),(136,'Millaray Scarleth','Cortés Espinoza','2004-06-30',76,5319520,'jugador'),(137,'Paula','Partido Durán','1997-07-02',94,4314590,'jugador'),(138,'Alicia','Redondo González','2001-11-02',98,7681070,'jugador'),(139,'Gemma','Gili Giner','2006-06-05',99,9191500,'jugador'),(140,'Esther','Sullastres Ayuso','1997-09-24',77,2812080,'jugador'),(141,'Elene','Lete Para','2003-01-01',86,6999360,'jugador'),(142,'Claire','Lavogez','1994-06-18',73,8483270,'jugador'),(143,'Sanni','Maija Franssi','2001-11-03',80,7982230,'jugador'),(144,'Nerea','Eizagirre Lasa','2000-01-05',75,1456860,'jugador'),(145,'Violeta','García Quiles','2005-12-29',91,8511890,'jugador'),(146,'Yasmine','Zouhir','1997-01-31',87,2684770,'jugador'),(147,'Nuria','Ligero Fernández','2003-08-14',78,4780240,'jugador'),(148,'Rhiannon','Beth Roberts','1996-01-10',73,4495160,'jugador'),(149,'Dorine','Nina Chuigoue','2001-01-14',93,6480500,'jugador'),(150,'Blanca','Muñoz García','1998-04-22',99,9522220,'jugador'),(151,'Marta','Unzué Urdaniz','2003-01-03',93,3995920,'jugador'),(152,'Itxaso','Uriarte Santamaría','2001-06-12',72,9104710,'jugador'),(153,'Ainize','Barea Núñez','1997-05-05',79,8134510,'jugador'),(154,'Irene','Oguiza Martínez','1996-01-13',98,1457170,'jugador'),(155,'Daniela','Agote Aguirre','2006-03-19',87,4657270,'jugador'),(156,'Ana','Marcos Moral','2008-10-23',94,6097820,'jugador'),(157,'Ascensión','Martínez Salinas','1994-11-18',84,3936740,'jugador'),(158,'Marta','Carro Nolasco','1997-10-06',91,5502080,'jugador'),(159,'Kerlly','Lizeth Real Carranza','1989-05-11',95,2074850,'jugador'),(160,'Enith','Salón Marcuello','1992-12-24',84,6391750,'jugador'),(161,'Isabelle','Hoekstra','1999-02-05',96,8800340,'jugador'),(162,'Amanda','Mbadi','2002-01-01',73,1324590,'jugador'),(163,'Ana Belén','Hernández Rodríguez','2001-08-30',78,5885350,'jugador'),(164,'Arola','Aparicio Gili','2003-11-11',98,3626100,'jugador'),(165,'Lucía','Vallejo Blázquez','1988-11-24',81,8671320,'jugador'),(166,'Floriangel Mitchell','Apóstol Arguelles','1984-03-19',87,6218860,'jugador'),(167,'Elena','Vázquez Brandón','1990-05-29',88,7410300,'jugador'),(168,'Paula','Gutiérrez Caballero','1994-08-30',96,5518600,'jugador'),(169,'Blessing','Augustine Nkor','2002-12-20',99,7419700,'jugador'),(170,'Elyse','Bennett','2005-02-22',79,2451210,'jugador'),(171,'Carla','Andrés Abad','1999-09-13',71,3755530,'jugador'),(172,'Iraia','Yerobi Iruretagoiena','2005-10-14',73,7422000,'jugador'),(173,'Amani','Kakounan Bernadette','2007-10-08',98,3049430,'jugador'),(174,'Laura','Camino Fernández','2005-04-13',95,4062790,'jugador'),(175,'Malen','Uranga Callejo','2002-05-09',78,1972680,'jugador'),(176,'Edna','Imade','2001-03-02',100,3073670,'jugador'),(177,'Ángela','Mateos García','2002-01-21',72,1210780,'jugador'),(178,'Ariadna','Mingueza García','2000-02-13',72,3943510,'jugador'),(179,'Andrea','Gómez Oliver','1999-10-20',97,4905550,'jugador'),(180,'Biljana','Bradic','2002-03-04',75,1713700,'jugador'),(181,'Alba','De La Fuente Lozano','2005-05-10',77,8879040,'jugador'),(182,'Núria','Escoms García','2001-11-27',87,1878890,'jugador'),(183,'Teresa','Mérida Cañete','2007-01-27',73,6052460,'jugador'),(184,'Ángela','Sosa Martín','1993-03-14',79,6588280,'jugador'),(185,'Ivonne','Chacón','1994-12-16',72,7849170,'jugador'),(186,'Pere','Romeu','1993-11-09',79,9391030,'entrenador'),(187,'Pau','Quesada','1992-10-31',89,6460290,'entrenador'),(188,'José','Herrera','1989-12-18',86,5194680,'entrenador'),(189,'Javier','Lerga','1979-08-18',72,4132630,'entrenador'),(190,'Sara','Monforte','1980-10-14',96,7352200,'entrenador'),(191,'David','Losada','1981-11-30',88,9408760,'entrenador'),(192,'Mikel','Crespo','1991-10-29',81,6839540,'entrenador'),(193,'Fran','Alonso','1976-06-13',87,1223440,'entrenador'),(194,'Irene','Ferreras','1989-03-04',72,6771500,'entrenador'),(195,'Arturo','Ruíz','1997-03-09',93,6072490,'entrenador'),(196,'Andrés','París','1990-02-12',84,5860280,'entrenador'),(197,'Marco','Tamarit','1980-12-13',83,2695640,'entrenador'),(198,'Iñaki','Goikoetxea','1982-05-06',71,9945560,'entrenador');
+/*!40000 ALTER TABLE `persones` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `posicions`
+--
+
+DROP TABLE IF EXISTS `posicions`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `posicions` (
+  `id` int NOT NULL AUTO_INCREMENT,
+  `posicio` varchar(45) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `posicions`
+--
+
+LOCK TABLES `posicions` WRITE;
+/*!40000 ALTER TABLE `posicions` DISABLE KEYS */;
+INSERT INTO `posicions` VALUES (1,'Porter'),(2,'Defensa'),(3,'Migcampista'),(4,'Davanter');
+/*!40000 ALTER TABLE `posicions` ENABLE KEYS */;
+UNLOCK TABLES;
+SET @@SESSION.SQL_LOG_BIN = @MYSQLDUMP_TEMP_LOG_BIN;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2026-02-08 18:09:12
