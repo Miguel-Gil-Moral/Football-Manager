@@ -4,10 +4,6 @@
 -- ------------------------------------------------------
 -- Server version	9.6.0
 
-drop database football_manager;
-create database football_manager;
-use football_manager;
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -24,8 +20,6 @@ SET @@SESSION.SQL_LOG_BIN= 0;
 --
 -- GTID state at the beginning of the backup 
 --
-
-SET @@GLOBAL.GTID_PURGED=/*!80000 '+'*/ '55840fee-006a-11f1-9f85-fec17bbb991a:1-448';
 
 --
 -- Table structure for table `ciutats`

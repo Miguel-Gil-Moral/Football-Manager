@@ -35,7 +35,7 @@ public class Equipos {
     }
 
 
-    private void calcularMediaEquipo() {
+    public void calcularMediaEquipo() {
 
 
     }

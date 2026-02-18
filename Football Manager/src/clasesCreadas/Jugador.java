@@ -13,7 +13,7 @@ public class Jugador extends Persona {
     protected String nombre, apellido, fechaNacimiento;
     protected double nivMotivacion;
     protected int sueldoSalarial;
-    private int dorsal, calidad, puntuacion;
+    private int dorsal, calidad;
     private String posicion;
 
     public Jugador(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial, int dorsal, String posicion, int calidad) {

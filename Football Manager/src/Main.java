@@ -184,24 +184,24 @@ public class Main {
         return rol;
     }
 
-    //Un menu principal para admin:
-    //      1- Veure classificació lliga actual 🏆
-    //
-    //      2- Donar d'alta equip
-    //
-    //      3- Donar d'alta jugador/a o entrenador/a
-    //
-    //      4- Consultar dades equip
-    //
-    //      5- Consultar dades jugador/a equip
-    //
-    //      6- Disputar nova lliga
-    //
-    //      7- Realitzar sessió entrenament (del mercat fitxatges)
-    //
-    //      8- Desar dades equips
-    //
-    //      0- Sortir
+    //✅ Un menu principal para admin:
+    //✅       1- Veure classificació lliga actual 🏆
+    //✅
+    // ✅      2- Donar d'alta equip
+    //✅
+    // ✅      3- Donar d'alta jugador/a o entrenador/a
+    //✅
+    //✅       4- Consultar dades equip
+    //✅
+    //✅       5- Consultar dades jugador/a equip
+    //✅
+    //✅       6- Disputar nova lliga
+    //✅
+    //✅       7- Realitzar sessió entrenament (del mercat fitxatges)
+    //✅
+    //✅       8- Desar dades equips
+    //✅
+    // ✅      0- Sortir
     /**
      * @since 1.0
      * @return Opción escogida por el administrador
@@ -307,13 +307,13 @@ public class Main {
         return listaEquipos;
     }
 
-    //Menu principal de admin (opción 3):
+    //✅ Menu principal de admin (opción 3):
     //✅ Preguntará si quiere dar de alta a un jugador o a un entrenador.
     //✅ Al dar de alta, todos los datos serán obligatorio.
     //✅ Para asegurar que todos los valores són valídos, la calidad del jugador se generará con un número aleatorio
     //✅ La motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
     //✅ El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
-    //(Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
+    //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
     /**
      * @since 1.0
      */
@@ -775,7 +775,7 @@ public class Main {
 
     //Submenu gestionar mi equipo (opción 2):
     //Se pedirá el nombre del presidente y se actualizará los siguientes casos:
-    //Si se proporciona el mismo presidente que ya había, mostrará un mensaje de error.
+    //Si se proporciona el mismo presidente que ya había, mostrará un mensaje de aviso.
     //Si el equipo no tiene ninguna persona asignada a la presidencia, se informará al usuario del hecho con un mensaje.
     /**
      * @since 1.0
@@ -804,6 +804,10 @@ public class Main {
 
     }
 
+    /**
+     * @since 1.0
+     * @param listaFichajes Con todos los jugadores y entrenadores guardados en la lista de fichajes
+     */
     public static void actualizarFichero(ArrayList<Persona> listaFichajes){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/ficheros/mercat_fitxatges.txt"))){
             for (Persona persona : listaFichajes) {

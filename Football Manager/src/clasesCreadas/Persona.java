@@ -2,9 +2,9 @@ package clasesCreadas;
 
 
 public abstract class Persona {
-    protected String nombre, apellido, fechaNacimiento;
-    protected double nivMotivacion;
-    protected int sueldoSalarial;
+    private String nombre, apellido, fechaNacimiento;
+    private double nivMotivacion;
+    private int sueldoSalarial;
 
     public Persona(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial) {
         this.nombre = nombre;
