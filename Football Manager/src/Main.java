@@ -289,6 +289,7 @@ public class Main {
         } while (!salirBucle);
         System.out.print("¿En que ciudad reside?: ");
         ciudad = sc.next();
+        sc.nextLine();
         System.out.print("Escribe el nombre del estadio (Opcional): ");
         nombreEstadio = sc.nextLine();
         System.out.print("Escribe el nombre del presidente (Opcional): ");
@@ -320,9 +321,7 @@ public class Main {
     public static ArrayList<Persona> darAltaPersona(ArrayList<Persona> listaFichajes) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
-        boolean salirBucle, seleccionadorNacional;
-        String nombre, apellido, fechaNacimiento, posicionJugador;
-        int dorsalJugador, numTorneosGanados, sueldoSalarial, calidadJugador;
+        boolean salirBucle;
 
         do {
             try {
@@ -331,26 +330,22 @@ public class Main {
                 System.out.println("2- Entrenador/a");
                 System.out.print("Opción: ");
                 int opcion = sc.nextInt();
+                String nombre = pedirNombrePersona();
+                String apellido = pedirApellidoPersona();
+                String fechaNacimiento = asignarNacimiento();
+                int sueldoSalarial = asignarSueldoSalarial();
                 salirBucle = true;
                 switch (opcion) {
                     case 1:
-                        nombre = pedirNombrePersona();
-                        apellido = pedirApellidoPersona();
-                        fechaNacimiento = asignarNacimiento();
-                        sueldoSalarial = asignarSueldoSalarial();
-                        dorsalJugador = asignarDorsalJugador();
-                        calidadJugador = random.nextInt(100);
-                        posicionJugador = asignarPosicionJugador();
+                        int dorsalJugador = asignarDorsalJugador();
+                        int calidadJugador = random.nextInt(100);
+                        String posicionJugador = asignarPosicionJugador();
                         Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, calidadJugador);
                         listaFichajes.add(jugador);
                         break;
                     case 2:
-                        nombre = pedirNombrePersona();
-                        apellido = pedirApellidoPersona();
-                        fechaNacimiento = asignarNacimiento();
-                        sueldoSalarial = asignarSueldoSalarial();
-                        numTorneosGanados = asignarTorneosGanado();
-                        seleccionadorNacional = esSeleccionadorNacional();
+                        int numTorneosGanados = asignarTorneosGanado();
+                        boolean seleccionadorNacional = esSeleccionadorNacional();
                         Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, numTorneosGanados, seleccionadorNacional);
                         listaFichajes.add(entrenador);
                         break;
@@ -851,7 +846,7 @@ public class Main {
     //Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
     //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
-    //Los jugadores extienden el método entrenamiento de la clase padre.
+    //✅ Los jugadores extienden el método entrenamiento de la clase padre.
     //Ademas de ejecutar el código de la clase padre, la calidad del jugador aumentara en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.
     //Aparte de realizar incrementos, se mostrará quien ha estado en el resultado.
     //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.

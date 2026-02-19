@@ -42,6 +42,11 @@ public class Jugador extends Persona {
                 posicion + ";" +
                 calidad + "\n";
     }
+
+    @Override
+    protected void entrenamiento() {
+        this.nivMotivacion += 0.2;
+    }
 //Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
     //Dos jugadores se consideran iguales si coinciden con el mismo nombre y su dorsal.
     //Podemos ordenar los jugadores de dos maneras diferentes:

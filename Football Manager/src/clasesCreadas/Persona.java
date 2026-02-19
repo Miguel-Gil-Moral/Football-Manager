@@ -23,7 +23,5 @@ public abstract class Persona {
                 sueldoSalarial;
     }
 
-    protected void entrenamiento() {
-        this.nivMotivacion += 0.2;
-    }
+    protected abstract void entrenamiento();
 }
