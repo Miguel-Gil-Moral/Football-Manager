@@ -1,10 +1,6 @@
 import clasesCreadas.*;
 
 import java.io.*;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -317,6 +313,7 @@ public class Main {
     //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
     /**
      * @since 1.0
+     * @return Lista con el nuevo jugador/a o entrenador/a añadido en la lista de fichajes
      */
     public static ArrayList<Persona> darAltaPersona(ArrayList<Persona> listaFichajes) {
         Scanner sc = new Scanner(System.in);
@@ -331,7 +328,8 @@ public class Main {
                 System.out.print("Opción: ");
                 int opcion = sc.nextInt();
                 String nombre = pedirNombrePersona();
-                String apellido = pedirApellidoPersona();
+                System.out.print("Ingrese el apellido de la persona: ");
+                String apellido = sc.next();
                 String fechaNacimiento = asignarNacimiento();
                 int sueldoSalarial = asignarSueldoSalarial();
                 salirBucle = true;
@@ -374,16 +372,6 @@ public class Main {
 
     /**
      * @since 1.0
-     * @return El apellido de la persona
-     */
-    private static String pedirApellidoPersona() {
-        Scanner sc = new Scanner(System.in);
-        System.out.print("Ingrese el apellido de la persona: ");
-        return sc.next();
-    }
-
-    /**
-     * @since 1.0
      * @return Fecha de nacimiento en formato dd/MM/aaaa de tipo String
      */
     public static String asignarNacimiento() {
@@ -403,8 +391,8 @@ public class Main {
                 salirBucle = true;
                 if (diaNacimiento < 0 || diaNacimiento > 31
                         || mesNacimiento < 0 || mesNacimiento > 12
-                        || anoNacimiento < 1980 || anoNacimiento > 2026) {
-                    System.out.println("El valor del día, mes o año no son correctos, por favor establece un valor coherente entre el año 1980 y 2026");
+                        || anoNacimiento < 1980 || anoNacimiento > 2009) {
+                    System.out.println("El valor del día, mes o año no son correctos, por favor establece un valor coherente entre el año 1980 y 2009");
                     salirBucle = false;
                 }
             } catch (InputMismatchException e) {
