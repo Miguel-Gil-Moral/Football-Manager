@@ -1,16 +1,22 @@
-/*✅ Donat el nom de la lliga i la temporada. 
+/*Donat el nom de la lliga i la temporada. 
 Es vol realitzar una consulta que retorni el nom de l'equip, l'any de fundació , 
 el nom del president, el nom de la ciutat de l'equip, el nom de l'estadi i el nombre d'espectadors que tinguin un estadi entre 3.000 i 5.000 espectadors. 
 Ordenar pel nombre d'espectadors de major a menor. Utilitzar alies per identificar millor les dades retornades.*/
 
-select lligues.nom 'Liga', lligues.temporada 'Temporada', equips.nom 'Equipo', equips.any_fundacio 'Año_fundacion', equips.nom_president 'Presidente',
- ciutats.nom 'Ciudad', estadis.nom 'Estadio', estadis.num_espectadors 'Cantidad_espectadores'
-from lligues
-join participar_lligues on lligues.id = participar_lligues.lligues_id
-join equips on participar_lligues.equips_id = equips.id
+set @nombre_liga = 'La Liga EA Sports';
+set @temporada_liga = '2024';
+
+select *
+from lligues;
+
+select equips.nom 'Equipo', equips.any_fundacio 'Año_fundacion', equips.nom_president 'Presidente',
+ciutats.nom 'Ciudad', estadis.nom 'Estadio', estadis.num_espectadors 'Cantidad_espectadores'
+from equips
 join ciutats on equips.ciutats_id = ciutats.id
 join estadis on equips.estadis_id = estadis.id
 where estadis.num_espectadors between 3000 and 5000
+and lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
 order by estadis.num_espectadors desc;
 
 /*✅ Mostrar la ciutat, el nom de l'equip i el nom i cognom de l'entrenadors. 
@@ -72,10 +78,28 @@ join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id;
 Mostrar la data de la joranda, la jornada, el nom de l'equip local, el gols de l'equip local. els gols de l'equip visitant, el nom de l'equip visitant. 
 S'han d'ordenar per la data de la jornada de menor a major.*/
 
-select lligues.nom, lligues.temporada, equips.nom
+select lligues.nom, lligues.temporada, equips.nom;
 
 /*Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
 Mostrar la data i la jornada en la que van jugar, el nom de l'equip local, el nom de l'equip visitant, els gols de l'equip local, 
 els gols de l'equip visitant, el minut del gol, el nom i cognoms del jugador que ha fet gol, l'equip al que pertany el jugador i si ha estat de penalti o no. 
 Ordenar la informació pel minut del gol.*/
 
+/*✅ Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell de motivació igual o superior a 85 
+i l'any de la seva data de naixement sigui 1959 o 1985 o 1992. 
+Ordenar pel sou de major a menor.*/
+
+select persones.nom, persones.cognoms, persones.sou, persones.nivell_motivacio, persones.data_naixement
+from persones
+join jugadors on persones.id = jugadors.persones_id
+where persones.sou between 7000000 and 12000000
+and persones.nivell_motivacio >= 85
+and year(persones.data_naixement) in (1959, 1985, 1992)
+order by persones.sou desc;
+
+select *
+from persones;
+
+/*Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
+
+select equips.nom, jugadors.qualitat
