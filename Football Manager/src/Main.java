@@ -673,8 +673,8 @@ public class Main {
                     System.out.println("Fecha Nacimiento: " + pr.getFechaNacimiento());
                     System.out.println("Motivación: " + pr.getNivMotivacion());
                     System.out.println("Sueldo: " + pr.getSueldoSalarial());
-                    System.out.println("Dorsal: ");
-                    System.out.println("Posición: ");
+                    System.out.println("Dorsal: " + dorsal);
+                    System.out.println("Posición: " + );
                     System.out.println("Calidad: ");
                 }
             }
