@@ -10,7 +10,9 @@ public class Liga {
     private int cantidadEquipos;
     public ArrayList<Equipos> listaEquipos;
 
-    public Liga() {
+    public Liga(String nombre, int cantidadEquipos) {
+        this.nombre = nombre;
+        this.cantidadEquipos = cantidadEquipos;
     }
 
     public void agregarEquipos() {

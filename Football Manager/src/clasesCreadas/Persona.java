@@ -2,9 +2,10 @@ package clasesCreadas;
 
 
 public abstract class Persona {
-    private String nombre, apellido, fechaNacimiento;
-    private double nivMotivacion;
-    private int sueldoSalarial;
+    protected final String nombre, apellido, fechaNacimiento;
+    protected double nivMotivacion;
+    protected int sueldoSalarial;
+    protected String nombreEquipo;
 
     public Persona(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial) {
         this.nombre = nombre;
@@ -23,5 +24,25 @@ public abstract class Persona {
                 sueldoSalarial;
     }
 
-    protected abstract void entrenamiento();
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public double getNivMotivacion() {
+        return nivMotivacion;
+    }
+
+    public int getSueldoSalarial() {
+        return sueldoSalarial;
+    }
+
+    public abstract void entrenamiento();
 }

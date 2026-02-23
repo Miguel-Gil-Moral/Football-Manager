@@ -6,9 +6,6 @@ package clasesCreadas;
 //Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
 //Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%.
 public class Entrenador extends Persona {
-    protected String nombre, apellido, fechaNacimiento;
-    protected double nivMotivacion;
-    protected int sueldoSalarial;
     private int numTorneosGanados;
     private boolean seleccionadorNacional;
 
@@ -22,6 +19,10 @@ public class Entrenador extends Persona {
 
     }
 
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
     @Override
     public String toString() {
         return "E;" + super.toString() + ";" +
@@ -30,7 +31,7 @@ public class Entrenador extends Persona {
     }
 
     @Override
-    protected void entrenamiento() {
+    public void entrenamiento() {
         if (seleccionadorNacional) {
             this.nivMotivacion += 0.30;
         } else {
