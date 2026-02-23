@@ -23,5 +23,25 @@ public abstract class Persona {
                 sueldoSalarial;
     }
 
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
+
+    public double getNivMotivacion() {
+        return nivMotivacion;
+    }
+
+    public int getSueldoSalarial() {
+        return sueldoSalarial;
+    }
+
     protected abstract void entrenamiento();
 }
