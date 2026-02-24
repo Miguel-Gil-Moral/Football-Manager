@@ -669,6 +669,7 @@ public class Main {
             for (Persona pr : listaFichados) {
                 if (pr.getNombre().equals(nombreJugador) ) {
                     System.out.println("Nombre: " + pr.getNombre());
+                    System.out.println("Nombre: " + pr.getNombre());
                     System.out.println("Apellido: " + pr.getApellido());
                     System.out.println("Fecha Nacimiento: " + pr.getFechaNacimiento());
                     System.out.println("Motivación: " + pr.getNivMotivacion());
@@ -791,7 +792,7 @@ public class Main {
 
     //Menu principal gestor de equipos (opción 5):
     //✅ Asegurar que el equipo donde el jugador esta y el equipo donde se quiere transferir existan.
-    //✅ En caso afirmativo se pedirá el nuevo dorsal del jugador transferido (habrá que verificar si está disponible).
+    //✅ En caso afirmativo, se pedirá el nuevo dorsal del jugador transferido (habrá que verificar si está disponible).
     //Se pedirá el dorsal hasta que se proporcione uno que esté disponible.
     /**
      * @since 1.0
@@ -817,7 +818,7 @@ public class Main {
                             dorsal = sc.nextInt();
                             salirBucle = true;
                             for (Persona pr : listaFichados) {
-                                if (((Jugador) pr).getDorsal() != dorsal) {
+                                if (((Jugador) pr).getDorsal() != dorsal) { //(EN UN CONCEPTO SIMILAR AL CASTEO (INT --> FLOAT)) LA MENCION A LAS CLASES HIJAS SE HACE INTRODUCIÉNDOLAS ENTRE PARÉNTESIS.
                                     dorsalLibre = true;
                                 }
                             }
@@ -901,6 +902,16 @@ public class Main {
      * @since 1.0
      */
     public static void darBajaEquipo(ArrayList<Equipos> listaEquipos) {
+        Scanner sc = new Scanner(System.in);
+        String nombreEquipo;
+        boolean darBaja;
+        System.out.println("¿Qué equipo quieres dar de baja?");
+        nombreEquipo = sc.nextLine();
+        for (Equipos eq : listaEquipos) {
+            if (eq.getNombre().equals(nombreEquipo)) {
+                listaEquipos.remove(); //ESTO ESTÁ EN LA LISTA DE SUGERENCIAS CUANDO HACES .
+            }
+        }
 
     }
 
