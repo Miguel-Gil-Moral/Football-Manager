@@ -4,6 +4,10 @@
 -- ------------------------------------------------------
 -- Server version	9.6.0
 
+drop database football_manager;
+create database football_manager;
+use football_manager;
+
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
