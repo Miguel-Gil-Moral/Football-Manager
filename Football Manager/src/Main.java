@@ -154,7 +154,7 @@ public class Main {
             BufferedReader br = new BufferedReader(new FileReader("src/ficheros/equipos.txt"));
             while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
-                listaEquipos.add(new Equipos(separado[0], separado[1], separado[2], separado[3], Integer.parseInt(separado[4])));
+                listaEquipos.add(new Equipos(separado[0], Integer.parseInt(separado[1]), separado[2], separado[3], separado[4]));
             }
         } catch (IOException e) {
             System.out.println("Error al abrir el archivo");
