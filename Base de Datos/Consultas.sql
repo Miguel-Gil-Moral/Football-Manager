@@ -112,7 +112,7 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 set @nombre_equipo = 'FC Barcelona';
 
-SELECT j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
+select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
 from jornades j
 join partits on j.id = partits.jornades_id
 join equips on partits.equips_id_local = equips.id
@@ -121,6 +121,10 @@ join participar_lligues on equips.id = participar_lligues.equips_id
 join lligues on participar_lligues.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
+and 'Equipo_visitante' = any (
+	select equips.nom
+	from equips
+)
 and 'Equipo_local' = @nombre_equipo
 order by data asc;
 
@@ -162,7 +166,11 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 
 select persones.nom, persones.cognom, partits.gols_local
-from persones;
+from persones
+join jugadors on persones.id = jugadors.persones_id
+join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
+join equips on jugadors_equips.equips_id = equips.id
+join partits on equips.id = partits.equips_id
 
 /*✅ 9- Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell de motivació igual o superior a 85 
 i l'any de la seva data de naixement sigui 1959 o 1985 o 1992. 
@@ -179,10 +187,23 @@ order by persones.sou desc;
 select *
 from persones;
 
-/*10- Donat el nom d'una lliga i la temporada. 
+/*(Por confirmar)10- Donat el nom d'una lliga i la temporada. 
 Mostrar el noms dels equips i la mitja de qualitat del seus jugadors. 
 Només mostrar els equips que tinguin una mitja superior a 80, amb dos decimals. 
 Ordenar per la mitja de menor a major.*/
+
+select equips.nom, jugadors.qualitat
+from equips
+join jugadors_equips on equips.id = jugadors_equips.jugadors_id
+join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
+join participar_lligues on equips.id = participar_lligues.equips_id
+join lligues on participar_lligues.lligues_id = lligues.id
+where jugadors.qualitat >= (
+	select avg(jugadors.qualitat)
+    from jugadors
+    where jugadors.qualitat >= 80
+)
+order by jugadors.qualitat asc;
 
 /*11- Mostar el nom de l'equip i el nom de l'equip filial, de tots els equips que tinguin filial.*/
 
