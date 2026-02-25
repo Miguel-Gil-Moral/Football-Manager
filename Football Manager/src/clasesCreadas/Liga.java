@@ -7,8 +7,8 @@ import java.util.ArrayList;
 //✅ Métodos: agregarEquipos(), disputarPartidos(), consultarGolesFavor(), consultarGolesContra(), mostrarClasificación.
 public class Liga {
     private String nombre;
+
     private int cantidadEquipos;
-    public ArrayList<Equipos> listaEquipos;
 
     public Liga(String nombre, int cantidadEquipos) {
         this.nombre = nombre;
@@ -33,5 +33,13 @@ public class Liga {
 
     public void mostrarClasificacion() {
 
+    }
+
+    public int getCantidadEquipos() {
+        return cantidadEquipos;
+    }
+
+    public String getNombre() {
+        return nombre;
     }
 }

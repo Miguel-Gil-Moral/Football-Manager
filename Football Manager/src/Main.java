@@ -299,7 +299,55 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void verClasificacionLiga() {
+    public static void verClasificacionLiga(ArrayList<Liga> listaLigas) {
+        Scanner sc = new Scanner(System.in);
+        String nombreLiga;
+        boolean salirBucle = false;
+        System.out.println("Ingrese el nombre del liga actual: ");
+        nombreLiga = sc.next();
+        for ( Liga l : listaLigas) {
+            if (l.getNombre().equals(nombreLiga)) {
+                salirBucle = true;
+
+            }
+        }
+//        do {
+//                String nombreEquipo = pedirNombreEquipo();
+//
+//                for (Equipos eq : listaEquipos) {
+//                    if (eq.getNombre().equals(nombreEquipo)) {
+//                        System.out.println("Nombre: " + eq.getNombre());
+//                        System.out.println("Ciudad: " + eq.getCiudad());
+//                        System.out.println("Año fundación: " + eq.getAnyoFundacion());
+//                        System.out.println("Estadio: " + eq.getNombreEstadio());
+//                        System.out.println("Presidente: " + eq.getNombrePresidente());
+//                    } else {
+//                        System.out.println("No existe este equipo ;(");
+//                    }
+//
+//                }
+//
+//        } while (!salirBucle);
+
+        /*
+        public static ArrayList<Equipos> cargarEquipos() {
+        String linea;
+        String[] separado;
+        ArrayList<Equipos> listaEquipos = new ArrayList<>();
+
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/equipos.txt"));
+            while ((linea = br.readLine()) != null) {
+                separado = linea.split(";");
+                listaEquipos.add(new Equipos(separado[0], Integer.parseInt(separado[1]), separado[2], separado[3], separado[4]));
+            }
+        } catch (IOException e) {
+            System.out.println("Error al abrir el archivo");
+        }
+
+        return listaEquipos;
+    }
+         */
 
     }
 
@@ -997,7 +1045,7 @@ public class Main {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/ficheros/mercat_fitxatges.txt"))){
             for (Persona persona : listaFichajes) {
                 if (persona instanceof Jugador) {
-                    bw.write(((Jugador) persona).toString());
+                    bw.write(((Jugador)persona).toString());
                 } else if (persona instanceof Entrenador) {
                     bw.write(((Entrenador) persona).toString());
                 }
