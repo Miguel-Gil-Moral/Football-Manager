@@ -112,35 +112,47 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 set @nombre_equipo = 'FC Barcelona';
 
-SELECT * FROM
-(
-select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
+SELECT j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
 from jornades j
 join partits on j.id = partits.jornades_id
 join equips on partits.equips_id_local = equips.id
+and partits.equips_id_visitant = equips.id
 join participar_lligues on equips.id = participar_lligues.equips_id
 join lligues on participar_lligues.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
-union
-select j.data, j.jornada, equips.nom eq_local, partits.gols_local, partits.gols_visitant, equips.nom eq_visitante
-from jornades j
-join partits on j.id = partits.jornades_id
-join equips on partits.equips_id_visitant = equips.id
-join participar_lligues on equips.id = participar_lligues.equips_id
-join lligues on participar_lligues.lligues_id = lligues.id
-where lligues.nom = @nombre_liga
-and lligues.temporada = @temporada_liga
-) AS resultado
-where Equipo_local = @nombre_equipo
+and 'Equipo_local' = @nombre_equipo
 order by data asc;
+
+-- SELECT * FROM
+-- (
+-- 	select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
+-- 	from jornades j
+-- 	join partits on j.id = partits.jornades_id
+-- 	join equips on partits.equips_id_local = equips.id
+-- 	join participar_lligues on equips.id = participar_lligues.equips_id
+-- 	join lligues on participar_lligues.lligues_id = lligues.id
+-- 	where lligues.nom = @nombre_liga
+-- 	and lligues.temporada = @temporada_liga
+-- 	and 'Equipo_local' = @nombre_equipo
+-- 	union
+-- 	select j.data, j.jornada, equips.nom eq_local, partits.gols_local, partits.gols_visitant, equips.nom eq_visitante
+-- 	from jornades j
+-- 	join partits on j.id = partits.jornades_id
+-- 	join equips on partits.equips_id_visitant = equips.id
+-- 	join participar_lligues on equips.id = participar_lligues.equips_id
+-- 	join lligues on participar_lligues.lligues_id = lligues.id
+-- 	where lligues.nom = @nombre_liga
+-- 	and lligues.temporada = @temporada_liga
+-- ) AS resultado
+-- order by data asc;
 
 /*7- Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
 Mostrar la data i la jornada en la que van jugar, el nom de l'equip local, el nom de l'equip visitant, els gols de l'equip local, 
 els gols de l'equip visitant, el minut del gol, el nom i cognoms del jugador que ha fet gol, l'equip al que pertany el jugador i si ha estat de penalti o no. 
 Ordenar la informació pel minut del gol.*/
 
-select j.data, j.jornada;
+select j.data, j.jornada, equips.nom;
 
 /*8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
 Mostrar els nom i cognoms del jugador i el nombre de gols. 
@@ -173,6 +185,10 @@ Només mostrar els equips que tinguin una mitja superior a 80, amb dos decimals.
 Ordenar per la mitja de menor a major.*/
 
 /*11- Mostar el nom de l'equip i el nom de l'equip filial, de tots els equips que tinguin filial.*/
+
+select equips.nom 'Equipo', equips.nom 'Equipo filial'
+from equips
+where equips.filial_equips_id is not null;
 
 /*12- Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
 

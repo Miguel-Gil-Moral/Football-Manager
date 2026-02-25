@@ -1,0 +1,37 @@
+FC Barcelona;1899;Barcelona;Estadi Olímpic Lluís Companys;Joan Laporta
+Real Madrid CF;1902;Madrid;Santiago Bernabéu;Florentino Pérez
+Atlético de Madrid;1903;Madrid;Estadi Civitas Metropolitano;Enrique Cerezo
+Sevilla FC;1890;Sevilla;Estadi Ramón Sánchez-Pizjuán;José Castro
+Real Sociedad;1909;Donostia-San Sebastián;Reale Arena;Jokin Aperribay
+Real Betis;1907;Sevilla;Estadi Benito Villamarín;Ángel Haro
+Athletic Club;1898;Bilbao;San Mamés;Jon Uriarte
+Villarreal CF;1923;Vila-real;Estadi de la Ceràmica;Fernando Roig
+Valencia CF;1919;València;Mestalla;Layhoon Chan
+RC Celta de Vigo;1923;Vigo;Estadi Municipal de Balaídos;Carlos Mouriño
+RCD Mallorca;1916;Mallorca;Estadi Mallorca Son Moix;Andy Kohlberg
+Girona FC;1930;Girona;Estadi Montilivi;Delfí Geli
+CA Osasuna;1920;Pamplona;Estadi El Sadar;Luis Sabalza
+Getafe CF;1946;Getafe;Coliseum Alfonso Pérez;Ángel Torres
+RCD Espanyol;1900;Barcelona;RCDE Stadium;Chen Yansheng
+CD Leganés;1928;Leganés;Estadi de Butarque;Jeff Luhnow
+UD Las Palmas;1949;Las Palmas;Gran Canaria;Miguel Ángel Ramírez
+Real Valladolid CF;1928;Valladolid;José Zorrilla;Ronaldo Nazário
+Deportivo Alavés;1921;Vitòria;Mendizorroza;Alfonso Fernández
+Rayo Vallecano;1924;Madrid;Estadi Martínez Valero;Raúl Martín Presa
+Barça Atlètic;2007;Barcelona;Estadi Johan Cruyff;Joan Laporta
+FC Barcelona Femení;2002;Barcelona;Estadi Johan Cruyff;Joan Laporta
+Real Madrid Castilla;1930;Madrid;Estadi Alfredo Di Stéfano;Florentino Pérez
+Real Madrid CF Femenino;2020;Madrid;Estadi Alfredo Di Stéfano;Florentino Pérez
+Atlético B;2003;Bilbao;Centro Deportivo Alcalá de Henares;Enrique Cerezo
+Atlético de Madrid Femení;2001;Madrid;Centro Deportivo Alcalá de Henares;Enrique Cerezo
+Sevilla Atlético;1958;Sevilla;Estadi Jesús Navas;José Castro
+Sevilla FC Femení;2007;Sevilla;Estadi Jesús Navas;José Castro Carmona
+Athletic Club Femenino;2002;Bilbao;Lezama;Jon Uriarte
+RCD Espanyol Femení;1970;Cornellà de Llobregat;Ciutat Esportiva Dani Jarque;Chen Yansheng
+Valencia CF Femení;2009;València;Ciutat Esportiva de Paterna;Layhoon Chan
+Deportivo Abanca;2016;A Corunya;Ciudad Deportiva de Abegondo;Antonio Couceiro
+Granada CF Femení;2003;Granada;Estadio de la Juventud;Francisco Rodríguez
+Real Sociedad Femení;2004;Donostia-San Sebastián;Zubieta;Jokin Aperribay
+Levante UD Femení;1909;València;Ciudad Deportiva de Buñol;Pablo Sánchez
+Real Betis Femení;2011;Sevilla;Ciudad Deportiva Luís del Sol;Ángel Haro
+SD Eibar Femení;1940;Eibar;Ipurua;Amaia Gorostiza

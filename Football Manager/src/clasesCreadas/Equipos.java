@@ -22,12 +22,12 @@ public class Equipos {
         this.ciudad = ciudad;
     }
 
-    public Equipos(String nombre, String ciudad, String nombreEstadio, String nombrePresidente, int anyoFundacion) {
+    public Equipos(String nombre, int anyoFundacion, String ciudad, String nombreEstadio, String nombrePresidente) {
         this.nombre = nombre;
+        this.anyoFundacion = anyoFundacion;
         this.ciudad = ciudad;
         this.nombreEstadio = nombreEstadio;
         this.nombrePresidente = nombrePresidente;
-        this.anyoFundacion = anyoFundacion;
     }
 
     public String getNombre() {
