@@ -40,6 +40,14 @@ public class Jugador extends Persona {
         return dorsal;
     }
 
+    public String getPosicion() {
+        return posicion;
+    }
+
+    public int getCalidad() {
+        return calidad;
+    }
+
     @Override
     public String toString() {
         return "J;" + super.toString() + ";" +

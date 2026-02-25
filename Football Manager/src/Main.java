@@ -20,7 +20,7 @@ public class Main {
 
         do {
             System.out.println("Welcome to Politècnics Football Manager:");
-            switch(rol){
+            switch (rol) {
                 case "Administrador":
                     opcion = menuAdmin();
                     switch (opcion) {
@@ -37,7 +37,7 @@ public class Main {
                             consultarDatosEquipo(listaEquipos);
                             break;
                         case 5:
-                            consultarDatosPersona(listaFichados, listaEquipos);
+                            consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
                             disputarNuevaLiga();
@@ -93,7 +93,7 @@ public class Main {
                             consultarDatosEquipo(listaEquipos);
                             break;
                         case 4:
-                            consultarDatosPersona(listaFichados, listaEquipos);
+                            consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 5:
                             transferirJugador(listaFichados, listaEquipos);
@@ -112,9 +112,10 @@ public class Main {
     }
 
     //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
+
     /**
-     * @since 1.0
      * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una lista de personas
+     * @since 1.0
      */
     public static ArrayList<Persona> cargarFichajes() {
         String linea;
@@ -141,8 +142,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return La lista con todos los equipos existentes
+     * @since 1.0
      */
     public static ArrayList<Equipos> cargarEquipos() {
         String linea;
@@ -163,8 +164,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return Lista con todos los jugadores y entrenadores fichados en un equipo
+     * @since 1.0
      */
     public static ArrayList<Persona> cargarPersonasFichadas() {
         String linea;
@@ -173,9 +174,9 @@ public class Main {
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/ficheros/jugadores_fichados.txt"));
-            while ((linea = br.readLine()) != null){
+            while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
-                if (separado[0].equals("J")){
+                if (separado[0].equals("J")) {
                     Jugador jg = new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
                             Integer.parseInt(separado[5]), Integer.parseInt(separado[6]),
                             separado[7], Integer.parseInt(separado[8]));
@@ -195,12 +196,13 @@ public class Main {
     }
 
     //✅ Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
+
     /**
-     * @since 1.0
      * @return Nombre del rol escogido por el usuario de estos siguientes: <ul>
-     *     <li>Administrador</li>
-     *     <li>Gestor de Equipos</li>
+     * <li>Administrador</li>
+     * <li>Gestor de Equipos</li>
      * </ul>
+     * @since 1.0
      */
     public static String pedirRol() {
         Scanner sc = new Scanner(System.in);
@@ -254,9 +256,10 @@ public class Main {
     //✅       8- Desar dades equips
     //✅
     // ✅      0- Sortir
+
     /**
-     * @since 1.0
      * @return Opción escogida por el administrador
+     * @since 1.0
      */
     public static int menuAdmin() {
         Scanner sc = new Scanner(System.in);
@@ -292,10 +295,11 @@ public class Main {
     //Menu principal gestor de equipos(opción 1):
     //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
     //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
+
     /**
      * @since 1.0
      */
-    public static void verClasificacionLiga(){
+    public static void verClasificacionLiga() {
 
     }
 
@@ -303,9 +307,10 @@ public class Main {
     //✅ Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
     //✅ Solo se pedirá el resto de datos si el equipo no existe, en caso contrario se mostrará un mensaje de error y volverá a pedir otro nombre, se repetirá tantas veces hasta que ponga un nombre que exista.
     //✅ Cuando tenga el nombre del equipo, pedirá los demás datos principales, estarán también las dos opciones opcionales.
+
     /**
-     * @since 1.0
      * @return Lista con el equipo añadido que se ha dado de alta
+     * @since 1.0
      */
     public static ArrayList<Equipos> darAltaEquipo(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
@@ -317,7 +322,7 @@ public class Main {
             System.out.print("Ingrese el nombre del equipo: ");
             nombre = sc.next();
             salirBucle = true;
-            for (Equipos eq: listaEquipos) {
+            for (Equipos eq : listaEquipos) {
                 String nombreEquipo = eq.getNombre();
                 if (nombreEquipo.equals(nombre)) {
                     System.out.println("El nombre del equipo ya existe en uno, escoja otro nombre");
@@ -367,9 +372,10 @@ public class Main {
     //✅ La motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
     //✅ El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
     //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
+
     /**
-     * @since 1.0
      * @return Lista con el nuevo jugador/a o entrenador/a añadido en la lista de fichajes
+     * @since 1.0
      */
     public static ArrayList<Persona> darAltaPersona(ArrayList<Persona> listaFichajes) {
         Scanner sc = new Scanner(System.in);
@@ -417,8 +423,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return El nombre de la persona
+     * @since 1.0
      */
     private static String pedirNombrePersona() {
         Scanner sc = new Scanner(System.in);
@@ -427,8 +433,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return Fecha de nacimiento en formato dd/MM/aaaa de tipo String
+     * @since 1.0
      */
     public static String asignarNacimiento() {
         Scanner sc = new Scanner(System.in);
@@ -464,8 +470,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return El sueldo que ganará la persona
+     * @since 1.0
      */
     public static int asignarSueldoSalarial() {
         Scanner sc = new Scanner(System.in);
@@ -490,8 +496,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return Número del dorsal no escogido para el jugador
+     * @since 1.0
      */
     public static int pedirDorsalJugador() {
         Scanner sc = new Scanner(System.in);
@@ -517,13 +523,13 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return La posición que jugara el jugador de estos siguientes: <ul>
-     *     <li>POR: Posición de portero</li>
-     *     <li>DEF: Posición de defensa</li>
-     *     <li>MIG: Posición de mediocampista</li>
-     *     <li>DAV: Posición de delantero</li>
+     * <li>POR: Posición de portero</li>
+     * <li>DEF: Posición de defensa</li>
+     * <li>MIG: Posición de mediocampista</li>
+     * <li>DAV: Posición de delantero</li>
      * </ul>
+     * @since 1.0
      */
     public static String asignarPosicionJugador() {
         Scanner sc = new Scanner(System.in);
@@ -568,8 +574,8 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return La cantidad de torneos que el entrenador ha ganado
+     * @since 1.0
      */
     public static int asignarTorneosGanado() {
         Scanner sc = new Scanner(System.in);
@@ -595,11 +601,11 @@ public class Main {
     }
 
     /**
-     * @since 1.0
      * @return Resultado sobre el entrenador de estos siguientes:<ul>
-     *     <li>True: El entrenador ha estado seleccionador nacional</li>
-     *     <li>False: El entrenador no ha estado seleccionador nacional</li>
+     * <li>True: El entrenador ha estado seleccionador nacional</li>
+     * <li>False: El entrenador no ha estado seleccionador nacional</li>
      * </ul>
+     * @since 1.0
      */
     public static boolean esSeleccionadorNacional() {
         Scanner sc = new Scanner(System.in);
@@ -620,17 +626,18 @@ public class Main {
     }
 
     //Menu principal de admin (opción 4):
-    //✅ Pedirá que equipo se quieren consultar los datos (por el nombre). Si no se encuentra se mostrará un mensaje de error y volverá al menú principal.
+    //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
     //Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
+
     /**
-     * @since 1.0
      * @param listaEquipos Lista con todos los equipos existentes
+     * @since 1.0
      */
     public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos) {
         String nombreEquipo = pedirNombreEquipo();
 
-        for (Equipos eq : listaEquipos){
-            if (eq.getNombre().equals(nombreEquipo)){
+        for (Equipos eq : listaEquipos) {
+            if (eq.getNombre().equals(nombreEquipo)) {
                 System.out.println("Nombre: " + eq.getNombre());
                 System.out.println("Ciudad: " + eq.getCiudad());
                 System.out.println("Año fundación: " + eq.getAnyoFundacion());
@@ -643,45 +650,69 @@ public class Main {
         }
     }
 
-    //Menu principal de admin (opción 5):
-    //✅ Solicitará el nombre del equipo, para solicitar seguidamente el nombre del jugador en cuestión. Si no se encuentra el equipo mostrará un mensaje de error y se volverá al menu principal.
-    //Si el equipo se encuentra se pedirá el nombre y el dorsal del jugador. Con estos datos se buscará jugador del equipo y se mostrará sus datos.
-    //✅ Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
+    //✅ Menu principal de admin (opción 5):
+    // Solicitará el nombre del equipo, para solicitar seguidamente el nombre del jugador en cuestión. Si no se encuentra el equipo mostrará un mensaje de error y se volverá al menu principal.
+    // Si el equipo se encuentra se pedirá el nombre y el dorsal del jugador. Con estos datos se buscará jugador del equipo y se mostrará sus datos.
+    // Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
+
     /**
-     * @since 1.0
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
-     * @param listaEquipos Lista con todos los equipos para la comprobación de la existencia de ese equipo
+     * @param listaEquipos  Lista con todos los equipos para la comprobación de la existencia de ese equipo
+     * @since 1.0
      */
-    public static void consultarDatosPersona(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
+    public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
+
         Scanner sc = new Scanner(System.in);
         boolean equipoEncontrado = false;
+
+
+        //1) PEDIR nombre de equipo
+
         String nombreEquipo = pedirNombreEquipo();
+
+
+        /*2) BUSCAR equipo en listaEquipos
+         *    - si NO existe: informar y terminar*/
+
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
                 equipoEncontrado = true;
             }
         }
+
+
+        //3) PEDIR nombre de jugador
+
         if (equipoEncontrado) {
             System.out.print("Introduce el nombre del jugador: ");
             String nombreJugador = sc.next();
 
+
+            //4) PEDIR dorsal
+
             int dorsal = pedirDorsalJugador();
+
+
+            /*  5) BUSCAR jugador por (nombre + dorsal) en la fuente correcta
+                    - si NO existe: informar y terminar */
+
             for (Persona pr : listaFichados) {
-                if (pr.getNombre().equals(nombreJugador) ) {
-                    System.out.println("Nombre: " + pr.getNombre());
+                if (pr.getNombre().equals(nombreJugador)) {    //6) MOSTRAR datos comunes (Persona) + datos exclusivos (Jugador)
                     System.out.println("Nombre: " + pr.getNombre());
                     System.out.println("Apellido: " + pr.getApellido());
                     System.out.println("Fecha Nacimiento: " + pr.getFechaNacimiento());
                     System.out.println("Motivación: " + pr.getNivMotivacion());
                     System.out.println("Sueldo: " + pr.getSueldoSalarial());
-                    System.out.println("Dorsal: " + dorsal);
-                    System.out.println("Posición: " + );
-                    System.out.println("Calidad: ");
+                    System.out.println("Dorsal: " + ((Jugador) pr).getDorsal());       //mostrar los datos (atributos) exclusivos de jugador
+                    System.out.println("Posición: " + ((Jugador) pr).getPosicion());  //mostrar los datos (atributos) exclusivos de jugador
+                    System.out.println("Calidad: " + ((Jugador) pr).getCalidad());   //mostrar los datos (atributos) exclusivos de jugador
                 }
             }
-            //¡¡Datos persona OK, pero hay que mostrar los datos (atributos) exclusivos de jugador!!
+
         } else {
-            System.out.println("No existe este equipo ;(");
+            System.out.println("¡No existe el equipo " + nombreEquipo + "!...");
+
+            //7) TERMINAR (el menú exterior vuelve a mostrarse por su bucle)
         }
     }
 
@@ -696,6 +727,7 @@ public class Main {
     //✅ Se le asignará al objeto "Lliga" de la clase a la aplicación.
     //Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
     //Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
+
     /**
      * @since 1.0
      */
@@ -726,6 +758,7 @@ public class Main {
     //Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
     //Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
     //Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
+
     /**
      * @since 1.0
      */
@@ -736,13 +769,14 @@ public class Main {
     //Menu principal de admin (opción 8):
     //Se guardará los datos de todos los equipos de la aplicación incluyendo la suya y todos los datos de los entrenadores y los jugadores para poder recuperarlos para la siguiente ejecución del programa.
     //El formato y la cantidad del fichero es totalmente libre.
+
     /**
      * @since 1.0
      */
     public static void guardarDatosEquipo() {
     }
 
-    //Menu principal para gestor de equipos:
+    //✅Menu principal para gestor de equipos:
     //      1- Veure classificació lliga actual 🏆
     //
     //      2- Gestionar el meu equip ⚽
@@ -756,9 +790,10 @@ public class Main {
     //      6 - Desar dades equips
     //
     //      0- Sortir
+
     /**
-     * @since 1.0
      * @return Opción escogida por el Gestor de equipos
+     * @since 1.0
      */
     public static int menuGestorEquipos() {
         Scanner sc = new Scanner(System.in);
@@ -794,12 +829,13 @@ public class Main {
     //✅ Asegurar que el equipo donde el jugador esta y el equipo donde se quiere transferir existan.
     //✅ En caso afirmativo, se pedirá el nuevo dorsal del jugador transferido (habrá que verificar si está disponible).
     //Se pedirá el dorsal hasta que se proporcione uno que esté disponible.
+
     /**
-     * @since 1.0
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
-     * @param listaEquipos Lista con todos los equipos creados
+     * @param listaEquipos  Lista con todos los equipos creados
+     * @since 1.0
      */
-    public static void transferirJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos){
+    public static void transferirJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle, dorsalLibre = false;
         int dorsal;
@@ -837,7 +873,7 @@ public class Main {
         }
     }
 
-    public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos){
+    public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
         boolean encontrado = false;
 
@@ -862,9 +898,10 @@ public class Main {
     //      4- Fitxar jugador/a o entrenador/a
     //
     //      0- Sortir
+
     /**
-     * @since 1.0
      * @return Opción escogida por el Gestor de equipos
+     * @since 1.0
      */
     public static int submenuGestorEquipos() {
         Scanner sc = new Scanner(System.in);
@@ -898,6 +935,7 @@ public class Main {
 
     //Submenu gestionar mi equipo (opción 1):
     //Se eliminará el equipo de la lista de la aplicación, confirmación por parte del usuario.
+
     /**
      * @since 1.0
      */
@@ -909,10 +947,12 @@ public class Main {
         nombreEquipo = sc.nextLine();
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
-                listaEquipos.remove(); //ESTO ESTÁ EN LA LISTA DE SUGERENCIAS CUANDO HACES .
+                listaEquipos.remove(eq); //ESTO ESTÁ EN LA LISTA DE SUGERENCIAS CUANDO HACES .
+            } else {
+                System.out.println("El equipo no existe");
             }
-        }
 
+        }
     }
 
     //Submenu gestionar mi equipo (opción 2):
