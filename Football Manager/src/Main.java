@@ -14,6 +14,7 @@ public class Main {
     public static void main(String[] args) {
         ArrayList<Persona> listaFichajes = cargarFichajes(), listaFichados = cargarPersonasFichadas();
         ArrayList<Equipos> listaEquipos = cargarEquipos();
+        ArrayList<Liga> listaLigas = cargarLigas();
         String rol = pedirRol();
         int opcion, opcionSubmenu;
         boolean salirBucle = false, salirBucleSubmenu = false, equipoExistente;
@@ -25,7 +26,7 @@ public class Main {
                     opcion = menuAdmin();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga();
+                            verClasificacionLiga(listaLigas);
                             break;
                         case 2:
                             darAltaEquipo(listaEquipos);
@@ -57,7 +58,7 @@ public class Main {
                     opcion = menuGestorEquipos();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga();
+                            verClasificacionLiga(listaLigas);
                             break;
                         case 2:
                             //Menu principal de gestor de equipos (opción 2):
@@ -195,6 +196,22 @@ public class Main {
         return listaFichados;
     }
 
+    public static ArrayList<Liga> cargarLigas() {
+        ArrayList<Liga> listaLigas = new ArrayList<>();
+        String linea;
+        String[] separado;
+        try {
+            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/ligas.txt"));
+            while ((linea = br.readLine()) != null) {
+                separado = linea.split(";");
+                listaLigas.add(new Liga(separado[0], Integer.parseInt(separado[1])));
+            }
+        } catch (IOException e) {
+            System.out.println("Error al abrir el archivo");
+        }
+        return listaLigas;
+    }
+
     //✅ Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
 
     /**
@@ -303,12 +320,17 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String nombreLiga;
         boolean salirBucle = false;
+
+
         System.out.println("Ingrese el nombre del liga actual: ");
         nombreLiga = sc.next();
         for ( Liga l : listaLigas) {
             if (l.getNombre().equals(nombreLiga)) {
+                System.out.println("Ligas: " + l.getNombre());
                 salirBucle = true;
 
+                } else if (l.getNombre() != (nombreLiga)) {
+                System.out.println("No existe este equipo ;(");
             }
         }
 //        do {
@@ -347,7 +369,7 @@ public class Main {
 
         return listaEquipos;
     }
-         */
+        */
 
     }
 
@@ -681,8 +703,9 @@ public class Main {
      * @param listaEquipos Lista con todos los equipos existentes
      * @since 1.0
      */
-    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos) {
+    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos) {  //Está todavía por mejorar (yo le he puesto bool)
         String nombreEquipo = pedirNombreEquipo();
+        boolean equipoExistente = false;
 
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
@@ -691,6 +714,7 @@ public class Main {
                 System.out.println("Año fundación: " + eq.getAnyoFundacion());
                 System.out.println("Estadio: " + eq.getNombreEstadio());
                 System.out.println("Presidente: " + eq.getNombrePresidente());
+                equipoExistente = true;
             } else {
                 System.out.println("No existe este equipo ;(");
             }
@@ -711,7 +735,7 @@ public class Main {
     public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
 
         Scanner sc = new Scanner(System.in);
-        boolean equipoEncontrado = false;
+        boolean equipoEncontrado = false;   º
 
 
         //1) PEDIR nombre de equipo
