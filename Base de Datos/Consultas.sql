@@ -112,44 +112,28 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 set @nombre_equipo = 'FC Barcelona';
 
-select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
-from jornades j
-join partits on j.id = partits.jornades_id
-join equips on partits.equips_id_local = equips.id
-and partits.equips_id_visitant = equips.id
-join participar_lligues on equips.id = participar_lligues.equips_id
-join lligues on participar_lligues.lligues_id = lligues.id
-where lligues.nom = @nombre_liga
-and lligues.temporada = @temporada_liga
-and 'Equipo_visitante' = any (
-	select equips.nom
-	from equips
-)
-and 'Equipo_local' = @nombre_equipo
+SELECT * FROM
+(
+	select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
+	from jornades j
+	join partits on j.id = partits.jornades_id
+	join equips on partits.equips_id_local = equips.id
+	join participar_lligues on equips.id = participar_lligues.equips_id
+	join lligues on participar_lligues.lligues_id = lligues.id
+	where lligues.nom = @nombre_liga
+	and lligues.temporada = @temporada_liga
+	and 'Equipo_local' = @nombre_equipo
+	union
+	select j.data, j.jornada, equips.nom eq_local, partits.gols_local, partits.gols_visitant, equips.nom eq_visitante
+	from jornades j
+	join partits on j.id = partits.jornades_id
+	join equips on partits.equips_id_visitant = equips.id
+	join participar_lligues on equips.id = participar_lligues.equips_id
+	join lligues on participar_lligues.lligues_id = lligues.id
+	where lligues.nom = @nombre_liga
+	and lligues.temporada = @temporada_liga
+) AS resultado
 order by data asc;
-
--- SELECT * FROM
--- (
--- 	select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
--- 	from jornades j
--- 	join partits on j.id = partits.jornades_id
--- 	join equips on partits.equips_id_local = equips.id
--- 	join participar_lligues on equips.id = participar_lligues.equips_id
--- 	join lligues on participar_lligues.lligues_id = lligues.id
--- 	where lligues.nom = @nombre_liga
--- 	and lligues.temporada = @temporada_liga
--- 	and 'Equipo_local' = @nombre_equipo
--- 	union
--- 	select j.data, j.jornada, equips.nom eq_local, partits.gols_local, partits.gols_visitant, equips.nom eq_visitante
--- 	from jornades j
--- 	join partits on j.id = partits.jornades_id
--- 	join equips on partits.equips_id_visitant = equips.id
--- 	join participar_lligues on equips.id = participar_lligues.equips_id
--- 	join lligues on participar_lligues.lligues_id = lligues.id
--- 	where lligues.nom = @nombre_liga
--- 	and lligues.temporada = @temporada_liga
--- ) AS resultado
--- order by data asc;
 
 /*7- Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
 Mostrar la data i la jornada en la que van jugar, el nom de l'equip local, el nom de l'equip visitant, els gols de l'equip local, 
@@ -165,12 +149,14 @@ S'ha d'ordenar pel nombre de gols major a menor, i només s'han de mostrar el 10
 set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 
-select persones.nom, persones.cognom, partits.gols_local
+select persones.nom, persones.cognoms, partits.gols_local
 from persones
 join jugadors on persones.id = jugadors.persones_id
 join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
 join equips on jugadors_equips.equips_id = equips.id
 join partits on equips.id = partits.equips_id
+join jornades on partits.jornades_id = jornades.id
+join lligues on jornades.lligues_id = lligues.id;
 
 /*✅ 9- Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell de motivació igual o superior a 85 
 i l'any de la seva data de naixement sigui 1959 o 1985 o 1992. 
@@ -187,23 +173,25 @@ order by persones.sou desc;
 select *
 from persones;
 
-/*(Por confirmar)10- Donat el nom d'una lliga i la temporada. 
+/*✅ 10- Donat el nom d'una lliga i la temporada. 
 Mostrar el noms dels equips i la mitja de qualitat del seus jugadors. 
 Només mostrar els equips que tinguin una mitja superior a 80, amb dos decimals. 
 Ordenar per la mitja de menor a major.*/
 
-select equips.nom, jugadors.qualitat
+set @nombre_liga = 'Liga F Moeve';
+set @temporada_liga = 2024;
+
+select equips.nom 'Equipo', round(avg(jugadors.qualitat), 2) 'Media_calidad'
 from equips
-join jugadors_equips on equips.id = jugadors_equips.jugadors_id
+join jugadors_equips on equips.id = jugadors_equips.equips_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
 join participar_lligues on equips.id = participar_lligues.equips_id
 join lligues on participar_lligues.lligues_id = lligues.id
-where jugadors.qualitat >= (
-	select avg(jugadors.qualitat)
-    from jugadors
-    where jugadors.qualitat >= 80
-)
-order by jugadors.qualitat asc;
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+group by equips.nom
+having Media_calidad > 80
+order by Media_calidad asc;
 
 /*11- Mostar el nom de l'equip i el nom de l'equip filial, de tots els equips que tinguin filial.*/
 
@@ -213,11 +201,22 @@ where equips.filial_equips_id is not null;
 
 /*12- Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
 
-select equips.nom, jugadors.qualitat
-from equips;
+select equips.nom, count(jugadors_equips.jugadors_id) 'Número_jugadores', jugadors.qualitat
+from equips
+join jugadors_equips on equips.id = jugadors_equips.equips_id
+join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
+group by equips.nom, jugadors.qualitat;
 
 /*13- Quina és la mitjana d'edat, amb dos decimals, dels jugadors de cada equip? 
 Ordénala de major a menor*/
+
+select equips.nom 'Equipo', persones.nom 'Jugador', round(avg(year(current_date() - persones.data_naixement)), 2) 'Media_edad'
+from equips
+join jugadors_equips on equips.id = jugadors_equips.equips_id
+join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
+join persones on jugadors.persones_id = persones.id
+group by equips.nom, persones.nom
+order by Media_edad desc;
 
 /*14- Donat el nom d'una lliga i la temporada. 
 Mostrar el màxim golejador*/
