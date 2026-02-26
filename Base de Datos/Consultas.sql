@@ -104,7 +104,7 @@ where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
 order by posicions.posicio asc;
 
-/*6- Donat el nom de la lliga, la temporada i el nom d'un equip, seleccionar tots els partits jugats per aquest equip en la temporada. 
+/*✅ 6- Donat el nom de la lliga, la temporada i el nom d'un equip, seleccionar tots els partits jugats per aquest equip en la temporada. 
 Mostrar la data de la jornada, la jornada, el nom de l'equip local, el gols de l'equip local. els gols de l'equip visitant, el nom de l'equip visitant. 
 S'han d'ordenar per la data de la jornada de menor a major.*/
 
@@ -112,35 +112,37 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 set @nombre_equipo = 'FC Barcelona';
 
-SELECT * FROM
-(
-	select j.data, j.jornada 'Num_jornada', equips.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips.nom 'Equipo_visitante'
-	from jornades j
-	join partits on j.id = partits.jornades_id
-	join equips on partits.equips_id_local = equips.id
-	join participar_lligues on equips.id = participar_lligues.equips_id
-	join lligues on participar_lligues.lligues_id = lligues.id
-	where lligues.nom = @nombre_liga
-	and lligues.temporada = @temporada_liga
-	and 'Equipo_local' = @nombre_equipo
-	union
-	select j.data, j.jornada, equips.nom eq_local, partits.gols_local, partits.gols_visitant, equips.nom eq_visitante
-	from jornades j
-	join partits on j.id = partits.jornades_id
-	join equips on partits.equips_id_visitant = equips.id
-	join participar_lligues on equips.id = participar_lligues.equips_id
-	join lligues on participar_lligues.lligues_id = lligues.id
-	where lligues.nom = @nombre_liga
-	and lligues.temporada = @temporada_liga
-) AS resultado
-order by data asc;
+select jornades.data, jornades.jornada AS 'Num_jornada', equips_local.nom AS 'Equipo_local', partits.gols_local AS 'Goles_local', partits.gols_visitant AS 'Goles_visitante', equips_visitant.nom AS 'Equipo_visitante'
+from partits
+JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
+JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
+JOIN jornades ON jornades.id = partits.jornades_id
+JOIN lligues ON lligues.id = jornades.lligues_id
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+and (equips_local.nom = @nombre_equipo OR @nombre_equipo = equips_visitant.nom)
+order by jornades.data asc;
 
 /*7- Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
 Mostrar la data i la jornada en la que van jugar, el nom de l'equip local, el nom de l'equip visitant, els gols de l'equip local, 
 els gols de l'equip visitant, el minut del gol, el nom i cognoms del jugador que ha fet gol, l'equip al que pertany el jugador i si ha estat de penalti o no. 
 Ordenar la informació pel minut del gol.*/
 
-select j.data, j.jornada, equips.nom;
+set @nombre_liga = 'La Liga EA Sports';
+set @temporada_liga = 2024;
+set @nombre_equipo_local = 'FC Barcelona';
+set @nombre_equipo_visitante = 'Real Madrid CF';
+
+select jornades.data, jornades.jornada AS 'Num_jornada', equips_local.nom AS 'Equipo_local', partits.gols_local AS 'Goles_local', partits.gols_visitant AS 'Goles_visitante', equips_visitant.nom AS 'Equipo_visitante'
+from partits
+JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
+JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
+JOIN jornades ON jornades.id = partits.jornades_id
+JOIN lligues ON lligues.id = jornades.lligues_id
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+and (equips_local.nom = @nombre_equipo OR @nombre_equipo = equips_visitant.nom)
+order by jornades.data asc;
 
 /*8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
 Mostrar els nom i cognoms del jugador i el nombre de gols. 
@@ -171,7 +173,7 @@ and year(persones.data_naixement) in (1959, 1985, 1992)
 order by persones.sou desc;
 
 select *
-from persones;
+from equips;
 
 /*✅ 10- Donat el nom d'una lliga i la temporada. 
 Mostrar el noms dels equips i la mitja de qualitat del seus jugadors. 
@@ -245,8 +247,8 @@ group by equips.nom;
 Mostrar el nom de l'equip i els gols marcats, de tots els equips que han marcat els mateixos o més gols que els marcats per l'equip amb nom 'Girona FC'. 
 Ordenar el resultat descendentment per nombre total de gols.*/
 
-set @nombre_liga = 'La Liga EA Sports';
-set @temporada_liga = 2024;
+
+
 
 select equips.nom, partits.gols_local
 from equips
