@@ -321,20 +321,25 @@ public class Main {
     public static void verClasificacionLiga(ArrayList<Liga> listaLigas) {
         Scanner sc = new Scanner(System.in);
         String nombreLiga;
-        boolean salirBucle = false;
+        boolean ligaExsistente = false;
 
 
         System.out.println("Ingrese el nombre del liga actual: ");
         nombreLiga = sc.next();
         for ( Liga l : listaLigas) {
             if (l.getNombre().equals(nombreLiga)) {
-                System.out.println("Ligas: " + l.getNombre());
-                salirBucle = true;
+                System.out.println("Liga: " + l.getNombre());
 
-                } else if (l.getNombre() != (nombreLiga)) {
-                System.out.println("No existe este equipo ;(");
-            }
+
+                ligaExsistente = true;
+
+
+                }
         }
+        if (!ligaExsistente) {
+            System.out.println("No exsiste");
+        }
+
 //        do {
 //                String nombreEquipo = pedirNombreEquipo();
 //
@@ -1017,17 +1022,35 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String nombreEquipo;
         boolean darBaja;
+        int i = 0;
+        int tmp = 0;
         System.out.println("¿Qué equipo quieres dar de baja?");
         nombreEquipo = sc.nextLine();
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
-                listaEquipos.remove(eq); //ESTO ESTÁ EN LA LISTA DE SUGERENCIAS CUANDO HACES .
-            } else {
-                System.out.println("El equipo no existe");
+                tmp = i;
+                darBaja = true;
             }
+            i++;
+        }
+        //si darBaja=true se elimina remove + i
+
+    }
+    /*
+    for ( Liga l : listaLigas) {
+        if (l.getNombre().equals(nombreLiga)) {
+            System.out.println("Liga: " + l.getNombre());
+
+
+            ligaExsistente = true;
+
 
         }
     }
+        if (!ligaExsistente) {
+        System.out.println("No exsiste");
+    }
+    */
 
     //Submenu gestionar mi equipo (opción 2):
     //Se pedirá el nombre del presidente y se actualizará los siguientes casos:
