@@ -44,5 +44,9 @@ public abstract class Persona {
         return sueldoSalarial;
     }
 
+    public String getNombreEquipo() {
+        return nombreEquipo;
+    }
+
     public abstract void entrenamiento();
 }

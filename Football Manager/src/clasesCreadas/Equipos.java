@@ -10,10 +10,10 @@ package clasesCreadas;
 //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
 public class Equipos {
     private String nombre;
+    private int anyoFundacion;
     private String ciudad;
     private String nombreEstadio;
     private String nombrePresidente;
-    private int anyoFundacion;
 
 
     public Equipos(String nombre, int anyoFundacion, String ciudad) {
@@ -62,6 +62,14 @@ public class Equipos {
 
     public void calcularMediaEquipo() {
 
+    }
 
+    @Override
+    public String toString() {
+        return nombre + ";" +
+                anyoFundacion + ";" +
+                ciudad + ";" +
+                nombreEstadio + ";" +
+                nombrePresidente + "\n";
     }
 }

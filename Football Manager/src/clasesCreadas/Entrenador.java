@@ -27,7 +27,7 @@ public class Entrenador extends Persona {
     public String toString() {
         return "E;" + super.toString() + ";" +
                 numTorneosGanados + ";" +
-                seleccionadorNacional + "\n";
+                seleccionadorNacional;
     }
 
     @Override

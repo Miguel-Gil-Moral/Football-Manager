@@ -53,7 +53,7 @@ public class Jugador extends Persona {
         return "J;" + super.toString() + ";" +
                 dorsal + ";" +
                 posicion + ";" +
-                calidad + "\n";
+                calidad;
     }
 
     @Override

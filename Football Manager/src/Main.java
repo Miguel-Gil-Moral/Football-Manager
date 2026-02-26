@@ -1,6 +1,8 @@
 import clasesCreadas.*;
 
 import java.io.*;
+import java.nio.Buffer;
+import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -109,7 +111,7 @@ public class Main {
                     break;
             }
         } while (!salirBucle);
-        actualizarFichero(listaFichajes, listaFichados, listaEquipos);
+        actualizarFichero(listaFichajes, listaFichados, listaEquipos, listaLigas);
     }
 
     //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
@@ -735,7 +737,7 @@ public class Main {
     public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
 
         Scanner sc = new Scanner(System.in);
-        boolean equipoEncontrado = false;   º
+        boolean equipoEncontrado = false;
 
 
         //1) PEDIR nombre de equipo
@@ -1064,20 +1066,49 @@ public class Main {
      * @param listaFichajes Lista con todos los jugadores y entrenadores guardados
      * @param listaFichados Lista con todos los jugadores y entrenadores fichados en un equipo guardados
      * @param listaEquipos Lista con todos los equipos guardados
+     * @param listaLigas Lista con todas las ligas guardadas
      */
-    public static void actualizarFichero(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos){
-        try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/ficheros/mercat_fitxatges.txt"))){
-            for (Persona persona : listaFichajes) {
-                if (persona instanceof Jugador) {
-                    bw.write(((Jugador)persona).toString());
-                } else if (persona instanceof Entrenador) {
-                    bw.write(((Entrenador) persona).toString());
-                }
-            }
-        } catch (IOException e) {
-            System.out.println("Error al escribir el fichero de texto");
-        }
+    public static void actualizarFichero(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos, ArrayList<Liga> listaLigas){
+        String[] rutaArchivos = {"src/ficheros/mercat_fitxatges.txt", "src/ficheros/jugadores_fichados.txt", "src/ficheros/equipos.txt", "src/ficheros/ligas.txt"};
+        int i = 0;
 
+        do {
+            try (BufferedWriter bw = new BufferedWriter(new FileWriter(rutaArchivos[i]))){
+                switch (rutaArchivos[i]) {
+                    case "src/ficheros/mercat_fitxatges.txt":
+                        for (Persona persona : listaFichajes) {
+                            if (persona instanceof Jugador) {
+                                bw.write(((Jugador)persona).toString() + "\n");
+                            } else if (persona instanceof Entrenador) {
+                                bw.write(((Entrenador) persona).toString() + "\n");
+                            }
+                        }
+                        break;
+                    case "src/ficheros/jugadores_fichados.txt":
+                        for (Persona persona : listaFichados) {
+                            if (persona instanceof Jugador) {
+                                bw.write(((Jugador)persona).toString() + ";" + persona.getNombreEquipo() + "\n");
+                            } else if (persona instanceof Entrenador) {
+                                bw.write(((Entrenador) persona).toString()+ ";" + persona.getNombreEquipo() + "\n");
+                            }
+                        }
+                        break;
+                    case "src/ficheros/equipos.txt":
+                        for (Equipos eq : listaEquipos) {
+                            bw.write(eq.toString());
+                        }
+                        break;
+                    case "src/ficheros/ligas.txt":
+                        for (Liga lg : listaLigas) {
+                            bw.write(lg.toString());
+                        }
+                        break;
+                }
+                i++;
+            } catch (IOException e) {
+                System.out.println("Error al escribir el fichero de texto");
+            }
+        } while (i < 4);
     }
 
     //Gestionará un conjunto de equipos, mercado de fichajes, y permitirá generar ligas entre estos equipos.

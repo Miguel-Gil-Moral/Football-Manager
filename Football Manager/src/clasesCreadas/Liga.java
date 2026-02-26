@@ -42,4 +42,10 @@ public class Liga {
     public String getNombre() {
         return nombre;
     }
+
+    @Override
+    public String toString() {
+        return nombre + ";" +
+                cantidadEquipos + "\n";
+    }
 }
