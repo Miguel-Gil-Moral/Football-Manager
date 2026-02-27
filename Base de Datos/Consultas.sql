@@ -112,15 +112,15 @@ set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 set @nombre_equipo = 'FC Barcelona';
 
-select jornades.data, jornades.jornada AS 'Num_jornada', equips_local.nom AS 'Equipo_local', partits.gols_local AS 'Goles_local', partits.gols_visitant AS 'Goles_visitante', equips_visitant.nom AS 'Equipo_visitante'
+select jornades.data, jornades.jornada 'Num_jornada', equips_local.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', equips_visitant.nom 'Equipo_visitante'
 from partits
-JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
-JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
-JOIN jornades ON jornades.id = partits.jornades_id
-JOIN lligues ON lligues.id = jornades.lligues_id
+join equips equips_local on partits.equips_id_local = equips_local.id
+join equips equips_visitant on partits.equips_id_visitant = equips_visitant.id
+join jornades on partits.jornades_id = jornades.id
+join lligues on jornades.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
-and (equips_local.nom = @nombre_equipo OR @nombre_equipo = equips_visitant.nom)
+and (equips_local.nom = @nombre_equipo or @nombre_equipo = equips_visitant.nom)
 order by jornades.data asc;
 
 /*7- Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
@@ -133,15 +133,20 @@ set @temporada_liga = 2024;
 set @nombre_equipo_local = 'FC Barcelona';
 set @nombre_equipo_visitante = 'Real Madrid CF';
 
-select jornades.data, jornades.jornada AS 'Num_jornada', equips_local.nom AS 'Equipo_local', partits.gols_local AS 'Goles_local', partits.gols_visitant AS 'Goles_visitante', equips_visitant.nom AS 'Equipo_visitante'
+select jornades.data, jornades.jornada 'Num_jornada', equips_local.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', 
+equips_visitant.nom 'Equipo_visitante', partits_gols.minut, persones.nom, persones.cognoms, partits_gols.es_penal
 from partits
-JOIN equips AS equips_local ON equips_local.id = partits.equips_id_local
-JOIN equips AS equips_visitant ON equips_visitant.id = partits.equips_id_visitant
-JOIN jornades ON jornades.id = partits.jornades_id
-JOIN lligues ON lligues.id = jornades.lligues_id
+join partits_gols on partits.id = partits_gols.partits_id
+join equips equips_local on partits.equips_id_local = equips_local.id
+join equips equips_visitant on partits.equips_id_visitant = equips_visitant.id
+join jugadors_equips on equips.id = jugadors_equips.jugadors_id
+join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
+join persones on jugadors.persones_id = persones.id
+join jornades on partits.jornades_id = jornades.id
+join lligues on jornades.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
-and (equips_local.nom = @nombre_equipo OR @nombre_equipo = equips_visitant.nom)
+and (equips_local.nom = @nombre_equipo_local and @nombre_equipo_visitante = equips_visitant.nom)
 order by jornades.data asc;
 
 /*8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
@@ -155,8 +160,8 @@ select persones.nom, persones.cognoms, partits.gols_local
 from persones
 join jugadors on persones.id = jugadors.persones_id
 join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-join equips on jugadors_equips.equips_id = equips.id
-join partits on equips.id = partits.equips_id
+join equips eq_local on jugadors_equips.equips_id = eq_local.id
+join partits on eq_local.id = partits.equips_id_local
 join jornades on partits.jornades_id = jornades.id
 join lligues on jornades.lligues_id = lligues.id;
 
