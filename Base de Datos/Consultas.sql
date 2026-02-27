@@ -134,12 +134,13 @@ set @nombre_equipo_local = 'FC Barcelona';
 set @nombre_equipo_visitante = 'Real Madrid CF';
 
 select jornades.data, jornades.jornada 'Num_jornada', equips_local.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', 
-equips_visitant.nom 'Equipo_visitante', partits_gols.minut, persones.nom, persones.cognoms, partits_gols.es_penal
+equips_visitant.nom 'Equipo_visitante', partits_gols.minut 'Minuto', persones.nom 'Nombre', persones.cognoms 'Apellido', partits_gols.es_penal 'Esta_penalti'
 from partits
 join partits_gols on partits.id = partits_gols.partits_id
 join equips equips_local on partits.equips_id_local = equips_local.id
 join equips equips_visitant on partits.equips_id_visitant = equips_visitant.id
-join jugadors_equips on equips.id = jugadors_equips.jugadors_id
+join jugadors_equips on equips_local.id = jugadors_equips.jugadors_id
+and equips_visitant.id = jugadors_equips.jugadors_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
 join persones on jugadors.persones_id = persones.id
 join jornades on partits.jornades_id = jornades.id
@@ -149,21 +150,24 @@ and lligues.temporada = @temporada_liga
 and (equips_local.nom = @nombre_equipo_local and @nombre_equipo_visitante = equips_visitant.nom)
 order by jornades.data asc;
 
-/*8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
+/*✅ 8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
 Mostrar els nom i cognoms del jugador i el nombre de gols. 
 S'ha d'ordenar pel nombre de gols major a menor, i només s'han de mostrar el 10 màxims golejadors.*/
 
 set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 
-select persones.nom, persones.cognoms, partits.gols_local
-from persones
-join jugadors on persones.id = jugadors.persones_id
-join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
-join equips eq_local on jugadors_equips.equips_id = eq_local.id
-join partits on eq_local.id = partits.equips_id_local
+select persones.nom 'Nombre', persones.cognoms 'Apellido', count(partits_gols.jugadors_id) 'Goles_marcados'
+from jugadors
+join persones on jugadors.persones_id = persones.id
+join partits_gols on jugadors.persones_id = partits_gols.jugadors_id
+join partits on partits_gols.partits_id = partits.id
 join jornades on partits.jornades_id = jornades.id
-join lligues on jornades.lligues_id = lligues.id;
+join lligues on jornades.lligues_id = lligues.id
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+group by persones.nom, persones.cognoms
+order by Goles_marcados desc limit 10;
 
 /*✅ 9- Buscar els jugadors que cobrin entre 7.000.000 i 12.000.000, tinguin un nivell de motivació igual o superior a 85 
 i l'any de la seva data de naixement sigui 1959 o 1985 o 1992. 
@@ -206,13 +210,15 @@ select equips.nom 'Equipo', equips.nom 'Equipo filial'
 from equips
 where equips.filial_equips_id is not null;
 
+select * from equips;
+
 /*12- Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
 
-select equips.nom, count(jugadors_equips.jugadors_id) 'Número_jugadores', jugadors.qualitat
+select equips.nom, jugadors.qualitat 'Calidad'
 from equips
 join jugadors_equips on equips.id = jugadors_equips.equips_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-group by equips.nom, jugadors.qualitat;
+where jugadors.qualitat > 85;
 
 /*13- Quina és la mitjana d'edat, amb dos decimals, dels jugadors de cada equip? 
 Ordénala de major a menor*/
