@@ -66,13 +66,14 @@ public class Main {
                             //Menu principal de gestor de equipos (opción 2):
                             //Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
                             //Si se encuentra el equipo, se mostrará un submenu específico.
-                            equipoExistente = revisarEquipo(listaEquipos);
+                            String nombreEquipo = pedirNombreEquipo();
+                            equipoExistente = revisarEquipo(listaEquipos, nombreEquipo);
                             if (equipoExistente) {
                                 opcionSubmenu = submenuGestorEquipos();
                                 do {
                                     switch (opcionSubmenu) {
                                         case 1:
-                                            darBajaEquipo(listaEquipos);
+                                            darBajaEquipo(listaEquipos, nombreEquipo);
                                             break;
                                         case 2:
                                             modificarPresidente(listaEquipos);
@@ -952,15 +953,12 @@ public class Main {
         }
     }
 
-    public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos) {
+    public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
         boolean encontrado = false;
 
-        System.out.print("Escriba el nombre del equipo: ");
-        String nombre = sc.nextLine();
-
         for (Equipos eq : listaEquipos) {
-            if (eq.getNombre().equals(nombre)) {
+            if (eq.getNombre().equals(nombreEquipo)) {
                 encontrado = true;
             }
         }
@@ -1018,20 +1016,21 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos) {
+    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
-        String nombreEquipo;
+        cargarEquipos();
         boolean darBaja;
-        int i = 0;
-        int tmp = 0;
+        int indice = 0;
+        int temporal = 0;
         System.out.println("¿Qué equipo quieres dar de baja?");
         nombreEquipo = sc.nextLine();
+        for (indice )
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
-                tmp = i;
+                temporal = indice;
                 darBaja = true;
             }
-            i++;
+            indice++;
         }
         //si darBaja=true se elimina remove + i
 
@@ -1146,10 +1145,10 @@ public class Main {
     //Clase Main gestionará los menus y dispondrá de los listados con todos los equipos, jugadores y entrenadores disponibles para fichar, y un objeto que represente la liga
     //La información de la liga no se guardará en la ejecución del programa ni de la aplicación.
 
-    //Puntuación:
-    //Partidos ganados: 3 puntos
-    //Partidos empatados: 1 puntos
-    //Partidos perdidos: 0 puntos
+    //✅ Puntuación:
+    //✅ Partidos ganados: 3 puntos
+    //✅ Partidos empatados: 1 puntos
+    //✅ Partidos perdidos: 0 puntos
 
     //Se necesita cuantos goles se han generado por cada equipo a favor y en contra, es necesaria para la clasificación.
     //La calificación media de los equipos y la motivación han de influir de alguna manera en las posibilidades de victoria del equipo.
