@@ -1,8 +1,8 @@
 import clasesCreadas.*;
 
 import java.io.*;
-import java.nio.Buffer;
-import java.nio.file.StandardOpenOption;
+/*import java.nio.Buffer;
+import java.nio.file.StandardOpenOption;*/
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -1018,20 +1018,30 @@ public class Main {
      */
     public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
-        cargarEquipos();
-        boolean darBaja;
-        int indice = 0;
-        int temporal = 0;
-        System.out.println("¿Qué equipo quieres dar de baja?");
-        nombreEquipo = sc.nextLine();
-        for (indice )
-        for (Equipos eq : listaEquipos) {
-            if (eq.getNombre().equals(nombreEquipo)) {
-                temporal = indice;
-                darBaja = true;
+        System.out.println("¿Quieres borrar el equipo " + nombreEquipo + " de la lista de equipos? («true» o «false»).");
+        boolean resuestaUsuario = sc.nextBoolean();
+        int indiceEquipo = 0;
+        boolean salirBucle;
+        do {
+            try {
+                salirBucle = true;
+                if (resuestaUsuario) {
+                    for (Equipos eq : listaEquipos) {
+                        if (eq.getNombre().equals(nombreEquipo)) {
+                            listaEquipos.remove(indiceEquipo);
+                        }
+                        indiceEquipo++;
+                    }
+                } else {
+                    System.out.println(nombreEquipo + " no se borró.");
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("No es una respuesta válida, escribe «True» o «False».");
+                salirBucle = false;
             }
-            indice++;
-        }
+        } while (!salirBucle);
+
+
         //si darBaja=true se elimina remove + i
 
     }
