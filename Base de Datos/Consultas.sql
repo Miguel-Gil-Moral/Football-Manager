@@ -1,5 +1,3 @@
-use football_manager;
-
 /*✅ 1- Donat el nom de la lliga i la temporada. 
 Es vol realitzar una consulta que retorni el nom de l'equip, l'any de fundació , 
 el nom del president, el nom de la ciutat de l'equip, el nom de l'estadi i el nombre d'espectadors que tinguin un estadi entre 3.000 i 5.000 espectadors. 
@@ -133,22 +131,43 @@ set @temporada_liga = 2024;
 set @nombre_equipo_local = 'FC Barcelona';
 set @nombre_equipo_visitante = 'Real Madrid CF';
 
-select jornades.data, jornades.jornada 'Num_jornada', equips_local.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', 
-equips_visitant.nom 'Equipo_visitante', partits_gols.minut 'Minuto', persones.nom 'Nombre', persones.cognoms 'Apellido', partits_gols.es_penal 'Esta_penalti'
-from partits
+select jornades.data, jornades.jornada, eq_local.nom 'Equipo_local', eq_visitant.nom 'Equipo_visitante', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante',
+partits_gols.minut 'Minuto_gol', concat(persones.nom, ' ', persones.cognoms) 'Jugador', eq_goleador.nom 'Equipo_goleador', partits_gols.es_penal 'Estuvo_penalti'
+from jornades
+join lligues on jornades.lligues_id = lligues.id
+join partits on jornades.id = partits.jornades_id
 join partits_gols on partits.id = partits_gols.partits_id
-join equips equips_local on partits.equips_id_local = equips_local.id
-join equips equips_visitant on partits.equips_id_visitant = equips_visitant.id
-join jugadors_equips on equips_local.id = jugadors_equips.jugadors_id
-and equips_visitant.id = jugadors_equips.jugadors_id
+join equips eq_local on partits.equips_id_local = eq_local.id
+join equips eq_visitant on partits.equips_id_visitant = eq_visitant.id
+join equips eq_goleador on partits.equips_id_local = eq_local.id
+and partits.equips_id_visitant = eq_visitant.id
+join jugadors_equips on eq_local.id = jugadors_equips.equips_id
+and eq_visitant.id = jugadors_equips.equips_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
 join persones on jugadors.persones_id = persones.id
-join jornades on partits.jornades_id = jornades.id
-join lligues on jornades.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
-and (equips_local.nom = @nombre_equipo_local and @nombre_equipo_visitante = equips_visitant.nom)
-order by jornades.data asc;
+and (eq_local.nom = @nombre_equipo_local and @nombre_equipo_visitante = eq_visitant.nom)
+group by jornades.data, jornades.jornada, eq_local.nom, eq_visitant.nom, partits.gols_local, partits.gols_visitant,
+ partits_gols.minut, persones.nom, persones.cognoms, eq_goleador.nom, partits_gols.es_penal
+order by partits_gols.minut asc;
+
+-- select jornades.data, jornades.jornada 'Num_jornada', equips_local.nom 'Equipo_local', partits.gols_local 'Goles_local', partits.gols_visitant 'Goles_visitante', 
+-- equips_visitant.nom 'Equipo_visitante', partits_gols.minut 'Minuto', persones.nom 'Nombre', persones.cognoms 'Apellido', partits_gols.es_penal 'Estuvo_penalti'
+-- from partits
+-- join partits_gols on partits.id = partits_gols.partits_id
+-- join equips equips_local on partits.equips_id_local = equips_local.id
+-- join equips equips_visitant on partits.equips_id_visitant = equips_visitant.id
+-- join jugadors_equips on equips_local.id = jugadors_equips.jugadors_id
+-- and equips_visitant.id = jugadors_equips.jugadors_id
+-- join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
+-- join persones on jugadors.persones_id = persones.id
+-- join jornades on partits.jornades_id = jornades.id
+-- join lligues on jornades.lligues_id = lligues.id
+-- where lligues.nom = @nombre_liga
+-- and lligues.temporada = @temporada_liga
+-- and (equips_local.nom = @nombre_equipo_local and @nombre_equipo_visitante = equips_visitant.nom)
+-- order by jornades.data asc;
 
 /*✅ 8- Donada una lliga i una temporada, calcular els gols que ha marcat cada jugador. 
 Mostrar els nom i cognoms del jugador i el nombre de gols. 
@@ -208,34 +227,75 @@ order by Media_calidad asc;
 
 select equips.nom 'Equipo', equips.nom 'Equipo filial'
 from equips
-where equips.filial_equips_id is not null;
+where equips.filial_equips_id = all(
+	select equips.nom 'Equipo filial'
+    from equips
+);
 
-select * from equips;
+/*✅ 12- Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
 
-/*12- Quins equips tenen més de 3 jugadors amb una qualitat superior a 85?*/
-
-select equips.nom, jugadors.qualitat 'Calidad'
+select equips.nom, count(jugadors_equips.jugadors_id) 'Número_jugadores'
 from equips
 join jugadors_equips on equips.id = jugadors_equips.equips_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
-where jugadors.qualitat > 85;
+where jugadors.qualitat > 85
+group by equips.nom
+having Número_jugadores > 3;
 
-/*13- Quina és la mitjana d'edat, amb dos decimals, dels jugadors de cada equip? 
+select * from jugadors_equips where jugadors_equips.equips_id = 1;
+
+/*✅ 13- Quina és la mitjana d'edat, amb dos decimals, dels jugadors de cada equip? 
 Ordénala de major a menor*/
 
-select equips.nom 'Equipo', persones.nom 'Jugador', round(avg(year(current_date() - persones.data_naixement)), 2) 'Media_edad'
+select equips.nom 'Equipo', round(avg(timestampdiff(year, persones.data_naixement, current_date())), 2) 'Media_edad'
 from equips
 join jugadors_equips on equips.id = jugadors_equips.equips_id
 join jugadors on jugadors_equips.jugadors_id = jugadors.persones_id
 join persones on jugadors.persones_id = persones.id
-group by equips.nom, persones.nom
+group by equips.nom
 order by Media_edad desc;
 
-/*14- Donat el nom d'una lliga i la temporada. 
+/*✅ 14- Donat el nom d'una lliga i la temporada. 
 Mostrar el màxim golejador*/
+
+set @nombre_liga = 'La Liga EA Sports';
+set @temporada_liga = 2024;
+
+select persones.nom 'Jugador', sum(partits.gols_local + partits.gols_visitant) 'Goles_total'
+from partits_gols
+join partits on partits_gols.partits_id = partits.id
+join jugadors on partits_gols.jugadors_id = jugadors.persones_id
+join persones on jugadors.persones_id = persones.id
+join jornades on partits.jornades_id = jornades.id
+join lligues on jornades.lligues_id = lligues.id
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+group by persones.nom
+order by Goles_total desc;
+
+select sum(partits.gols_visitant) from partits;
+
+select * from partits;
 
 /*15- Donada una lliga i una temporada. 
 Mostrar el dorsal, el nom i cognoms del jugador, i el nom de l'equip on juga de tots els defenses que han marcat més de 5 gols*/
+
+set @nombre_liga = 'La Liga EA Sports';
+set @temporada_liga = 2024;
+
+select jugadors.dorsal 'Dorsal', concat(persones.nom, ' ', persones.cognoms) 'Jugador', equips.nom 'Equipo'
+from persones
+join jugadors on persones.id = jugadors.persones_id
+join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
+join equips on jugadors_equips.equips_id = equips.id
+join partits_gols on jugadors.persones_id = partits_gols.jugadors_id
+join partits on partits_gols.partits_id = partits.id
+join jornades on partits.jornades_id = jornades.id
+join lligues on jornades.lligues_id = lligues.id
+where lligues.nom = @nombre_liga
+and lligues.temporada = @temporada_liga
+group by jugadors.dorsal, persones.nom, persones.cognoms, equips.nom
+having sum(partits.gols_local + partits.gols_visitant) > 5;
 
 /*✅ 16- Donada una lliga i una temporada. 
 Mostrar els gols marcats per l'equip amb nom 'Girona FC'. 
@@ -258,9 +318,10 @@ group by equips.nom;
 Mostrar el nom de l'equip i els gols marcats, de tots els equips que han marcat els mateixos o més gols que els marcats per l'equip amb nom 'Girona FC'. 
 Ordenar el resultat descendentment per nombre total de gols.*/
 
-
-
+set @nombre_liga = 'La Liga EA Sports';
+set @temporada_liga = 2024;
 
 select equips.nom, partits.gols_local
 from equips
+join partits on equips.id = partits.equips_id_local
 order by partits.gols_local desc;
