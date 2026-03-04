@@ -177,7 +177,7 @@ public class Main {
         ArrayList<Persona> listaFichados = new ArrayList<>();
 
         try {
-            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/jugadores_fichados.txt"));
+            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/personas_fichadas.txt"));
             while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
                 if (separado[0].equals("J")) {
@@ -1111,7 +1111,7 @@ public class Main {
      * @param listaLigas Lista con todas las ligas guardadas
      */
     public static void actualizarFichero(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos, ArrayList<Liga> listaLigas){
-        String[] rutaArchivos = {"src/ficheros/mercat_fitxatges.txt", "src/ficheros/jugadores_fichados.txt", "src/ficheros/equipos.txt", "src/ficheros/ligas.txt"};
+        String[] rutaArchivos = {"src/ficheros/mercat_fitxatges.txt", "src/ficheros/personas_fichadas.txt", "src/ficheros/equipos.txt", "src/ficheros/ligas.txt"};
         int i = 0;
 
         do {
@@ -1126,7 +1126,7 @@ public class Main {
                             }
                         }
                         break;
-                    case "src/ficheros/jugadores_fichados.txt":
+                    case "src/ficheros/personas_fichadas.txt":
                         for (Persona persona : listaFichados) {
                             if (persona instanceof Jugador) {
                                 bw.write(((Jugador)persona).toString() + ";" + persona.getNombreEquipo() + "\n");
