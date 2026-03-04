@@ -37,7 +37,7 @@ public class Main {
                             darAltaPersona(listaFichajes);
                             break;
                         case 4:
-                            consultarDatosEquipo(listaEquipos);
+                            consultarDatosEquipo(listaEquipos, listaFichados);
                             break;
                         case 5:
                             consultarDatosJugador(listaFichados, listaEquipos);
@@ -94,7 +94,7 @@ public class Main {
                             }
                             break;
                         case 3:
-                            consultarDatosEquipo(listaEquipos);
+                            consultarDatosEquipo(listaEquipos, listaFichados);
                             break;
                         case 4:
                             consultarDatosJugador(listaFichados, listaEquipos);
@@ -706,23 +706,33 @@ public class Main {
     //Menu principal de admin (opción 4):
     //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
     //Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
-
+//SABER CUANTOS ENTRENADORES SE HAN CREADO
     /**
      * @param listaEquipos Lista con todos los equipos existentes
      * @since 1.0
      */
-    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos) {  //Está todavía por mejorar (yo le he puesto bool)
+    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {  //Está todavía por mejorar (yo le he puesto bool)
         String nombreEquipo = pedirNombreEquipo();
-        boolean equipoExistente = false;
 
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
+                System.out.println("DATOS EQUIPO:");
                 System.out.println("Nombre: " + eq.getNombre());
                 System.out.println("Ciudad: " + eq.getCiudad());
                 System.out.println("Año fundación: " + eq.getAnyoFundacion());
                 System.out.println("Estadio: " + eq.getNombreEstadio());
                 System.out.println("Presidente: " + eq.getNombrePresidente());
-                equipoExistente = true;
+                System.out.println();
+                System.out.println("DATOS ENTRENADOR:");
+                System.out.println("Nombre: ");
+                for (Persona p : listaFichados) {
+                    if (listaFichados.contains("E")){
+
+                    }
+                    System.out.println(p.getNombre());
+
+
+                }
             } else {
                 System.out.println("No existe este equipo ;(");
             }
