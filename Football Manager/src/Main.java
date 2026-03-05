@@ -705,7 +705,7 @@ public class Main {
 
     //Menu principal de admin (opción 4):
     //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
-    //Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
+    //🔃 Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
 //SABER CUANTOS ENTRENADORES SE HAN CREADO
     /**
      * @param listaEquipos Lista con todos los equipos existentes
@@ -723,18 +723,25 @@ public class Main {
                 System.out.println("Estadio: " + eq.getNombreEstadio());
                 System.out.println("Presidente: " + eq.getNombrePresidente());
                 System.out.println();
-                System.out.println("DATOS ENTRENADOR:");
-                System.out.println("Nombre: ");
+
                 for (Persona p : listaFichados) {
-                    if (listaFichados.contains("E")){
+                    if (p.getNombreEquipo().equals(nombreEquipo)) { //SI PERSONA ESTÁ EN EL EQUIPO QUE EL USUARIO HA SELECCIONADO,
+                        System.out.println("PERSONA:");
+                        System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2f %-1s %-9d %-1s \n", "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "|");   //printf, tip de Miguel
 
+                        if (p instanceof Jugador) {     //instanceof, tip de Miguel
+                            System.out.println("JUGADOR:");
+                            System.out.printf("%-1s %-2d %-1s %-3s %-1s %-3s %-1s \n", "|", ((Jugador)p).getDorsal(), "|", ((Jugador)p).getCalidad(), "|", ((Jugador)p).getPosicion(), "|");
+                        }
+                        if (listaFichados.contains("E")) {
+                            System.out.println("ENTRENADOR:");
+                            /*REPLICAR printf AQUÍ*/
+                        }
                     }
-                    System.out.println(p.getNombre());
-
 
                 }
             } else {
-                System.out.println("No existe este equipo ;(");
+                System.out.println("El equipo " + nombreEquipo + " no existe");
             }
 
         }
