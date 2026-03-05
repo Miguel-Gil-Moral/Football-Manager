@@ -467,23 +467,23 @@ public class Main {
                 System.out.println("2- Entrenador/a");
                 System.out.print("Opción: ");
                 int opcion = sc.nextInt();
-                String nombre = pedirNombrePersona();
+                String nombre = pedirNombrePersona(sc);
                 System.out.print("Ingrese el apellido de la persona: ");
                 String apellido = sc.next();
-                String fechaNacimiento = asignarNacimiento();
-                int sueldoSalarial = asignarSueldoSalarial();
+                String fechaNacimiento = asignarNacimiento(sc);
+                int sueldoSalarial = asignarSueldoSalarial(sc);
                 salirBucle = true;
                 switch (opcion) {
                     case 1:
-                        int dorsalJugador = pedirDorsalJugador();
+                        int dorsalJugador = pedirDorsalJugador(sc);
                         int calidadJugador = random.nextInt(100);
-                        String posicionJugador = asignarPosicionJugador();
+                        String posicionJugador = asignarPosicionJugador(sc);
                         Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, calidadJugador);
                         listaFichajes.add(jugador);
                         break;
                     case 2:
-                        int numTorneosGanados = asignarTorneosGanado();
-                        boolean seleccionadorNacional = esSeleccionadorNacional();
+                        int numTorneosGanados = asignarTorneosGanado(sc);
+                        boolean seleccionadorNacional = esSeleccionadorNacional(sc);
                         Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, numTorneosGanados, seleccionadorNacional);
                         listaFichajes.add(entrenador);
                         break;
@@ -504,8 +504,7 @@ public class Main {
      * @return El nombre de la persona
      * @since 1.0
      */
-    private static String pedirNombrePersona() {
-        Scanner sc = new Scanner(System.in);
+    private static String pedirNombrePersona(Scanner sc) {
         System.out.print("Ingrese el nombre de la persona: ");
         return sc.next();
     }
@@ -514,8 +513,7 @@ public class Main {
      * @return Fecha de nacimiento en formato dd/MM/aaaa de tipo String
      * @since 1.0
      */
-    public static String asignarNacimiento() {
-        Scanner sc = new Scanner(System.in);
+    public static String asignarNacimiento(Scanner sc) {
         boolean salirBucle;
         int diaNacimiento = 0, mesNacimiento = 0, anoNacimiento = 0;
 
@@ -551,8 +549,7 @@ public class Main {
      * @return El sueldo que ganará la persona
      * @since 1.0
      */
-    public static int asignarSueldoSalarial() {
-        Scanner sc = new Scanner(System.in);
+    public static int asignarSueldoSalarial(Scanner sc) {
         boolean salirBucle;
         int sueldoSalarial = 0;
         do {
@@ -577,8 +574,7 @@ public class Main {
      * @return Número del dorsal no escogido para el jugador
      * @since 1.0
      */
-    public static int pedirDorsalJugador() {
-        Scanner sc = new Scanner(System.in);
+    public static int pedirDorsalJugador(Scanner sc) {
         boolean salirBucle;
         int dorsalJugador = 0;
 
@@ -609,8 +605,7 @@ public class Main {
      * </ul>
      * @since 1.0
      */
-    public static String asignarPosicionJugador() {
-        Scanner sc = new Scanner(System.in);
+    public static String asignarPosicionJugador(Scanner sc) {
         boolean salirBucle;
         int opcion;
         String posicionJugador = "";
@@ -655,8 +650,7 @@ public class Main {
      * @return La cantidad de torneos que el entrenador ha ganado
      * @since 1.0
      */
-    public static int asignarTorneosGanado() {
-        Scanner sc = new Scanner(System.in);
+    public static int asignarTorneosGanado(Scanner sc) {
         boolean salirBucle;
         int torneosGanado = 0;
 
@@ -685,8 +679,7 @@ public class Main {
      * </ul>
      * @since 1.0
      */
-    public static boolean esSeleccionadorNacional() {
-        Scanner sc = new Scanner(System.in);
+    public static boolean esSeleccionadorNacional(Scanner sc) {
         boolean salirBucle, esSeleccionadorNacional = false;
 
         do {
@@ -787,7 +780,7 @@ public class Main {
 
             //4) PEDIR dorsal
 
-            int dorsal = pedirDorsalJugador();
+            int dorsal = pedirDorsalJugador(sc);
 
 
             /*  5) BUSCAR jugador por (nombre + dorsal) en la fuente correcta

@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Test;
 
 import java.io.ByteArrayInputStream;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -22,15 +23,19 @@ class MainTest {
         String numero = "1\n";
         System.setIn(new ByteArrayInputStream(numero.getBytes()));
 
-        assertEquals("POR", Main.asignarPosicionJugador());
+        Scanner sc = new Scanner(System.in);
+
+        assertEquals("POR", Main.asignarPosicionJugador(sc));
     }
 
     @Test
     void darAltaPersona() {
         String insertarScanner = "1\nMiguel\nGil\n17\n02\n2005\n10000\n6\n3\n";
         System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
-        ArrayList<Persona> listaFichajes = Main.cargarFichajes();
-        ArrayList<Persona> listaFichajes2 = Main.darAltaPersona(listaFichajes);
+        ArrayList<Persona> temp = Main.cargarFichajes();
+        ArrayList<Persona> listaFichajes = new ArrayList<>(temp);
+
+        ArrayList<Persona> listaFichajes2 = Main.darAltaPersona(temp);
 
         assertNotEquals(listaFichajes, listaFichajes2);
     }
