@@ -14,11 +14,9 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Persona> listaFichados = Main.cargarPersonasFichadas();
-        ArrayList<Equipos> listaEquipos = Main.cargarEquipos();
-        consultarDatosEquipo(listaEquipos, listaFichados);
-        ArrayList<Persona> listaFichajes = cargarFichajes()/*, listaFichados = cargarPersonasFichadas()*/;
-//        ArrayList<Equipos> listaEquipos = cargarEquipos();
+        //AQUÍ REPLICAS (ArrayList<Clase> listaTal = cargarTal(); PARA LO QUE QUIERAS TESTEAR
+        ArrayList<Persona> listaFichajes = cargarFichajes(), listaFichados = cargarPersonasFichadas();
+        ArrayList<Equipos> listaEquipos = cargarEquipos();
         ArrayList<Liga> listaLigas = cargarLigas();
         String rol = pedirRol();
         int opcion, opcionSubmenu, numCreados = 0;
@@ -706,6 +704,7 @@ public class Main {
     //✅ Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
     /**
      * @param listaEquipos Lista con todos los equipos existentes
+     * @param listaFichados Lista con todos los jugadores fichados por un equipo
      * @since 1.0
      */
     public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {  //Está todavía por mejorar (yo le he puesto bool)
@@ -1111,7 +1110,7 @@ public class Main {
     }
 
     //Submenu gestionar mi equipo (opción 4):
-    //Preguntará que se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
+    //Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
     //Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
     //(Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
     /**
