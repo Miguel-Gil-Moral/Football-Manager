@@ -18,7 +18,7 @@ public class Main {
         ArrayList<Equipos> listaEquipos = cargarEquipos();
         ArrayList<Liga> listaLigas = cargarLigas();
         String rol = pedirRol();
-        int opcion, opcionSubmenu;
+        int opcion, opcionSubmenu, numCreados = 0;
         boolean salirBucle = false, salirBucleSubmenu = false, equipoExistente;
 
         do {
@@ -32,6 +32,7 @@ public class Main {
                             break;
                         case 2:
                             darAltaEquipo(listaEquipos);
+                            numCreados++;
                             break;
                         case 3:
                             darAltaPersona(listaFichajes);
@@ -112,6 +113,7 @@ public class Main {
                     break;
             }
         } while (!salirBucle);
+        System.out.println("Se han dado de alta " + numCreados + " personas");
         actualizarFichero(listaFichajes, listaFichados, listaEquipos, listaLigas);
     }
 
@@ -1178,7 +1180,7 @@ public class Main {
     //Pensar como guardar los goleadores de cada partido y sobre todo en que minuto ha marcado.
 
     //Adicional:
-    //Saber cuantos jugadores se han creado hasta el momento en la aplicación.
+    //✅ Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
     //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     //✅ Los jugadores extienden el método entrenamiento de la clase padre.
