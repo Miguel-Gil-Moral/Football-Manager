@@ -700,11 +700,10 @@ public class Main {
         } while (!salirBucle);
         return esSeleccionadorNacional;
     }
-
-    //Menu principal de admin (opción 4):
+// EMOJI DE CARGANDOOO 🔃
+    //✅ Menu principal de admin (opción 4):
     //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
-    //🔃 Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
-//SABER CUANTOS ENTRENADORES SE HAN CREADO
+    //✅ Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
     /**
      * @param listaEquipos Lista con todos los equipos existentes
      * @since 1.0
@@ -723,19 +722,19 @@ public class Main {
                 System.out.println("Presidente: " + eq.getNombrePresidente());
                 System.out.println();
 
-                System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2s %-1s %-9s %-1s %-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
-                        "|", "NOMBRE", "|", "APELLIDO", "|", "FECHA DE NACIMIENTO", "|", "NIVEL DE MOTIVACIÓN", "|", "SALARIO", "|", "DORSAL", "|", "CALIDAD", "|", "POSICIÓN", "|", "TORNEOS GANADOS", "|", "SELECCIONADOR NACIONAL", "|");
+                System.out.printf("%-1s %-10s %-1s %-11s %-1s %-19s %-1s %-10s %-1s %-9s %-1s %-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                        "|", "NOMBRE", "|", "APELLIDO", "|", "FECHA DE NACIMIENTO", "|", "MOTIVACIÓN", "|", "SALARIO", "|", "DORSAL", "|", "CALIDAD", "|", "POSICIÓN", "|", "TORNEOS GANADOS", "|", "SELECCIONADOR NACIONAL", "|");
                 for (Persona p : listaFichados) {
                     if (p.getNombreEquipo().equals(nombreEquipo)) { //SI PERSONA ESTÁ EN EL EQUIPO QUE EL USUARIO HA SELECCIONADO,
-                        System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2f %-1s %-9d %-1s",
-                                "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "|");   //printf, tip de Miguel
-
+                        System.out.printf("%-1s %-10s %-1s %-11s %-1s %-19s %-1s %-10.2f %-1s %-9d %-1s",
+                                //p.getNivMotivacion() --> %.2f
+                                "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "| ");   //printf, tip de Miguel
                         if (p instanceof Jugador) {     //instanceof, tip de Miguel
-                            System.out.printf("%-2d %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                            System.out.printf("%-6d %-1s %-7s %-1s %-8s %-1s %-15s %-1s %-22s %-1s \n",
                                     ((Jugador) p).getDorsal(), "|", ((Jugador) p).getCalidad(), "|", ((Jugador) p).getPosicion(), "|", "-", "|", "-", "|");
                         }
                         if (p instanceof Entrenador) {
-                            System.out.printf("%-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                            System.out.printf("%-6s %-1s %-7s %-1s %-8s %-1s %-15s %-1s %-22s %-1s \n",
                                     "-", "|", "-", "|", "-", "|", ((Entrenador) p).getNumTorneosGanados(), "|", ((Entrenador) p).isSeleccionadorNacional(), "|");
                         }
                     }
