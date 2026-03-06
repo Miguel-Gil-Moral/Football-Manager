@@ -1,0 +1,9 @@
+J;Lamine;Yamal;13/07/2007;9.0;1670000;10;DAV;91;FC Barcelona
+J;Robert;Lewandowski;21/08/1988;8.0;33000000;9;DAV;94;FC Barcelona
+E;Hansi;Flick;24/02/1965;7.0;3000000;8;false;FC Barcelona
+J;Marc-André;ter Stegen;30/04/1992;9.0;15000000;1;POR;90;FC Barcelona
+J;Jules;Koundé;12/11/1998;8.0;10000000;23;DEF;88;FC Barcelona
+J;Alejandro;Balde;18/10/2003;9.0;3000000;12;DEF;85;FC Barcelona
+J;Ronald;Araújo;07/03/1999;8.0;5000000;4;DEF;87;FC Barcelona
+J;Pedri;González;25/11/2002;9.0;7000000;8;MIG;92;FC Barcelona
+J;Gavi;Páez;05/08/2004;9.0;5000000;6;MIG;86;FC Barcelona

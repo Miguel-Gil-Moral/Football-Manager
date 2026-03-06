@@ -14,8 +14,11 @@ import java.util.Scanner;
  */
 public class Main {
     public static void main(String[] args) {
-        ArrayList<Persona> listaFichajes = cargarFichajes(), listaFichados = cargarPersonasFichadas();
-        ArrayList<Equipos> listaEquipos = cargarEquipos();
+        ArrayList<Persona> listaFichados = Main.cargarPersonasFichadas();
+        ArrayList<Equipos> listaEquipos = Main.cargarEquipos();
+        consultarDatosEquipo(listaEquipos, listaFichados);
+        ArrayList<Persona> listaFichajes = cargarFichajes()/*, listaFichados = cargarPersonasFichadas()*/;
+//        ArrayList<Equipos> listaEquipos = cargarEquipos();
         ArrayList<Liga> listaLigas = cargarLigas();
         String rol = pedirRol();
         int opcion, opcionSubmenu, numCreados = 0;
@@ -708,9 +711,10 @@ public class Main {
      */
     public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {  //Está todavía por mejorar (yo le he puesto bool)
         String nombreEquipo = pedirNombreEquipo();
-
+        boolean equipoExistente = false;
         for (Equipos eq : listaEquipos) {
             if (eq.getNombre().equals(nombreEquipo)) {
+                equipoExistente = true;
                 System.out.println("DATOS EQUIPO:");
                 System.out.println("Nombre: " + eq.getNombre());
                 System.out.println("Ciudad: " + eq.getCiudad());
@@ -719,26 +723,27 @@ public class Main {
                 System.out.println("Presidente: " + eq.getNombrePresidente());
                 System.out.println();
 
+                System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2s %-1s %-9s %-1s %-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                        "|", "NOMBRE", "|", "APELLIDO", "|", "FECHA DE NACIMIENTO", "|", "NIVEL DE MOTIVACIÓN", "|", "SALARIO", "|", "DORSAL", "|", "CALIDAD", "|", "POSICIÓN", "|", "TORNEOS GANADOS", "|", "SELECCIONADOR NACIONAL", "|");
                 for (Persona p : listaFichados) {
                     if (p.getNombreEquipo().equals(nombreEquipo)) { //SI PERSONA ESTÁ EN EL EQUIPO QUE EL USUARIO HA SELECCIONADO,
-                        System.out.println("PERSONA:");
-                        System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2f %-1s %-9d %-1s \n", "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "|");   //printf, tip de Miguel
+                        System.out.printf("%-1s %-15s %-1s %-25s %-1s %-10s %-1s %-2f %-1s %-9d %-1s",
+                                "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "|");   //printf, tip de Miguel
 
                         if (p instanceof Jugador) {     //instanceof, tip de Miguel
-                            System.out.println("JUGADOR:");
-                            System.out.printf("%-1s %-2d %-1s %-3s %-1s %-3s %-1s \n", "|", ((Jugador)p).getDorsal(), "|", ((Jugador)p).getCalidad(), "|", ((Jugador)p).getPosicion(), "|");
+                            System.out.printf("%-2d %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                                    ((Jugador) p).getDorsal(), "|", ((Jugador) p).getCalidad(), "|", ((Jugador) p).getPosicion(), "|", "-", "|", "-", "|");
                         }
-                        if (listaFichados.contains("E")) {
-                            System.out.println("ENTRENADOR:");
-                            /*REPLICAR printf AQUÍ*/
+                        if (p instanceof Entrenador) {
+                            System.out.printf("%-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
+                                    "-", "|", "-", "|", "-", "|", ((Entrenador) p).getNumTorneosGanados(), "|", ((Entrenador) p).isSeleccionadorNacional(), "|");
                         }
                     }
-
                 }
-            } else {
-                System.out.println("El equipo " + nombreEquipo + " no existe");
             }
-
+        }
+        if (!equipoExistente) {
+            System.out.println("El equipo " + nombreEquipo + " no existe");
         }
     }
 
@@ -811,7 +816,19 @@ public class Main {
     private static String pedirNombreEquipo() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Escribe el nombre del equipo: ");
-        return sc.next();
+        String nombreEquipo;
+
+        boolean equipoNoVacio;
+        do {
+            nombreEquipo = sc.nextLine();
+            if (nombreEquipo.equals("")) {
+                equipoNoVacio = false;
+                System.out.println("El equipo está vacío");
+            } else {
+                equipoNoVacio = true;
+            }
+        }  while (!equipoNoVacio);
+        return nombreEquipo;
     }
 
     //Menu principal de admin (opción 6):

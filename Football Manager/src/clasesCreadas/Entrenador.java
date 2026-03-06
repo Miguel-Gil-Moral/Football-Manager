@@ -23,6 +23,14 @@ public class Entrenador extends Persona {
         this.nombreEquipo = nombreEquipo;
     }
 
+    public int getNumTorneosGanados() {
+        return numTorneosGanados;
+    }
+
+    public boolean isSeleccionadorNacional() {
+        return seleccionadorNacional;
+    }
+
     @Override
     public String toString() {
         return "E;" + super.toString() + ";" +
