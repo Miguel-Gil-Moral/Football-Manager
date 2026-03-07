@@ -202,6 +202,10 @@ public class Main {
         return listaFichados;
     }
 
+    /**
+     * @since 1.0
+     * @return Lista con todas las ligas creadas
+     */
     public static ArrayList<Liga> cargarLigas() {
         ArrayList<Liga> listaLigas = new ArrayList<>();
         String linea;
@@ -461,7 +465,8 @@ public class Main {
     public static ArrayList<Persona> darAltaPersona(ArrayList<Persona> listaFichajes) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
-        boolean salirBucle;
+        boolean salirBucle, nombreVacio;
+        String apellido;
 
         do {
             try {
@@ -470,9 +475,17 @@ public class Main {
                 System.out.println("2- Entrenador/a");
                 System.out.print("Opción: ");
                 int opcion = sc.nextInt();
+                sc.nextLine();
                 String nombre = pedirNombrePersona(sc);
-                System.out.print("Ingrese el apellido de la persona: ");
-                String apellido = sc.next();
+                do {
+                    System.out.print("Ingrese el apellido de la persona: ");
+                    apellido = sc.nextLine();
+                    nombreVacio = false;
+                    if (apellido.isEmpty()) {
+                        System.out.print("Por favor, escriba el apellido del jugador: ");
+                        nombreVacio = true;
+                    }
+                } while (nombreVacio);
                 String fechaNacimiento = asignarNacimiento(sc);
                 int sueldoSalarial = asignarSueldoSalarial(sc);
                 salirBucle = true;
@@ -508,8 +521,18 @@ public class Main {
      * @since 1.0
      */
     private static String pedirNombrePersona(Scanner sc) {
+        String nombre;
+        boolean salirBucle;
         System.out.print("Ingrese el nombre de la persona: ");
-        return sc.next();
+        do {
+            nombre = sc.nextLine();
+            salirBucle = true;
+            if (nombre.isEmpty()) {
+                System.out.print("Por favor, escriba el nombre de la persona: ");
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+        return nombre;
     }
 
     /**
@@ -698,6 +721,7 @@ public class Main {
         } while (!salirBucle);
         return esSeleccionadorNacional;
     }
+
 // EMOJI DE CARGANDOOO 🔃
     //✅ Menu principal de admin (opción 4):
     //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
@@ -707,7 +731,7 @@ public class Main {
      * @param listaFichados Lista con todos los jugadores fichados por un equipo
      * @since 1.0
      */
-    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {  //Está todavía por mejorar (yo le he puesto bool)
+    public static void consultarDatosEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         String nombreEquipo = pedirNombreEquipo();
         boolean equipoExistente = false;
         for (Equipos eq : listaEquipos) {
@@ -746,9 +770,9 @@ public class Main {
     }
 
     //✅ Menu principal de admin (opción 5):
-    // Solicitará el nombre del equipo, para solicitar seguidamente el nombre del jugador en cuestión. Si no se encuentra el equipo mostrará un mensaje de error y se volverá al menu principal.
-    // Si el equipo se encuentra se pedirá el nombre y el dorsal del jugador. Con estos datos se buscará jugador del equipo y se mostrará sus datos.
-    // Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
+    //✅ Solicitará el nombre del equipo, para solicitar seguidamente el nombre del jugador en cuestión. Si no se encuentra el equipo mostrará un mensaje de error y se volverá al menu principal.
+    //✅ Si el equipo se encuentra se pedirá el nombre y el dorsal del jugador. Con estos datos se buscará jugador del equipo y se mostrará sus datos.
+    //✅ Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
 
     /**
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
@@ -758,13 +782,11 @@ public class Main {
     public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
 
         Scanner sc = new Scanner(System.in);
-        boolean equipoEncontrado = false;
-
+        boolean equipoEncontrado = false, jugadorEncontrado = false;
 
         //1) PEDIR nombre de equipo
 
         String nombreEquipo = pedirNombreEquipo();
-
 
         /*2) BUSCAR equipo en listaEquipos
          *    - si NO existe: informar y terminar*/
@@ -775,24 +797,21 @@ public class Main {
             }
         }
 
-
         //3) PEDIR nombre de jugador
 
         if (equipoEncontrado) {
-            System.out.print("Introduce el nombre del jugador: ");
-            String nombreJugador = sc.next();
-
+            String nombreJugador = pedirNombrePersona(sc);
 
             //4) PEDIR dorsal
 
             int dorsal = pedirDorsalJugador(sc);
 
-
             /*  5) BUSCAR jugador por (nombre + dorsal) en la fuente correcta
                     - si NO existe: informar y terminar */
 
             for (Persona pr : listaFichados) {
-                if (pr.getNombre().equals(nombreJugador)) {    //6) MOSTRAR datos comunes (Persona) + datos exclusivos (Jugador)
+                if (pr.getNombre().equals(nombreJugador) && ((Jugador) pr).getDorsal() == dorsal) {    //6) MOSTRAR datos comunes (Persona) + datos exclusivos (Jugador)
+                    jugadorEncontrado = true;
                     System.out.println("Nombre: " + pr.getNombre());
                     System.out.println("Apellido: " + pr.getApellido());
                     System.out.println("Fecha Nacimiento: " + pr.getFechaNacimiento());
@@ -803,7 +822,9 @@ public class Main {
                     System.out.println("Calidad: " + ((Jugador) pr).getCalidad());   //mostrar los datos (atributos) exclusivos de jugador
                 }
             }
-
+            if (!jugadorEncontrado) {
+                System.out.println("El jugador junto con su dorsal no se ha encontrado");
+            }
         } else {
             System.out.println("¡No existe el equipo " + nombreEquipo + "!...");
 
@@ -811,6 +832,10 @@ public class Main {
         }
     }
 
+    /**
+     * @since 1.0
+     * @return Nombre del equipo insertado por el usuario
+     */
     private static String pedirNombreEquipo() {
         Scanner sc = new Scanner(System.in);
         System.out.print("Escribe el nombre del equipo: ");
@@ -819,7 +844,7 @@ public class Main {
         boolean equipoNoVacio;
         do {
             nombreEquipo = sc.nextLine();
-            if (nombreEquipo.equals("")) {
+            if (nombreEquipo.isEmpty()) {
                 equipoNoVacio = false;
                 System.out.println("El equipo está vacío");
             } else {
@@ -883,20 +908,20 @@ public class Main {
     public static void guardarDatosEquipo() {
     }
 
-    //✅Menu principal para gestor de equipos:
-    //      1- Veure classificació lliga actual 🏆
-    //
-    //      2- Gestionar el meu equip ⚽
-    //
-    //      3- Consultar dades equip
-    //
-    //      4- Consultar dades jugador/a equip
-    //
-    //      5- Transferir jugador/a
-    //
-    //      6 - Desar dades equips
-    //
-    //      0- Sortir
+    //✅ Menu principal para gestor de equipos:
+    //✅       1- Veure classificació lliga actual 🏆
+    //✅
+    //✅       2- Gestionar el meu equip ⚽
+    //✅
+    //✅       3- Consultar dades equip
+    //✅
+    //✅       4- Consultar dades jugador/a equip
+    //✅
+    //✅       5- Transferir jugador/a
+    //✅
+    //✅       6 - Desar dades equips
+    //✅
+    //✅       0- Sortir
 
     /**
      * @return Opción escogida por el Gestor de equipos
@@ -980,8 +1005,16 @@ public class Main {
         }
     }
 
+    /**
+     * @since 1.0
+     * @param listaEquipos Lista con todos los equipos disponibles para la revisión
+     * @param nombreEquipo El nombre del equipo para revisar si existe en la lista
+     * @return Devolvera el resultado de la revisión en estos casos: <ul>
+     *     <li>True: Se encontro el equipo de los que existen en la lista</li>
+     *     <li>False: No se encontro el equipo de los que existen en la lista</li>
+     * </ul>
+     */
     public static boolean revisarEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
-        Scanner sc = new Scanner(System.in);
         boolean encontrado = false;
 
         for (Equipos eq : listaEquipos) {
@@ -1037,22 +1070,24 @@ public class Main {
         return opcionSubmenu;
     }
 
-    //Submenu gestionar mi equipo (opción 1):
-    //Se eliminará el equipo de la lista de la aplicación, confirmación por parte del usuario.
+    //✅ Submenu gestionar mi equipo (opción 1):
+    //✅ Se eliminará el equipo de la lista de la aplicación, confirmación por parte del usuario.
 
     /**
      * @since 1.0
+     * @param listaEquipos Lista con todos los equipos disponibles
+     * @param nombreEquipo Nombre del equipo al cual se dara de baja
      */
     public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Quieres borrar el equipo " + nombreEquipo + " de la lista de equipos? («true» o «false»).");
-        boolean resuestaUsuario = sc.nextBoolean();
+        boolean respuestaUsuario = sc.nextBoolean();
         int indiceEquipo = 0;
         boolean salirBucle;
         do {
             try {
                 salirBucle = true;
-                if (resuestaUsuario) {
+                if (respuestaUsuario) {
                     for (Equipos eq : listaEquipos) {
                         if (eq.getNombre().equals(nombreEquipo)) {
                             listaEquipos.remove(indiceEquipo);
