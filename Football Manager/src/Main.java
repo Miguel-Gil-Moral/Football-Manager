@@ -78,7 +78,7 @@ public class Main {
                                             darBajaEquipo(listaEquipos, nombreEquipo);
                                             break;
                                         case 2:
-                                            modificarPresidente(listaEquipos);
+                                            modificarPresidente(listaEquipos, listaFichados);
                                             break;
                                         case 3:
                                             destituirEntrenador();
@@ -1123,15 +1123,39 @@ public class Main {
     }
     */
 
-    //Submenu gestionar mi equipo (opción 2):
-    //Se pedirá el nombre del presidente y se actualizará los siguientes casos:
-    //Si se proporciona el mismo presidente que ya había, mostrará un mensaje de aviso.
-    //Si el equipo no tiene ninguna persona asignada a la presidencia, se informará al usuario del hecho con un mensaje.
     /**
      * @since 1.0
+     * @param listaEquipos Submenu gestionar mi equipo (opción 2):
+     *     Se pedirá el nombre del presidente y se actualizará en los siguientes casos:
+     *     Si se proporciona el mismo presidente que ya había, mostrará un mensaje de aviso.
+     *     Si el equipo no tiene ninguna persona asignada a la presidencia, se informará al usuario del hecho con un mensaje.
      */
-    public static void modificarPresidente(ArrayList<Equipos> listaEquipos) {
+    public static void modificarPresidente(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("Nombre presidente:");
 
+        String nombrePresidente = sc.nextLine();
+        boolean salirBucle;
+
+        do {
+            salirBucle = true;
+            if (nombrePresidente.isEmpty()) { //Java me recomienda usar isEmpty antes que nombrePresidente != null || ...
+                for (Equipos eq : listaEquipos) {
+                    if (eq.getNombrePresidente().equals(nombrePresidente)) {
+                        System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
+                    }
+                }
+            } else {
+                System.out.println("El equipo no tiene ninguna persona asignada a la presidencia.");
+                boolean respuestaUsuario;
+                salirBucle = false;
+            }
+            System.out.println("Quieres añadir a una persoan a la presicencia? (Yes, No)");
+            char opcion = sc.next().charAt(0);
+
+
+
+        } while (!salirBucle);
     }
 
     //Submenu gestionar mi equipo (opción 3):
