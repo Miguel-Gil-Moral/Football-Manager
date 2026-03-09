@@ -45,7 +45,8 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            disputarNuevaLiga(listaEquipos);
+                            listaLigas.add(disputarNuevaLiga());
+                            disputarPartidos();
                             break;
                         case 7:
                             realizarEntrenamientoMercado();
@@ -859,9 +860,8 @@ public class Main {
 
     /**
      * @since 1.0
-     * @param listaEquipos Lista con todos los equipos que participaran en la liga
      */
-    public static void disputarNuevaLiga(ArrayList<Equipos> listaEquipos) {
+    public static Liga disputarNuevaLiga() {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
@@ -892,29 +892,12 @@ public class Main {
             }
         } while (!salirBucle);
 
-        Liga liga = new Liga(nombre, cantidadEquipos);
-
-        String[] nombreEquipos = new String[cantidadEquipos];
-
-        for (Equipos eq : listaEquipos) {
-            for (int i = 0; i < nombreEquipos.length; i++) {
-                nombreEquipos[i] = eq.getNombre();
-            }
-        }
-
-        ArrayList<Partido> listaPartidos = new ArrayList<>();
-
-        for (int i = 0; i < cantidadEquipos; i++) {
-            for (int j = 0; j < cantidadEquipos; j++) {
-                if (i != j) {
-                    listaPartidos.add(new Partido(nombre, nombreEquipos[i], nombreEquipos[j]));
-                }
-            }
-        }
-
-
+        return new Liga(nombre, cantidadEquipos);
     }
 
+    public static void disputarPartidos() {
+
+    }
     //Menu principal admin (opción 7):
     //Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
     //Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
