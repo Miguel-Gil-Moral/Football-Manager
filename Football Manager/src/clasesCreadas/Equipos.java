@@ -15,13 +15,6 @@ public class Equipos {
     private String nombreEstadio;
     private String nombrePresidente;
 
-
-    public Equipos(String nombre, int anyoFundacion, String ciudad) {
-        this.nombre = nombre;
-        this.anyoFundacion = anyoFundacion;
-        this.ciudad = ciudad;
-    }
-
     public Equipos(String nombre, int anyoFundacion, String ciudad, String nombreEstadio, String nombrePresidente) {
         this.nombre = nombre;
         this.anyoFundacion = anyoFundacion;
@@ -49,16 +42,6 @@ public class Equipos {
     public int getAnyoFundacion() {
         return anyoFundacion;
     }
-
-    public void setNombrePresidente(String nombrePresidente) {
-        this.nombrePresidente = nombrePresidente;
-    }
-
-
-    public void setNombreEstadio(String nombreEstadio) {
-        this.nombreEstadio = nombreEstadio;
-    }
-
 
     public void calcularMediaEquipo() {
 

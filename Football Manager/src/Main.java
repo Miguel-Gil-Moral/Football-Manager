@@ -45,7 +45,7 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            disputarNuevaLiga();
+                            disputarNuevaLiga(listaEquipos);
                             break;
                         case 7:
                             realizarEntrenamientoMercado();
@@ -399,29 +399,34 @@ public class Main {
      */
     public static ArrayList<Equipos> darAltaEquipo(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
-        boolean salirBucle;
-        String nombre, ciudad, nombreEstadio, nombrePresidente;
+        boolean salirBucle, equipoExiste;
+        String nombre = "", ciudad = "", nombreEstadio, nombrePresidente;
         int anyoFundacion = 0;
 
         do {
-            System.out.print("Ingrese el nombre del equipo: ");
-            nombre = sc.next();
-            salirBucle = true;
-            for (Equipos eq : listaEquipos) {
-                String nombreEquipo = eq.getNombre();
-                if (nombreEquipo.equals(nombre)) {
-                    System.out.println("El nombre del equipo ya existe en uno, escoja otro nombre");
-                    salirBucle = false;
-                }
-            }
-        } while (!salirBucle);
-        do {
             try {
+                System.out.print("Ingrese el nombre del equipo: ");
+                nombre = sc.nextLine();
                 System.out.print("¿En que año se fundo el equipo?: ");
                 anyoFundacion = sc.nextInt();
+                System.out.print("¿En que ciudad reside?: ");
+                ciudad = sc.nextLine();
                 salirBucle = true;
+                equipoExiste = false;
+                for (Equipos eq : listaEquipos) {
+                    if (eq.getNombre().equals(nombre)) {
+                        equipoExiste = true;
+                    }
+                }
                 if (anyoFundacion < 1850 || anyoFundacion > 2026) {
                     System.out.println("Opción invalida, escriba un año entre 1850 y 2026");
+                    salirBucle = false;
+                } else if (equipoExiste) {
+                    System.out.println("El nombre del equipo ya existe, escriba otro");
+                    salirBucle = false;
+                } else if (nombre.isEmpty() || ciudad.isEmpty()) {
+                    System.out.println("El equipo o la ciudad estan vacíos, por favor rellenalos");
+                    salirBucle = false;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Opción invalida, escriba solo números enteros");
@@ -429,23 +434,15 @@ public class Main {
                 salirBucle = false;
             }
         } while (!salirBucle);
-        System.out.print("¿En que ciudad reside?: ");
-        ciudad = sc.next();
-        sc.nextLine();
+
         System.out.print("Escribe el nombre del estadio (Opcional): ");
         nombreEstadio = sc.nextLine();
         System.out.print("Escribe el nombre del presidente (Opcional): ");
         nombrePresidente = sc.nextLine();
 
-        Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad);
-        if (nombreEstadio.isEmpty()) { //Iba a ponerlo con .length, pero el programa me lo recomendó de esta manera. Esta prueba de que no lo hice con chatgpt. Merequetenge
-            equipos.setNombrePresidente(nombrePresidente);
-        } else if (nombrePresidente.isEmpty()) {
-            equipos.setNombreEstadio(nombreEstadio);
-        } else {
-            equipos.setNombreEstadio(nombreEstadio);
-            equipos.setNombrePresidente(nombrePresidente);
-        }
+        Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad, nombreEstadio, nombrePresidente);
+
+        listaEquipos.add(equipos);
 
         return listaEquipos;
     }
@@ -857,25 +854,37 @@ public class Main {
     //Menu principal de admin (opción 6):
     //✅ Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
     //✅ Se le asignará al objeto "Lliga" de la clase a la aplicación.
-    //Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
+    //✅ Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
     //Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
 
     /**
      * @since 1.0
+     * @param listaEquipos Lista con todos los equipos que participaran en la liga
      */
-    public static void disputarNuevaLiga() {
+    public static void disputarNuevaLiga(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
         int cantidadEquipos = 0;
 
         System.out.print("Escoga un nombre para la liga: ");
-        nombre = sc.next();
+        do {
+            nombre = sc.nextLine();
+            salirBucle = true;
+            if (nombre.isEmpty()) {
+                System.out.print("El nombre de la liga esta vacío, escriba un nombre: ");
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+
         do {
             try {
                 System.out.print("¿Cuantos equipos participaran?: ");
                 cantidadEquipos = sc.nextInt();
                 salirBucle = true;
+                if (cantidadEquipos % 2 != 0) {
+                    System.out.println("Cantidad incorrecta, coloque un número sea par");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Opción incorrecta, escriba la cantidad de equipos en números enteros");
                 sc.next();
@@ -883,7 +892,27 @@ public class Main {
             }
         } while (!salirBucle);
 
-        Liga lliga = new Liga(nombre, cantidadEquipos);
+        Liga liga = new Liga(nombre, cantidadEquipos);
+
+        String[] nombreEquipos = new String[cantidadEquipos];
+
+        for (Equipos eq : listaEquipos) {
+            for (int i = 0; i < nombreEquipos.length; i++) {
+                nombreEquipos[i] = eq.getNombre();
+            }
+        }
+
+        ArrayList<Partido> listaPartidos = new ArrayList<>();
+
+        for (int i = 0; i < cantidadEquipos; i++) {
+            for (int j = 0; j < cantidadEquipos; j++) {
+                if (i != j) {
+                    listaPartidos.add(new Partido(nombre, nombreEquipos[i], nombreEquipos[j]));
+                }
+            }
+        }
+
+
     }
 
     //Menu principal admin (opción 7):
@@ -1009,7 +1038,7 @@ public class Main {
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos disponibles para la revisión
      * @param nombreEquipo El nombre del equipo para revisar si existe en la lista
-     * @return Devolvera el resultado de la revisión en estos casos: <ul>
+     * @return Devolverá el resultado de la revisión en estos casos: <ul>
      *     <li>True: Se encontro el equipo de los que existen en la lista</li>
      *     <li>False: No se encontro el equipo de los que existen en la lista</li>
      * </ul>
