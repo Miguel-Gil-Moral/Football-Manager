@@ -1139,21 +1139,40 @@ public class Main {
 
         do {
             salirBucle = true;
-            if (nombrePresidente.isEmpty()) { //Java me recomienda usar isEmpty antes que nombrePresidente != null || ...
+            if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
                 for (Equipos eq : listaEquipos) {
                     if (eq.getNombrePresidente().equals(nombrePresidente)) {
                         System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
+                    } else {
+                        System.out.println("El equipo " + eq.getNombre() + " no tiene de presidente a " + nombrePresidente);
                     }
                 }
             } else {
-                System.out.println("El equipo no tiene ninguna persona asignada a la presidencia.");
-                boolean respuestaUsuario;
+                System.out.println("Escribe el nombre del presidente para saber si el equipo tiene alguna persona asignada a la presidencia.");
                 salirBucle = false;
+
             }
-            System.out.println("Quieres añadir a una persoan a la presicencia? (Yes, No)");
-            char opcion = sc.next().charAt(0);
 
 
+            for (Equipos eq : listaEquipos) {
+                if (eq.getNombrePresidente()!= null && !eq.getNombrePresidente().isEmpty()) {
+
+                    System.out.println("Quieres añadir a una persona a la presidencia? (Y, N)");
+                    char opcion = sc.next().charAt(0);
+
+                    if (opcion == 'Y' || opcion == 'N') {
+
+                    } else {
+
+                    }
+
+                } else {
+                    System.out.println("El equipo no tiene ninguna persona asignada a la presidencia.");
+                    salirBucle = false;
+                }
+            }
+
+            System.out.println("A quién quieres asignar a la presicencia?");
 
         } while (!salirBucle);
     }
