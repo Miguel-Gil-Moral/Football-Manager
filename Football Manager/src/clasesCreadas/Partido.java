@@ -4,26 +4,28 @@ import java.util.ArrayList;
 import java.util.Random;
 
 public class Partido {
-    private String equipoLocal, equipoVisitante, nombreLiga;
+    private final String equipoLocal, equipoVisitante, nombreLiga;
     private int golesLocal, golesVisitante;
     private ArrayList<String> tiempoGolesMarcados = new ArrayList<>();
     private int puntosLocal, puntosVisitante;
     private double probabilidadGolLocal = 0.05, probabilidadGolVisitante = 0.05;
 
     public Partido(String nombreLiga, String equipoLocal, String equipoVisitante) {
-
+        this.nombreLiga = nombreLiga;
+        this.equipoLocal = equipoLocal;
+        this.equipoVisitante = equipoVisitante;
     }
 
-    public void aumentarProbabilidadGol(int mediaMotivacionLocal, int mediaMotivacionVisitante) {
+    public void aumentarProbabilidadGol(double mediaMotivacionLocal, double mediaMotivacionVisitante) {
         if (mediaMotivacionLocal <= 100 && mediaMotivacionLocal > 66) {
-            probabilidadGolLocal = 0.07;
+            probabilidadGolLocal = 0.055;
         } else if (mediaMotivacionLocal <= 33 && mediaMotivacionLocal >= 0) {
-            probabilidadGolLocal = 0.03;
+            probabilidadGolLocal = 0.045;
         }
         if (mediaMotivacionVisitante <= 100 && mediaMotivacionVisitante > 66) {
-            probabilidadGolVisitante = 0.07;
+            probabilidadGolVisitante = 0.055;
         } else if (mediaMotivacionVisitante <= 33 && mediaMotivacionVisitante >= 0) {
-            probabilidadGolVisitante = 0.03;
+            probabilidadGolVisitante = 0.045;
         }
     }
 
@@ -59,6 +61,14 @@ public class Partido {
             puntosLocal += 1;
             puntosVisitante += 1;
         }
+    }
+
+    public String getEquipoLocal() {
+        return equipoLocal;
+    }
+
+    public String getEquipoVisitante() {
+        return equipoVisitante;
     }
 
     @Override

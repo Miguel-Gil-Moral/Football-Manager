@@ -45,11 +45,11 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            listaLigas.add(disputarNuevaLiga());
-                            disputarPartidos();
+                            Liga liga = (disputarNuevaLiga());
+                            disputarPartidos(liga, listaEquipos, listaFichados);
                             break;
                         case 7:
-                            realizarEntrenamientoMercado();
+                            realizarEntrenamientoMercado(listaFichajes);
                             break;
                         case 8:
                             guardarDatosEquipo();
@@ -490,9 +490,8 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         int dorsalJugador = pedirDorsalJugador(sc);
-                        int calidadJugador = random.nextInt(100);
                         String posicionJugador = asignarPosicionJugador(sc);
-                        Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, calidadJugador);
+                        Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, random.nextInt(100));
                         listaFichajes.add(jugador);
                         break;
                     case 2:
@@ -895,19 +894,69 @@ public class Main {
         return new Liga(nombre, cantidadEquipos);
     }
 
-    public static void disputarPartidos() {
+    public static void disputarPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+        String[] nombreEquipos = new String[liga.getCantidadEquipos()];
+        ArrayList<Partido> listaPartidos = new ArrayList<>();
+        int i = 0;
+
+        for (Equipos eq : listaEquipos) {
+            if (i < nombreEquipos.length) {
+                nombreEquipos[i] = eq.getNombre();
+                i++;
+            }
+        }
+
+        for (i = 0; i < nombreEquipos.length;i++) {
+            for (int j = 0; j < nombreEquipos.length; j++) {
+                if (i != j) {
+                    listaPartidos.add(new Partido(liga.getNombre(), nombreEquipos[i], nombreEquipos[j]));
+                }
+            }
+        }
+        ArrayList<Double> motivacionEquipoLocal = new ArrayList<>(), motivacionEquipoVisitante = new ArrayList<>();
+
+        for (Partido ptd : listaPartidos) {
+            for (Persona p : listaFichados) {
+                if (p.getNombreEquipo().equals(ptd.getEquipoLocal())) {
+                    motivacionEquipoLocal.add(p.getNivMotivacion());
+                } else if (p.getNombreEquipo().equals(ptd.getEquipoVisitante())) {
+                    motivacionEquipoVisitante.add(p.getNivMotivacion());
+                }
+            }
+        }
+
+        double mediaMotivacionLocal = calcularMediaMotivacion(motivacionEquipoLocal);
+        double mediaMotivacionVisitante = calcularMediaMotivacion(motivacionEquipoVisitante);
 
     }
-    //Menu principal admin (opción 7):
-    //Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
-    //Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
-    //Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
+
+    public static double calcularMediaMotivacion(ArrayList<Double> motivacionEquipos) {
+        double suma = 0;
+        for (Double dbl : motivacionEquipos) {
+            suma += dbl;
+        }
+        return suma / motivacionEquipos.size();
+    }
+
+    //✅ Menu principal admin (opción 7):
+    //✅ Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
+    //✅ Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
+    //✅ Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
 
     /**
      * @since 1.0
+     * @param listaFichajes Lista con todos los jugadores del mercado para realizar los entrenamientos
      */
-    public static void realizarEntrenamientoMercado() {
-
+    public static void realizarEntrenamientoMercado(ArrayList<Persona> listaFichajes) {
+        for (Persona p : listaFichajes) {
+            if (p instanceof Jugador) {
+                ((Jugador) p).entrenamiento();
+                ((Jugador) p).cambiarDePosicion("DAV"); //DAV es placeholder
+            } else if (p instanceof Entrenador) {
+                ((Entrenador) p).entrenamiento();
+                ((Entrenador) p).incrementarSalario();
+            }
+        }
     }
 
     //Menu principal de admin (opción 8):
@@ -1244,12 +1293,7 @@ public class Main {
     //Adicional:
     //✅ Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
-    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     //✅ Los jugadores extienden el método entrenamiento de la clase padre.
-    //Ademas de ejecutar el código de la clase padre, la calidad del jugador aumentara en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.
-    //Aparte de realizar incrementos, se mostrará quien ha estado en el resultado.
-    //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
-    //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
     //Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
     //Por su posición (Orden alfabético). Si tienen la misma posición, ordenaremos de mayor a menor la calidad.
     //Se aplicará cada vez que listemos los jugadores de un equipo.
