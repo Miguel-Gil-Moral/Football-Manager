@@ -3,8 +3,7 @@ package clasesCreadas;
 //Clase Jugadores y Entrenadores
 //✅ Atributos (Los dos): nombre, apellido, día de nacimiento, nivel motivación(1-10), sueldo salarial
 //✅ Atributos (Entrenador): número torneos ganados, ha estado seleccionador nacional(booleano)
-//Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
-//Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%.
+//✅ Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
 public class Entrenador extends Persona {
     private int numTorneosGanados;
     private boolean seleccionadorNacional;
@@ -15,8 +14,9 @@ public class Entrenador extends Persona {
         this.seleccionadorNacional = seleccionadorNacional;
     }
 
-    private void incrementarSalario() {
-
+    //✅ Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%.
+    public void incrementarSalario() {
+        this.sueldoSalarial += (int) (this.sueldoSalarial * 1.05);
     }
 
     public void setNombreEquipo(String nombreEquipo) {
@@ -38,6 +38,8 @@ public class Entrenador extends Persona {
                 seleccionadorNacional;
     }
 
+    //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
+    //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
     @Override
     public void entrenamiento() {
         if (seleccionadorNacional) {

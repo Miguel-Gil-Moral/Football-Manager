@@ -48,5 +48,8 @@ public abstract class Persona {
         return nombreEquipo;
     }
 
-    public abstract void entrenamiento();
+    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
+    public void entrenamiento() {
+        this.nivMotivacion += 0.2;
+    }
 }

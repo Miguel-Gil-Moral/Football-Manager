@@ -45,10 +45,11 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            disputarNuevaLiga();
+                            Liga liga = (disputarNuevaLiga());
+                            disputarPartidos(liga, listaEquipos, listaFichados);
                             break;
                         case 7:
-                            realizarEntrenamientoMercado();
+                            realizarEntrenamientoMercado(listaFichajes);
                             break;
                         case 8:
                             guardarDatosEquipo();
@@ -399,29 +400,34 @@ public class Main {
      */
     public static ArrayList<Equipos> darAltaEquipo(ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
-        boolean salirBucle;
-        String nombre, ciudad, nombreEstadio, nombrePresidente;
+        boolean salirBucle, equipoExiste;
+        String nombre = "", ciudad = "", nombreEstadio, nombrePresidente;
         int anyoFundacion = 0;
 
         do {
-            System.out.print("Ingrese el nombre del equipo: ");
-            nombre = sc.next();
-            salirBucle = true;
-            for (Equipos eq : listaEquipos) {
-                String nombreEquipo = eq.getNombre();
-                if (nombreEquipo.equals(nombre)) {
-                    System.out.println("El nombre del equipo ya existe en uno, escoja otro nombre");
-                    salirBucle = false;
-                }
-            }
-        } while (!salirBucle);
-        do {
             try {
+                System.out.print("Ingrese el nombre del equipo: ");
+                nombre = sc.nextLine();
                 System.out.print("¿En que año se fundo el equipo?: ");
                 anyoFundacion = sc.nextInt();
+                System.out.print("¿En que ciudad reside?: ");
+                ciudad = sc.nextLine();
                 salirBucle = true;
+                equipoExiste = false;
+                for (Equipos eq : listaEquipos) {
+                    if (eq.getNombre().equals(nombre)) {
+                        equipoExiste = true;
+                    }
+                }
                 if (anyoFundacion < 1850 || anyoFundacion > 2026) {
                     System.out.println("Opción invalida, escriba un año entre 1850 y 2026");
+                    salirBucle = false;
+                } else if (equipoExiste) {
+                    System.out.println("El nombre del equipo ya existe, escriba otro");
+                    salirBucle = false;
+                } else if (nombre.isEmpty() || ciudad.isEmpty()) {
+                    System.out.println("El equipo o la ciudad estan vacíos, por favor rellenalos");
+                    salirBucle = false;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Opción invalida, escriba solo números enteros");
@@ -429,23 +435,15 @@ public class Main {
                 salirBucle = false;
             }
         } while (!salirBucle);
-        System.out.print("¿En que ciudad reside?: ");
-        ciudad = sc.next();
-        sc.nextLine();
+
         System.out.print("Escribe el nombre del estadio (Opcional): ");
         nombreEstadio = sc.nextLine();
         System.out.print("Escribe el nombre del presidente (Opcional): ");
         nombrePresidente = sc.nextLine();
 
-        Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad);
-        if (nombreEstadio.isEmpty()) { //Iba a ponerlo con .length, pero el programa me lo recomendó de esta manera. Esta prueba de que no lo hice con chatgpt. Merequetenge
-            equipos.setNombrePresidente(nombrePresidente);
-        } else if (nombrePresidente.isEmpty()) {
-            equipos.setNombreEstadio(nombreEstadio);
-        } else {
-            equipos.setNombreEstadio(nombreEstadio);
-            equipos.setNombrePresidente(nombrePresidente);
-        }
+        Equipos equipos = new Equipos(nombre, anyoFundacion, ciudad, nombreEstadio, nombrePresidente);
+
+        listaEquipos.add(equipos);
 
         return listaEquipos;
     }
@@ -492,9 +490,8 @@ public class Main {
                 switch (opcion) {
                     case 1:
                         int dorsalJugador = pedirDorsalJugador(sc);
-                        int calidadJugador = random.nextInt(100);
                         String posicionJugador = asignarPosicionJugador(sc);
-                        Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, calidadJugador);
+                        Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial, dorsalJugador, posicionJugador, random.nextInt(100));
                         listaFichajes.add(jugador);
                         break;
                     case 2:
@@ -857,25 +854,36 @@ public class Main {
     //Menu principal de admin (opción 6):
     //✅ Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
     //✅ Se le asignará al objeto "Lliga" de la clase a la aplicación.
-    //Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
+    //✅ Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
     //Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
 
     /**
      * @since 1.0
      */
-    public static void disputarNuevaLiga() {
+    public static Liga disputarNuevaLiga() {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
         int cantidadEquipos = 0;
 
         System.out.print("Escoga un nombre para la liga: ");
-        nombre = sc.next();
+        do {
+            nombre = sc.nextLine();
+            salirBucle = true;
+            if (nombre.isEmpty()) {
+                System.out.print("El nombre de la liga esta vacío, escriba un nombre: ");
+                salirBucle = false;
+            }
+        } while (!salirBucle);
+
         do {
             try {
                 System.out.print("¿Cuantos equipos participaran?: ");
                 cantidadEquipos = sc.nextInt();
                 salirBucle = true;
+                if (cantidadEquipos % 2 != 0) {
+                    System.out.println("Cantidad incorrecta, coloque un número sea par");
+                }
             } catch (InputMismatchException e) {
                 System.out.println("Opción incorrecta, escriba la cantidad de equipos en números enteros");
                 sc.next();
@@ -883,19 +891,72 @@ public class Main {
             }
         } while (!salirBucle);
 
-        Liga lliga = new Liga(nombre, cantidadEquipos);
+        return new Liga(nombre, cantidadEquipos);
     }
 
-    //Menu principal admin (opción 7):
-    //Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
-    //Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
-    //Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
+    public static void disputarPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+        String[] nombreEquipos = new String[liga.getCantidadEquipos()];
+        ArrayList<Partido> listaPartidos = new ArrayList<>();
+        int i = 0;
+
+        for (Equipos eq : listaEquipos) {
+            if (i < nombreEquipos.length) {
+                nombreEquipos[i] = eq.getNombre();
+                i++;
+            }
+        }
+
+        for (i = 0; i < nombreEquipos.length;i++) {
+            for (int j = 0; j < nombreEquipos.length; j++) {
+                if (i != j) {
+                    listaPartidos.add(new Partido(liga.getNombre(), nombreEquipos[i], nombreEquipos[j]));
+                }
+            }
+        }
+        ArrayList<Double> motivacionEquipoLocal = new ArrayList<>(), motivacionEquipoVisitante = new ArrayList<>();
+
+        for (Partido ptd : listaPartidos) {
+            for (Persona p : listaFichados) {
+                if (p.getNombreEquipo().equals(ptd.getEquipoLocal())) {
+                    motivacionEquipoLocal.add(p.getNivMotivacion());
+                } else if (p.getNombreEquipo().equals(ptd.getEquipoVisitante())) {
+                    motivacionEquipoVisitante.add(p.getNivMotivacion());
+                }
+            }
+        }
+
+        double mediaMotivacionLocal = calcularMediaMotivacion(motivacionEquipoLocal);
+        double mediaMotivacionVisitante = calcularMediaMotivacion(motivacionEquipoVisitante);
+
+    }
+
+    public static double calcularMediaMotivacion(ArrayList<Double> motivacionEquipos) {
+        double suma = 0;
+        for (Double dbl : motivacionEquipos) {
+            suma += dbl;
+        }
+        return suma / motivacionEquipos.size();
+    }
+
+    //✅ Menu principal admin (opción 7):
+    //✅ Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
+    //✅ Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
+    //✅ Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
 
     /**
      * @since 1.0
+     * @param listaFichajes Lista con todos los jugadores del mercado para realizar los entrenamientos
      */
-    public static void realizarEntrenamientoMercado() {
-
+    public static void realizarEntrenamientoMercado(ArrayList<Persona> listaFichajes) {
+        for (Persona p : listaFichajes) {
+            if (p instanceof Jugador) {
+                ((Jugador) p).entrenamiento();
+                ((Jugador) p).cambiarDePosicion("DAV"); //DAV es placeholder
+            } else if (p instanceof Entrenador) {
+                ((Entrenador) p).entrenamiento();
+                ((Entrenador) p).incrementarSalario();
+            }
+        }
     }
 
     //Menu principal de admin (opción 8):
@@ -1009,7 +1070,7 @@ public class Main {
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos disponibles para la revisión
      * @param nombreEquipo El nombre del equipo para revisar si existe en la lista
-     * @return Devolvera el resultado de la revisión en estos casos: <ul>
+     * @return Devolverá el resultado de la revisión en estos casos: <ul>
      *     <li>True: Se encontro el equipo de los que existen en la lista</li>
      *     <li>False: No se encontro el equipo de los que existen en la lista</li>
      * </ul>
@@ -1275,12 +1336,7 @@ public class Main {
     //Adicional:
     //✅ Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
-    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     //✅ Los jugadores extienden el método entrenamiento de la clase padre.
-    //Ademas de ejecutar el código de la clase padre, la calidad del jugador aumentara en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.
-    //Aparte de realizar incrementos, se mostrará quien ha estado en el resultado.
-    //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
-    //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
     //Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
     //Por su posición (Orden alfabético). Si tienen la misma posición, ordenaremos de mayor a menor la calidad.
     //Se aplicará cada vez que listemos los jugadores de un equipo.

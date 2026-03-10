@@ -6,21 +6,11 @@ package clasesCreadas;
 //Podemos crear equipos sin indicar obligatoriamente los campos opcionales
 //Los equipos de los datos anteriores, tienen un entrenador y un listado de jugadores
 
-
-//Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
 public class Equipos {
-    private String nombre;
-    private int anyoFundacion;
-    private String ciudad;
+    private final String nombre, ciudad;
+    private final int anyoFundacion;
     private String nombreEstadio;
     private String nombrePresidente;
-
-
-    public Equipos(String nombre, int anyoFundacion, String ciudad) {
-        this.nombre = nombre;
-        this.anyoFundacion = anyoFundacion;
-        this.ciudad = ciudad;
-    }
 
     public Equipos(String nombre, int anyoFundacion, String ciudad, String nombreEstadio, String nombrePresidente) {
         this.nombre = nombre;
@@ -50,17 +40,8 @@ public class Equipos {
         return anyoFundacion;
     }
 
-    public void setNombrePresidente(String nombrePresidente) {
-        this.nombrePresidente = nombrePresidente;
-    }
-
-
-    public void setNombreEstadio(String nombreEstadio) {
-        this.nombreEstadio = nombreEstadio;
-    }
-
-
-    public void calcularMediaEquipo() {
+    //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
+    public void calcularMediaEquipo(double[] calidadEquipo) {
 
     }
 
