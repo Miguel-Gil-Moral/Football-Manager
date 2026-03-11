@@ -16,7 +16,7 @@ public class Entrenador extends Persona {
 
     //✅ Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%.
     public void incrementarSalario() {
-        this.sueldoSalarial += (int) (this.sueldoSalarial * 1.05);
+        sueldoSalarial += (int) (sueldoSalarial * 1.05);
     }
 
     public void setNombreEquipo(String nombreEquipo) {
@@ -43,9 +43,9 @@ public class Entrenador extends Persona {
     @Override
     public void entrenamiento() {
         if (seleccionadorNacional) {
-            this.nivMotivacion += 0.30;
+            nivMotivacion += 0.30;
         } else {
-            this.nivMotivacion += 0.15;
+            nivMotivacion += 0.15;
         }
     }
 }

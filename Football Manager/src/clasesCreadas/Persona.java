@@ -2,38 +2,38 @@ package clasesCreadas;
 
 
 public abstract class Persona {
-    protected final String nombre, apellido, fechaNacimiento;
+    protected final String NOMBRE, APELLIDO, FECHA_NACIMIENTO;
     protected double nivMotivacion;
     protected int sueldoSalarial;
     protected String nombreEquipo;
 
     public Persona(String nombre, String apellido, String fechaNacimiento, double nivMotivacion, int sueldoSalarial) {
-        this.nombre = nombre;
-        this.apellido = apellido;
-        this.fechaNacimiento = fechaNacimiento;
+        this.NOMBRE = nombre;
+        this.APELLIDO = apellido;
+        this.FECHA_NACIMIENTO = fechaNacimiento;
         this.nivMotivacion = nivMotivacion;
         this.sueldoSalarial = sueldoSalarial;
     }
 
     @Override
     public String toString() {
-        return nombre + ";" +
-                apellido + ";" +
-                fechaNacimiento + ";" +
+        return NOMBRE + ";" +
+                APELLIDO + ";" +
+                FECHA_NACIMIENTO + ";" +
                 nivMotivacion + ";" +
                 sueldoSalarial;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getNOMBRE() {
+        return NOMBRE;
     }
 
-    public String getApellido() {
-        return apellido;
+    public String getAPELLIDO() {
+        return APELLIDO;
     }
 
-    public String getFechaNacimiento() {
-        return fechaNacimiento;
+    public String getFECHA_NACIMIENTO() {
+        return FECHA_NACIMIENTO;
     }
 
     public double getNivMotivacion() {

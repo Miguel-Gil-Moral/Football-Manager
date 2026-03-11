@@ -1,13 +1,12 @@
 package clasesCreadas;
 
-import java.util.Objects;
 import java.util.Random;
 
 //Clase Jugadores y Entrenadores
 //✅ Atributos (Los dos): nombre, apellido, día de nacimiento, nivel motivación(1-10), sueldo salarial
 //✅ Atributos (Jugadores): Dorsal, posición en la que juegan (POR, DEF, MIG, DAV), puntuación del 30 al 100, calidad.
 //✅ Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
-//(✅ y medio) Método jugadores: canviDePosicio(), tendrá un 5 de probabilidad de generar un cambio de posición del jugador.
+//✅ Método jugadores: canviDePosicio(), tendrá un 5 de probabilidad de generar un cambio de posición del jugador.
 //✅ Si se produce, saldrá un mensaje y hacer el cambios ademas de sumar 1 punto de calidad del jugador.
 public class Jugador extends Persona {
     private int dorsal;
@@ -25,14 +24,37 @@ public class Jugador extends Persona {
         this.nombreEquipo = nombreEquipo;
     }
 
-    public void cambiarDePosicion(String posicion) {
+    public void cambiarDePosicion() {
         Random rand = new Random();
+        boolean salirBucle;
         int numProbabilidad = rand.nextInt(100);
+        String posicionNueva = "";
+        do {
+            int cambioPosicion = rand.nextInt(0, 4);
+            salirBucle = true;
+            switch (cambioPosicion) {
+                case 0:
+                    posicionNueva = "POR";
+                    break;
+                case 1:
+                    posicionNueva = "DEF";
+                    break;
+                case 2:
+                    posicionNueva = "MIG";
+                    break;
+                case 3:
+                    posicionNueva = "DAV";
+                    break;
+            }
+            if (posicion.equals(posicionNueva)) {
+                salirBucle = false;
+            }
+        } while (!salirBucle);
 
 
         if (numProbabilidad < 5) {
-            this.posicion = posicion;
-            System.out.println("Se ha producido un cambio de posición");
+            this.posicion = posicionNueva;
+            System.out.println("Se ha producido un cambio de posición en el jugador " + NOMBRE);
             this.calidad += 1;
         }
     }
@@ -71,7 +93,7 @@ public class Jugador extends Persona {
         } else {
             this.calidad += 0.1;
         }
-        System.out.println("El jugador " + super.getNombre() + " subió puntos de calidad");
+        System.out.println("El jugador " + NOMBRE + " subió puntos de calidad");
     }
 //(No sabemos usarlo)Implementar métodos equals() y hashcode() de los jugadores con la finalidad de crear 1 o más comparadores para poder ordenarlos en diferentes partes de la aplicación.
     //(No sabemos usarlo)Dos jugadores se consideran iguales si coinciden con el mismo nombre y su dorsal.
