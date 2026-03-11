@@ -1,12 +1,11 @@
+//UNIFICAR NEXTBOOLEANS Y CHARS
+
 import clasesCreadas.*;
 
 import java.io.*;
 /*import java.nio.Buffer;
 import java.nio.file.StandardOpenOption;*/
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Miguel Gil Moral, Mario De Molina Martín
@@ -79,7 +78,7 @@ public class Main {
                                             darBajaEquipo(listaEquipos, nombreEquipo);
                                             break;
                                         case 2:
-                                            modificarPresidente(listaEquipos, listaFichados);
+                                            modificarPresidente(listaEquipos, listaFichados, nombreEquipo);
                                             break;
                                         case 3:
                                             destituirEntrenador();
@@ -1191,7 +1190,7 @@ public class Main {
      *     Si se proporciona el mismo presidente que ya había, mostrará un mensaje de aviso.
      *     Si el equipo no tiene ninguna persona asignada a la presidencia, se informará al usuario del hecho con un mensaje.
      */
-    public static void modificarPresidente(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+    public static void modificarPresidente(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nombre presidente:");
 
@@ -1214,17 +1213,29 @@ public class Main {
 
             }
 
-
             for (Equipos eq : listaEquipos) {
-                if (eq.getNombrePresidente()!= null && !eq.getNombrePresidente().isEmpty()) {
+                if (eq.getNombre().equals(nombreEquipo)) {
 
                     System.out.println("Quieres añadir a una persona a la presidencia? (Y, N)");
                     char opcion = sc.next().charAt(0);
 
-                    if (opcion == 'Y' || opcion == 'N') {
+                    switch (opcion) {
+                        case 'Y':
+                            System.out.println("A quién quieres asignar a la presidencia?");
+                            String nuevoPresidente = sc.nextLine();
+                            for (Persona p : listaFichados) {
+                                System.out.println(p.getNombre());
+                            }
+                            eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
+                            System.out.println("Presidente: " + eq.getNombrePresidente());
+                            break;
+                        case 'N':
 
-                    } else {
+                            break;
 
+                        default:
+                            System.out.println("Escribe Y o N para añadir a una persona a la presidencia.");
+                            salirBucle = false;
                     }
 
                 } else {
@@ -1232,8 +1243,6 @@ public class Main {
                     salirBucle = false;
                 }
             }
-
-            System.out.println("A quién quieres asignar a la presicencia?");
 
         } while (!salirBucle);
     }

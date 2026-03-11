@@ -40,6 +40,10 @@ public class Equipos {
         return anyoFundacion;
     }
 
+    public void setNombrePresidente(String nombrePresidente) {
+        this.nombrePresidente = nombrePresidente;
+    }
+
     //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
     public void calcularMediaEquipo(double[] calidadEquipo) {
 
