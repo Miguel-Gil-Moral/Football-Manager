@@ -34,11 +34,13 @@ public class Liga {
             }
         }
 
+        int fila = 0;
         for (i = 0; i < CANTIDAD_EQUIPOS; i++) {
             for (int j = 0; j < CANTIDAD_EQUIPOS; j++) {
                 if (i != j) {
-                    encuentroEquipos[i][0] = equipos[i][0];
-                    encuentroEquipos[i][1] = equipos[j][0];
+                    encuentroEquipos[fila][0] = equipos[i][0];
+                    encuentroEquipos[fila][1] = equipos[j][0];
+                    fila++;
                 }
             }
         }
@@ -49,6 +51,8 @@ public class Liga {
         resultadoPartidos = new String[encuentroEquipos.length][4];
         double probabilidadLocal, probabilidadVisitante;
         int i = 0, fila = 0;
+
+        System.out.println("Disputando partidos...");
         for (String[] partidos : encuentroEquipos) {
             int golesLocal = 0, golesVisitante = 0;
             for (int minuto = 0; minuto < 90; minuto++) {
@@ -78,19 +82,30 @@ public class Liga {
     }
 
     public void consultarGolesFavor() {
-
+        System.out.println("Equipo - Goles a Favor");
+        for (String[] eq : equipos) {
+            System.out.println(eq[0] + " " + eq[3]);
+        }
     }
 
     public void consultarGolesContra() {
-
+        System.out.println("Equipo - Goles en Contra");
+        for (String[] eq : equipos) {
+            System.out.println(eq[0] + " " + eq[4]);
+        }
     }
 
     public void mostrarClasificacion() {
-
+        //printf
+        //mostrar todos los equipos y sus puntos
     }
 
     public String[][] getEquipos() {
         return equipos;
+    }
+
+    public void setEquipos(String[][] equipos) {
+        this.equipos = equipos;
     }
 
     public int getCANTIDAD_EQUIPOS() {

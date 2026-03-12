@@ -43,7 +43,7 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            /*Liga liga = (*/disputarNuevaLiga(listaEquipos, listaFichados)/*)*/;
+                            listaLigas.add(disputarNuevaLiga(listaEquipos, listaFichados));
                             break;
                         case 7:
                             realizarEntrenamientoMercado(listaFichajes);
@@ -206,17 +206,40 @@ public class Main {
      */
     public static ArrayList<Liga> cargarLigas() {
         ArrayList<Liga> listaLigas = new ArrayList<>();
+        String[] rutaFicheros = {"src/ficheros/ligas.txt", "src/ficheros/puntuacion_equipos.txt", "src/ficheros/tiempo_gol.txt"};
         String linea;
         String[] separado;
-        try {
-            BufferedReader br = new BufferedReader(new FileReader("src/ficheros/ligas.txt"));
-            while ((linea = br.readLine()) != null) {
-                separado = linea.split(";");
-                listaLigas.add(new Liga(separado[0], Integer.parseInt(separado[1])));
+        int i = 0;
+        boolean salirBucle = false;
+        do {
+            try {
+                BufferedReader br;
+                switch (rutaFicheros[i]) {
+                    case "src/ficheros/ligas.txt":
+                        br = new BufferedReader(new FileReader(rutaFicheros[i]));
+                        while ((linea = br.readLine()) != null) {
+                            separado = linea.split(";");
+                            listaLigas.add(new Liga(separado[0], Integer.parseInt(separado[1])));
+                        }
+                        break;
+                    case "src/ficheros/puntuacion_equipos.txt":
+//                        br = new BufferedReader(new FileReader(rutaFicheros[i]));
+//                        for (Liga l : listaLigas) {
+//                            while ((linea = br.readLine()) != null) {
+//                                separado = linea.split(";");
+//                            }
+//                            l.setEquipos();
+//                        }
+                        salirBucle = true;
+                        break;
+                }
+            } catch (IOException e) {
+                System.out.println("Error al abrir el archivo");
+                salirBucle = true;
             }
-        } catch (IOException e) {
-            System.out.println("Error al abrir el archivo");
-        }
+            linea = "";
+            i++;
+        } while (!salirBucle);
         return listaLigas;
     }
 
@@ -848,16 +871,16 @@ public class Main {
         return nombreEquipo;
     }
 
-    //Menu principal de admin (opción 6):
+    //✅ Menu principal de admin (opción 6):
     //✅ Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
     //✅ Se le asignará al objeto "Lliga" de la clase a la aplicación.
     //✅ Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
-    //Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
+    //✅ Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
 
     /**
      * @since 1.0
      */
-    public static void disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+    public static Liga disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
@@ -895,6 +918,8 @@ public class Main {
         Liga liga = new Liga(nombre, cantidadEquipos);
 
         prepararPartidos(liga, listaEquipos, listaFichados);
+
+        return liga;
     }
 
     public static void prepararPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
@@ -925,7 +950,9 @@ public class Main {
 
         String[][] resultadoPartidos = liga.disputarPartidos(aumentarProbabilidadGol(mediaMotivacionLocal), aumentarProbabilidadGol(mediaMotivacionVisitante));
 
-        actualizarPuntos(resultadoPartidos, liga.getCANTIDAD_EQUIPOS(), equipos);
+        actualizarPuntuacion(resultadoPartidos, liga.getCANTIDAD_EQUIPOS(), equipos);
+
+        liga.setEquipos(equipos);
     }
 
     public static double calcularMediaMotivacion(ArrayList<Double> motivacionEquipos) {
@@ -946,12 +973,13 @@ public class Main {
         return probabilidadGol;
     }
 
-    public static void actualizarPuntos(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
-        int puntosLocal = 0, puntosVisitante = 0;
-        for (int i = 0; i < CANTIDAD_EQUIPOS; i++) {
-            for (int j = 0; j < (CANTIDAD_EQUIPOS - 1); j++) {
-                int golesLocal = Integer.parseInt(resultadoPartidos[i][1]);
-                int golesVisitante = Integer.parseInt(resultadoPartidos[i][2]);
+    public static void actualizarPuntuacion(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
+        System.out.println("Otorgando puntos...");
+        for (String[] rs : resultadoPartidos) {
+            for (int i = 0; i < CANTIDAD_EQUIPOS; i++) {
+                int puntosLocal = 0, puntosVisitante = 0;
+                int golesLocal = Integer.parseInt(rs[1]);
+                int golesVisitante = Integer.parseInt(rs[2]);
                 if (golesLocal > golesVisitante) {
                     puntosLocal += 3;
                 } else if (golesLocal < golesVisitante) {
@@ -960,8 +988,41 @@ public class Main {
                     puntosLocal += 1;
                     puntosVisitante += 1;
                 }
+                otorgarPuntos(equipos, rs, i, puntosLocal, golesLocal, golesVisitante, puntosVisitante);
             }
         }
+    }
+
+    /**
+     * @since 1.0
+     * @param equipos El equipo asignado con sus puntos, partidos disputados, goles a favor y en contra
+     * @param rs El resultado del partido el cual quedaron los equipos
+     * @param i El número de la iteración para la posición del array equipos
+     * @param puntosLocal Puntos totales que lleva el equipo local
+     * @param golesLocal Goles marcados durante el partido por parte del equipo local
+     * @param golesVisitante Goles marcados durante el partido por parte del equipo visitante
+     * @param puntosVisitante Puntos totales que lleva el equipo visitante
+     */
+    private static void otorgarPuntos(String[][] equipos, String[] rs, int i, int puntosLocal, int golesLocal, int golesVisitante, int puntosVisitante) {
+        int puntos = Integer.parseInt(equipos[i][1]);
+        int partidosDisputados = Integer.parseInt(equipos[i][2]);
+        int golesFavor = Integer.parseInt(equipos[i][3]);
+        int golesContra = Integer.parseInt(equipos[i][4]);
+        if (rs[0].equals(equipos[i][0])) {
+            partidosDisputados++;
+            puntos += puntosLocal;
+            golesFavor += golesLocal;
+            golesContra += golesVisitante;
+        } else if (rs[3].equals(equipos[i][0])) {
+            partidosDisputados++;
+            puntos += puntosVisitante;
+            golesFavor += golesVisitante;
+            golesContra += golesLocal;
+        }
+        equipos[i][1] = String.valueOf(puntos);
+        equipos[i][2] = String.valueOf(partidosDisputados);
+        equipos[i][3] = String.valueOf(golesFavor);
+        equipos[i][4] = String.valueOf(golesContra);
     }
 
     //✅ Menu principal admin (opción 7):
@@ -1315,7 +1376,8 @@ public class Main {
      * @param listaLigas Lista con todas las ligas guardadas
      */
     public static void actualizarFichero(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos, ArrayList<Liga> listaLigas){
-        String[] rutaArchivos = {"src/ficheros/mercat_fitxatges.txt", "src/ficheros/personas_fichadas.txt", "src/ficheros/equipos.txt", "src/ficheros/ligas.txt"};
+        String[] rutaArchivos = {"src/ficheros/mercat_fitxatges.txt", "src/ficheros/personas_fichadas.txt",
+                "src/ficheros/equipos.txt", "src/ficheros/ligas.txt", "src/ficheros/puntuacion_equipos.txt", "src/ficheros/tiempo_gol.txt"};
         int i = 0;
 
         do {
@@ -1349,12 +1411,20 @@ public class Main {
                             bw.write(lg.toString());
                         }
                         break;
+                    case "src/ficheros/puntuacion_equipos.txt":
+                        for (Liga l : listaLigas) {
+                            String[][] equipos = l.getEquipos();
+                            for (String[] eq : equipos) {
+                                bw.write(l.getNOMBRE() + ";" + eq);
+                            }
+                        }
+                        break;
                 }
                 i++;
             } catch (IOException e) {
                 System.out.println("Error al escribir el fichero de texto");
             }
-        } while (i < 4);
+        } while (i < rutaArchivos.length);
     }
 
     //Gestionará un conjunto de equipos, mercado de fichajes, y permitirá generar ligas entre estos equipos.

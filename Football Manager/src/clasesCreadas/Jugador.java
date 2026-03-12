@@ -76,7 +76,7 @@ public class Jugador extends Persona {
         return "J;" + super.toString() + ";" +
                 dorsal + ";" +
                 posicion + ";" +
-                calidad;
+                (int) calidad;
     }
 
     //✅ Además de ejecutar el código de la clase padre, la calidad del jugador aumentará en 0.1(70%), 0.2(20%) o 0.3(10%) puntos en función de un valor aleatorio.

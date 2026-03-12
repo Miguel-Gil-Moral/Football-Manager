@@ -20,7 +20,7 @@ public abstract class Persona {
         return NOMBRE + ";" +
                 APELLIDO + ";" +
                 FECHA_NACIMIENTO + ";" +
-                nivMotivacion + ";" +
+                (int) nivMotivacion + ";" +
                 sueldoSalarial;
     }
 
