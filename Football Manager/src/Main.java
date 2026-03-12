@@ -1226,20 +1226,24 @@ public class Main {
 
         String nombrePresidente = sc.nextLine();
         boolean salirBucle;
-
+        boolean iterar = false;
         do {
             salirBucle = true;
             if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
                 for (Equipos eq : listaEquipos) {
                     if (eq.getNombrePresidente().equals(nombrePresidente)) {
                         System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
-                    } else {
-                        System.out.println("El equipo " + eq.getNombre() + " no tiene de presidente a " + nombrePresidente);
+                        iterar = true;
                     }
+                }
+                if (!iterar) {
+                    System.out.println("El quipo no tiene de presidente a " + nombrePresidente);
+                    iterar = true;
                 }
             } else {
                 System.out.println("Escribe el nombre del presidente para saber si el equipo tiene alguna persona asignada a la presidencia.");
                 salirBucle = false;
+                iterar = true;
 
             }
 
@@ -1258,19 +1262,24 @@ public class Main {
                             }
                             eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
                             System.out.println("Presidente: " + eq.getNombrePresidente());
+                            salirBucle = false;
                             break;
                         case 'N':
-
+                            System.out.println("El puesto faltante de presidente no fué modificado.");
+                            salirBucle = false;
+                            iterar = true;
                             break;
 
                         default:
-                            System.out.println("Escribe Y o N para añadir a una persona a la presidencia.");
+                            System.out.println("Escribe Y para completar la presidencia faltante o N para salir directamente.");
                             salirBucle = false;
+                            iterar = true;
                     }
 
                 } else {
                     System.out.println("El equipo no tiene ninguna persona asignada a la presidencia.");
                     salirBucle = false;
+                    iterar = true;
                 }
             }
 
