@@ -45,8 +45,12 @@ public class Equipos {
     }
 
     //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
-    public void calcularMediaEquipo(double[] calidadEquipo) {
-
+    public double calcularMediaEquipo(double[] calidadEquipo) {
+        double suma = 0;
+        for (Double dbl : calidadEquipo) {
+            suma += dbl;
+        }
+        return suma / calidadEquipo.length;
     }
 
     @Override

@@ -104,14 +104,6 @@ public class Liga {
         return equipos;
     }
 
-    public ArrayList<String> getTiempoGol() {
-        return tiempoGol;
-    }
-
-    public void setTiempoGol(ArrayList<String> tiempoGol) {
-        this.tiempoGol = tiempoGol;
-    }
-
     public void setEquipos(String[][] equipos) {
         this.equipos = equipos;
     }
