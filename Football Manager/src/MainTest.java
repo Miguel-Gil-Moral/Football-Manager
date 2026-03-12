@@ -32,11 +32,22 @@ class MainTest {
     void darAltaPersona() {
         String insertarScanner = "1\nMiguel\nGil\n17\n02\n2005\n10000\n6\n3\n";
         System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
-        ArrayList<Persona> temp = Main.cargarFichajes();
-        ArrayList<Persona> listaFichajes = new ArrayList<>(temp);
+        ArrayList<Persona> listaFichajes2 = Main.cargarFichajes();
+        ArrayList<Persona> listaFichajes = new ArrayList<>(listaFichajes2);
 
-        ArrayList<Persona> listaFichajes2 = Main.darAltaPersona(temp);
+        Main.darAltaPersona(listaFichajes2);
 
         assertNotEquals(listaFichajes, listaFichajes2);
+    }
+
+    @Test
+    void DarBajaEquipos() {
+        ArrayList<Equipos> temporal = Main.cargarEquipos();
+        String nombreEquipo = "RC Celta de Vigo";
+        String insertarScanner = "True\n";
+        System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
+        ArrayList<Equipos> listaEquipos2 = new ArrayList<>(temporal);
+        ArrayList<Equipos> listaEquipos = new ArrayList<>(listaEquipos2);
+
     }
 }
