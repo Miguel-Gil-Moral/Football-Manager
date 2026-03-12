@@ -925,7 +925,7 @@ public class Main {
 
         String[][] resultadoPartidos = liga.disputarPartidos(aumentarProbabilidadGol(mediaMotivacionLocal), aumentarProbabilidadGol(mediaMotivacionVisitante));
 
-        otorgarPuntos(resultadoPartidos, liga.getCANTIDAD_EQUIPOS(), equipos);
+        actualizarPuntos(resultadoPartidos, liga.getCANTIDAD_EQUIPOS(), equipos);
     }
 
     public static double calcularMediaMotivacion(ArrayList<Double> motivacionEquipos) {
@@ -946,7 +946,7 @@ public class Main {
         return probabilidadGol;
     }
 
-    public static void otorgarPuntos(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
+    public static void actualizarPuntos(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
         int puntosLocal = 0, puntosVisitante = 0;
         for (int i = 0; i < CANTIDAD_EQUIPOS; i++) {
             for (int j = 0; j < (CANTIDAD_EQUIPOS - 1); j++) {

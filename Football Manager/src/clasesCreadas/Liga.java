@@ -21,6 +21,7 @@ public class Liga {
     public void agregarEquipos(ArrayList<Equipos> listaEquipos) {
         int i = 0;
         encuentroEquipos = new String[(CANTIDAD_EQUIPOS - 1) * CANTIDAD_EQUIPOS][2];
+        equipos = new String[CANTIDAD_EQUIPOS][5];
 
         for (Equipos eq : listaEquipos) {
             if (i < CANTIDAD_EQUIPOS) {
@@ -47,8 +48,9 @@ public class Liga {
         Random random = new Random();
         resultadoPartidos = new String[encuentroEquipos.length][4];
         double probabilidadLocal, probabilidadVisitante;
-        int i = 0, golesLocal = 0, golesVisitante = 0, fila = 0;
+        int i = 0, fila = 0;
         for (String[] partidos : encuentroEquipos) {
+            int golesLocal = 0, golesVisitante = 0;
             for (int minuto = 0; minuto < 90; minuto++) {
                 for (int segundo = 0; segundo < 60; segundo++) {
                     if (i > 10) {
