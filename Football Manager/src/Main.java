@@ -1,8 +1,6 @@
 import clasesCreadas.*;
 
 import java.io.*;
-/*import java.nio.Buffer;
-import java.nio.file.StandardOpenOption;*/
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Random;
@@ -45,8 +43,7 @@ public class Main {
                             consultarDatosJugador(listaFichados, listaEquipos);
                             break;
                         case 6:
-                            Liga liga = (disputarNuevaLiga());
-                            disputarPartidos(liga, listaEquipos, listaFichados);
+                            /*Liga liga = (*/disputarNuevaLiga(listaEquipos, listaFichados)/*)*/;
                             break;
                         case 7:
                             realizarEntrenamientoMercado(listaFichajes);
@@ -336,14 +333,14 @@ public class Main {
         System.out.println("Ingrese el nombre del liga actual: ");
         nombreLiga = sc.next();
         for ( Liga l : listaLigas) {
-            if (l.getNombre().equals(nombreLiga)) {
-                System.out.println("Liga: " + l.getNombre());
+            if (l.getNOMBRE().equals(nombreLiga)) {
+                System.out.println("Liga: " + l.getNOMBRE());
 
 
                 ligaExsistente = true;
 
 
-                }
+            }
         }
         if (!ligaExsistente) {
             System.out.println("No exsiste");
@@ -748,7 +745,7 @@ public class Main {
                     if (p.getNombreEquipo().equals(nombreEquipo)) { //SI PERSONA ESTÁ EN EL EQUIPO QUE EL USUARIO HA SELECCIONADO,
                         System.out.printf("%-1s %-10s %-1s %-11s %-1s %-19s %-1s %-10.2f %-1s %-9d %-1s",
                                 //p.getNivMotivacion() --> %.2f
-                                "|", p.getNombre(), "|", p.getApellido(), "|", p.getFechaNacimiento(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "| ");   //printf, tip de Miguel
+                                "|", p.getNOMBRE(), "|", p.getAPELLIDO(), "|", p.getFECHA_NACIMIENTO(), "|", p.getNivMotivacion(), "|", p.getSueldoSalarial(), "| ");   //printf, tip de Miguel
                         if (p instanceof Jugador) {     //instanceof, tip de Miguel
                             System.out.printf("%-6d %-1s %-7s %-1s %-8s %-1s %-15s %-1s %-22s %-1s \n",
                                     ((Jugador) p).getDorsal(), "|", ((Jugador) p).getCalidad(), "|", ((Jugador) p).getPosicion(), "|", "-", "|", "-", "|");
@@ -807,11 +804,11 @@ public class Main {
                     - si NO existe: informar y terminar */
 
             for (Persona pr : listaFichados) {
-                if (pr.getNombre().equals(nombreJugador) && ((Jugador) pr).getDorsal() == dorsal) {    //6) MOSTRAR datos comunes (Persona) + datos exclusivos (Jugador)
+                if (pr.getNOMBRE().equals(nombreJugador) && ((Jugador) pr).getDorsal() == dorsal) {    //6) MOSTRAR datos comunes (Persona) + datos exclusivos (Jugador)
                     jugadorEncontrado = true;
-                    System.out.println("Nombre: " + pr.getNombre());
-                    System.out.println("Apellido: " + pr.getApellido());
-                    System.out.println("Fecha Nacimiento: " + pr.getFechaNacimiento());
+                    System.out.println("Nombre: " + pr.getNOMBRE());
+                    System.out.println("Apellido: " + pr.getAPELLIDO());
+                    System.out.println("Fecha Nacimiento: " + pr.getFECHA_NACIMIENTO());
                     System.out.println("Motivación: " + pr.getNivMotivacion());
                     System.out.println("Sueldo: " + pr.getSueldoSalarial());
                     System.out.println("Dorsal: " + ((Jugador) pr).getDorsal());       //mostrar los datos (atributos) exclusivos de jugador
@@ -860,13 +857,13 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static Liga disputarNuevaLiga() {
+    public static void disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
         int cantidadEquipos = 0;
 
-        System.out.print("Escoga un nombre para la liga: ");
+        System.out.print("Escoja un nombre para la liga: ");
         do {
             nombre = sc.nextLine();
             salirBucle = true;
@@ -883,6 +880,10 @@ public class Main {
                 salirBucle = true;
                 if (cantidadEquipos % 2 != 0) {
                     System.out.println("Cantidad incorrecta, coloque un número sea par");
+                    salirBucle = false;
+                } else if (cantidadEquipos <= 0) {
+                    System.out.println("Cantidad incorrecta, coloque un numero mayor a 0");
+                    salirBucle = false;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Opción incorrecta, escriba la cantidad de equipos en números enteros");
@@ -891,36 +892,30 @@ public class Main {
             }
         } while (!salirBucle);
 
-        return new Liga(nombre, cantidadEquipos);
+        Liga liga = new Liga(nombre, cantidadEquipos);
+
+        prepararPartidos(liga, listaEquipos, listaFichados);
     }
 
-    public static void disputarPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
-        String[] nombreEquipos = new String[liga.getCantidadEquipos()];
-        ArrayList<Partido> listaPartidos = new ArrayList<>();
-        int i = 0;
+    public static void prepararPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+        liga.agregarEquipos(listaEquipos);
+        String[][] equipos = liga.getEquipos();
 
-        for (Equipos eq : listaEquipos) {
-            if (i < nombreEquipos.length) {
-                nombreEquipos[i] = eq.getNombre();
-                i++;
-            }
-        }
-
-        for (i = 0; i < nombreEquipos.length;i++) {
-            for (int j = 0; j < nombreEquipos.length; j++) {
-                if (i != j) {
-                    listaPartidos.add(new Partido(liga.getNombre(), nombreEquipos[i], nombreEquipos[j]));
-                }
-            }
-        }
         ArrayList<Double> motivacionEquipoLocal = new ArrayList<>(), motivacionEquipoVisitante = new ArrayList<>();
 
-        for (Partido ptd : listaPartidos) {
-            for (Persona p : listaFichados) {
-                if (p.getNombreEquipo().equals(ptd.getEquipoLocal())) {
-                    motivacionEquipoLocal.add(p.getNivMotivacion());
-                } else if (p.getNombreEquipo().equals(ptd.getEquipoVisitante())) {
-                    motivacionEquipoVisitante.add(p.getNivMotivacion());
+        String equipoLocal = "", equipoVisitante = "";
+        for (Persona p : listaFichados) {
+            for (int i = 0; i < equipos.length; i++) {
+                for (int j = 0; j < equipos.length; i++) {
+                    if (i != j) {
+                        equipoLocal = equipos[i][0];
+                        equipoVisitante = equipos[j][0];
+                    }
+                    if (p.getNombreEquipo().equals(equipoLocal)) {
+                        motivacionEquipoLocal.add(p.getNivMotivacion());
+                    } else if (p.getNombreEquipo().equals(equipoVisitante)) {
+                        motivacionEquipoVisitante.add(p.getNivMotivacion());
+                    }
                 }
             }
         }
@@ -928,6 +923,9 @@ public class Main {
         double mediaMotivacionLocal = calcularMediaMotivacion(motivacionEquipoLocal);
         double mediaMotivacionVisitante = calcularMediaMotivacion(motivacionEquipoVisitante);
 
+        String[][] resultadoPartidos = liga.disputarPartidos(aumentarProbabilidadGol(mediaMotivacionLocal), aumentarProbabilidadGol(mediaMotivacionVisitante));
+
+        actualizarPuntos(resultadoPartidos, liga.getCANTIDAD_EQUIPOS(), equipos);
     }
 
     public static double calcularMediaMotivacion(ArrayList<Double> motivacionEquipos) {
@@ -936,6 +934,34 @@ public class Main {
             suma += dbl;
         }
         return suma / motivacionEquipos.size();
+    }
+
+    public static double aumentarProbabilidadGol(double mediaMotivacion) {
+        double probabilidadGol = 0.03;
+        if (mediaMotivacion <= 100 && mediaMotivacion > 66) {
+            probabilidadGol = 0.035;
+        } else if (mediaMotivacion <= 33 && mediaMotivacion >= 0) {
+            probabilidadGol = 0.025;
+        }
+        return probabilidadGol;
+    }
+
+    public static void actualizarPuntos(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
+        int puntosLocal = 0, puntosVisitante = 0;
+        for (int i = 0; i < CANTIDAD_EQUIPOS; i++) {
+            for (int j = 0; j < (CANTIDAD_EQUIPOS - 1); j++) {
+                int golesLocal = Integer.parseInt(resultadoPartidos[i][1]);
+                int golesVisitante = Integer.parseInt(resultadoPartidos[i][2]);
+                if (golesLocal > golesVisitante) {
+                    puntosLocal += 3;
+                } else if (golesLocal < golesVisitante) {
+                    puntosVisitante += 3;
+                } else {
+                    puntosLocal += 1;
+                    puntosVisitante += 1;
+                }
+            }
+        }
     }
 
     //✅ Menu principal admin (opción 7):
@@ -951,7 +977,7 @@ public class Main {
         for (Persona p : listaFichajes) {
             if (p instanceof Jugador) {
                 ((Jugador) p).entrenamiento();
-                ((Jugador) p).cambiarDePosicion("DAV"); //DAV es placeholder
+                ((Jugador) p).cambiarDePosicion();
             } else if (p instanceof Entrenador) {
                 ((Entrenador) p).entrenamiento();
                 ((Entrenador) p).incrementarSalario();
@@ -1145,16 +1171,19 @@ public class Main {
         boolean respuestaUsuario = sc.nextBoolean();
         int indiceEquipo = 0;
         boolean salirBucle;
+        int temporal = 0;
+
         do {
             try {
                 salirBucle = true;
                 if (respuestaUsuario) {
                     for (Equipos eq : listaEquipos) {
                         if (eq.getNombre().equals(nombreEquipo)) {
-                            listaEquipos.remove(indiceEquipo);
+                            temporal = indiceEquipo;
                         }
                         indiceEquipo++;
                     }
+                    listaEquipos.remove(temporal);
                 } else {
                     System.out.println(nombreEquipo + " no se borró.");
                 }
@@ -1218,13 +1247,15 @@ public class Main {
             for (Equipos eq : listaEquipos) {
                 if (eq.getNombrePresidente()!= null && !eq.getNombrePresidente().isEmpty()) {
 
-                    System.out.println("Quieres añadir a una persona a la presidencia? (Y, N)");
+                    System.out.println("Quieres añadir a una persona a la presidencia? (Y, N)"); //AQUÍ HAY QUE REESTABLECER EL AVANCE 6.2 PERDIDO
                     char opcion = sc.next().charAt(0);
 
-                    if (opcion == 'Y' || opcion == 'N') {
+                    switch (opcion){
+                        case 'Y':
 
-                    } else {
+                        case 'N':
 
+                        default:
                     }
 
                 } else {
