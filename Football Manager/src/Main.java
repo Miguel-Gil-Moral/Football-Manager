@@ -1196,6 +1196,7 @@ public class Main {
 
         String nombrePresidente = sc.nextLine();
         boolean salirBucle;
+        int demo;
 
         do {
             salirBucle = true;
