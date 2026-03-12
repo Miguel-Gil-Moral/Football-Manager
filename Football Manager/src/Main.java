@@ -334,11 +334,8 @@ public class Main {
         nombreLiga = sc.next();
         for ( Liga l : listaLigas) {
             if (l.getNOMBRE().equals(nombreLiga)) {
-                System.out.println("Liga: " + l.getNOMBRE());
-
-
+                l.mostrarClasificacion();
                 ligaExsistente = true;
-
 
             }
         }
@@ -1285,6 +1282,9 @@ public class Main {
 
         } while (!salirBucle);
     }
+//if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
+//eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
+    // limpia el salto pendiente
 
     //Submenu gestionar mi equipo (opción 3):
     //Prescinde al entrenador, previa confirmación por el usuario.
