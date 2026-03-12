@@ -63,9 +63,9 @@ public class Main {
                             verClasificacionLiga(listaLigas);
                             break;
                         case 2:
-                            //Menu principal de gestor de equipos (opción 2):
-                            //Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
-                            //Si se encuentra el equipo, se mostrará un submenu específico.
+                            //✅ Menu principal de gestor de equipos (opción 2):
+                            //✅ Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
+                            //✅ Si se encuentra el equipo, se mostrará un submenu específico.
                             String nombreEquipo = pedirNombreEquipo();
                             equipoExistente = revisarEquipo(listaEquipos, nombreEquipo);
                             if (equipoExistente) {
@@ -208,28 +208,46 @@ public class Main {
         ArrayList<Liga> listaLigas = new ArrayList<>();
         String[] rutaFicheros = {"src/ficheros/ligas.txt", "src/ficheros/puntuacion_equipos.txt", "src/ficheros/tiempo_gol.txt"};
         String linea;
-        String[] separado;
-        int i = 0;
+        int i = 0, j = 0;
         boolean salirBucle = false;
         do {
             try {
-                BufferedReader br;
+                BufferedReader br = new BufferedReader(new FileReader(rutaFicheros[i]));
                 switch (rutaFicheros[i]) {
                     case "src/ficheros/ligas.txt":
-                        br = new BufferedReader(new FileReader(rutaFicheros[i]));
                         while ((linea = br.readLine()) != null) {
-                            separado = linea.split(";");
+                            String[] separado = linea.split(";");
                             listaLigas.add(new Liga(separado[0], Integer.parseInt(separado[1])));
                         }
                         break;
                     case "src/ficheros/puntuacion_equipos.txt":
-//                        br = new BufferedReader(new FileReader(rutaFicheros[i]));
-//                        for (Liga l : listaLigas) {
-//                            while ((linea = br.readLine()) != null) {
-//                                separado = linea.split(";");
-//                            }
-//                            l.setEquipos();
-//                        }
+                        for (Liga l : listaLigas) {
+                            String[][] equipos = new String[l.getCANTIDAD_EQUIPOS()][5];
+                            while ((linea = br.readLine()) != null) {
+                                String[] separado = linea.split(";");
+                                if (l.getNOMBRE().equals(separado[0])) {
+                                    equipos[j][0] = separado[1]; //Nombre Equipo
+                                    equipos[j][1] = separado[2]; //Puntos
+                                    equipos[j][2] = separado[3]; //Partidos disputados
+                                    equipos[j][3] = separado[4]; //Goles a Favor
+                                    equipos[j][4] = separado[5]; //Goles en contra
+                                    j++;
+                                }
+                            }
+                            l.setEquipos(equipos);
+                        }
+                        break;
+                    case "src/ficheros/tiempo_gol.txt":
+                        for (Liga l : listaLigas) {
+                            ArrayList<String> tiempoGol = new ArrayList<>();
+                            while ((linea = br.readLine()) != null) {
+                                String[] separado = linea.split(";");
+                                if (l.getNOMBRE().equals(separado[0])) {
+                                    tiempoGol.add(separado[1] + ";" + separado[2] + ";" + separado[3] + ";" + separado[4]);
+                                }
+                            }
+                            l.setTiempoGol(tiempoGol);
+                        }
                         salirBucle = true;
                         break;
                 }
@@ -289,9 +307,9 @@ public class Main {
     //✅ Un menu principal para admin:
     //✅       1- Veure classificació lliga actual 🏆
     //✅
-    // ✅      2- Donar d'alta equip
+    //✅       2- Donar d'alta equip
     //✅
-    // ✅      3- Donar d'alta jugador/a o entrenador/a
+    //✅       3- Donar d'alta jugador/a o entrenador/a
     //✅
     //✅       4- Consultar dades equip
     //✅
@@ -303,7 +321,7 @@ public class Main {
     //✅
     //✅       8- Desar dades equips
     //✅
-    // ✅      0- Sortir
+    //✅       0- Sortir
 
     /**
      * @return Opción escogida por el administrador
@@ -1170,16 +1188,16 @@ public class Main {
         return encontrado;
     }
 
-    //Submenu para gestor de mi propio equipo(opcion 2):
-    //      1- Donar de baixa l'equip
-    //
-    //      2- Modificar president/a
-    //
-    //      3- Destituir entrenador/a
-    //
-    //      4- Fitxar jugador/a o entrenador/a
-    //
-    //      0- Sortir
+    //✅ Submenu para gestor de mi propio equipo(opcion 2):
+    //✅       1- Donar de baixa l'equip
+    //✅
+    //✅       2- Modificar president/a
+    //✅
+    //✅       3- Destituir entrenador/a
+    //✅
+    //✅       4- Fitxar jugador/a o entrenador/a
+    //✅
+    //✅       0- Sortir
 
     /**
      * @return Opción escogida por el Gestor de equipos
@@ -1415,10 +1433,18 @@ public class Main {
                         for (Liga l : listaLigas) {
                             String[][] equipos = l.getEquipos();
                             for (String[] eq : equipos) {
-                                bw.write(l.getNOMBRE() + ";" + eq);
+                                bw.write(l.getNOMBRE() + ";" + eq[0] + ";" + eq[1] + ";" + eq[2] + ";" + eq[3] + ";" + eq[4] + "\n");
                             }
                         }
                         break;
+                        case "src/ficheros/tiempo_gol.txt":
+                            for (Liga l : listaLigas) {
+                                ArrayList<String> tiempoGol = l.getTiempoGol();
+                                for (String tg : tiempoGol) {
+                                    bw.write(l.getNOMBRE() + ";" + tg + "\n");
+                                }
+                            }
+                            break;
                 }
                 i++;
             } catch (IOException e) {
@@ -1434,7 +1460,7 @@ public class Main {
     //Revisar para aplicar patrones de refactoring.
     //Colocar JavaDoc mientras vamos acabando con las funciones o métodos.
 
-    //Cargar todos los equipos y su información relacionada.
+    //✅ Cargar todos los equipos y su información relacionada.
 
     //Clase Main gestionará los menus y dispondrá de los listados con todos los equipos, jugadores y entrenadores disponibles para fichar, y un objeto que represente la liga
     //La información de la liga no se guardará en la ejecución del programa ni de la aplicación.
@@ -1444,7 +1470,7 @@ public class Main {
     //✅ Partidos empatados: 1 puntos
     //✅ Partidos perdidos: 0 puntos
 
-    //Se necesita cuantos goles se han generado por cada equipo a favor y en contra, es necesaria para la clasificación.
+    //✅ Se necesita cuantos goles se han generado por cada equipo a favor y en contra, es necesaria para la clasificación.
     //La calificación media de los equipos y la motivación han de influir de alguna manera en las posibilidades de victoria del equipo.
 
     //Por si somos atrevidos:thumbsup:
@@ -1455,7 +1481,7 @@ public class Main {
     //✅ Saber cuantos jugadores se han creado hasta el momento en la aplicación.
     //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
     //✅ Los jugadores extienden el método entrenamiento de la clase padre.
-    //Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
+    //✅ Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
     //Por su posición (Orden alfabético). Si tienen la misma posición, ordenaremos de mayor a menor la calidad.
     //Se aplicará cada vez que listemos los jugadores de un equipo.
 
