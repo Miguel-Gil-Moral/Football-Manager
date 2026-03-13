@@ -1,10 +1,7 @@
 import clasesCreadas.*;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.InputMismatchException;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Miguel Gil Moral, Mario De Molina Martín
@@ -68,9 +65,10 @@ public class Main {
                             //✅ Si se encuentra el equipo, se mostrará un submenu específico.
                             String nombreEquipo = pedirNombreEquipo();
                             equipoExistente = revisarEquipo(listaEquipos, nombreEquipo);
+                            //opcionSubmenu = submenuGestorEquipos(); movido por Miguel :) (no me funcionaba bien ficharPersona)
                             if (equipoExistente) {
-                                opcionSubmenu = submenuGestorEquipos();
                                 do {
+                                    opcionSubmenu = submenuGestorEquipos();
                                     switch (opcionSubmenu) {
                                         case 1:
                                             darBajaEquipo(listaEquipos, nombreEquipo);
@@ -1340,15 +1338,16 @@ public class Main {
     }
 
     //Submenu gestionar mi equipo (opción 4):
-    //Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
-    //Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
-    //(Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
+    //✅ Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
+    //✅ Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
+    //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
     /**
      * @since 1.0
      */
     public static void ficharPersona(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
-        boolean salirBucle = false;
+        boolean salirBucle, fichado = false, salirBucleFor;
+        String quienFichar = "";
 
         do {
             try {
@@ -1364,21 +1363,26 @@ public class Main {
                             }
                         }
                         System.out.println("¿A quién quieres fichar?");
-                        String quienFichar = sc.nextLine();
-
+                        quienFichar = sc.nextLine();
+                do {
+                    try {
+                        salirBucleFor = true;
                         for (Persona p : listaFichajes) {
                             if (p instanceof Jugador && p.getNOMBRE().equals(quienFichar)) {
                                 p.setNombreEquipo(nombreEquipo);
                                 listaFichados.add(p);
                                 listaFichajes.remove(p);
-                                salirBucle = true;
-                                //Otro do y otro try catch
-                            }
-                            else {
-                                System.out.println(nombreEquipo + " no se borró.");
+                                fichado = true;
                             }
                         }
-
+                        if (!fichado) {
+                            System.out.println(quienFichar + "no se borró de " + nombreEquipo);
+                        }
+                    }
+                    catch (ConcurrentModificationException e){
+                        salirBucleFor = false;
+                    }
+                } while (!salirBucleFor);
                     break;
                     case 2: //Entrenador
                         for (Persona p : listaFichajes) {
@@ -1387,13 +1391,13 @@ public class Main {
                             }
                         }
                         System.out.println("¿A quién quieres fichar?");
-                        String quienFichar2 = sc.nextLine();
+                        quienFichar = sc.nextLine();
                     break;
                 }
             } catch (InputMismatchException e) {
-            System.out.println("Error al escribir el fichero del mercado de fichajes");
-            sc.next();
-            salirBucle = false;
+                System.out.println("Error al escribir el fichero del mercado de fichajes");
+                sc.next();
+                salirBucle = false;
             }
         } while (!salirBucle);
     }
