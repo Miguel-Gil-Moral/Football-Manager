@@ -82,7 +82,7 @@ public class Main {
                                             destituirEntrenador();
                                             break;
                                         case 4:
-                                            ficharPersona();
+                                            ficharPersona(listaFichajes, listaFichados,  nombreEquipo);
                                             break;
                                         case 0:
                                             salirBucleSubmenu = true;
@@ -1295,11 +1295,11 @@ public class Main {
 
                     switch (opcion) {
                         case 'Y':
-                            System.out.println("A quién quieres asignar a la presidencia?");
-                            String nuevoPresidente = sc.nextLine();
                             for (Persona p : listaFichados) {
                                 System.out.println(p.getNOMBRE());
                             }
+                            System.out.println("A quién quieres asignar a la presidencia?");
+                            String nuevoPresidente = sc.nextLine();
                             eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
                             System.out.println("Presidente: " + eq.getNombrePresidente());
                             salirBucle = false;
@@ -1346,8 +1346,56 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void ficharPersona() {
+    public static void ficharPersona(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
+        Scanner sc = new Scanner(System.in);
+        boolean salirBucle = false;
 
+        do {
+            try {
+                System.out.println("¿Qué se quiere fichar? | 1 = Jugador, 2 = Entrenador");
+                int queFichar = sc.nextInt();
+                sc.nextLine();
+                salirBucle = true;
+                switch (queFichar) {
+                    case 1: //Jugador
+                        for (Persona p : listaFichajes) {
+                            if (p instanceof Jugador) {
+                                System.out.println(p.getNOMBRE());
+                            }
+                        }
+                        System.out.println("¿A quién quieres fichar?");
+                        String quienFichar = sc.nextLine();
+
+                        for (Persona p : listaFichajes) {
+                            if (p instanceof Jugador && p.getNOMBRE().equals(quienFichar)) {
+                                p.setNombreEquipo(nombreEquipo);
+                                listaFichados.add(p);
+                                listaFichajes.remove(p);
+                                salirBucle = true;
+                                //Otro do y otro try catch
+                            }
+                            else {
+                                System.out.println(nombreEquipo + " no se borró.");
+                            }
+                        }
+
+                    break;
+                    case 2: //Entrenador
+                        for (Persona p : listaFichajes) {
+                            if (p instanceof Entrenador) {
+                                System.out.println(p.getNOMBRE());
+                            }
+                        }
+                        System.out.println("¿A quién quieres fichar?");
+                        String quienFichar2 = sc.nextLine();
+                    break;
+                }
+            } catch (InputMismatchException e) {
+            System.out.println("Error al escribir el fichero del mercado de fichajes");
+            sc.next();
+            salirBucle = false;
+            }
+        } while (!salirBucle);
     }
 
     /**

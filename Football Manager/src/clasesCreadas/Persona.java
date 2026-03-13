@@ -24,6 +24,10 @@ public abstract class Persona {
                 sueldoSalarial;
     }
 
+    public void setNombreEquipo(String nombreEquipo) {
+        this.nombreEquipo = nombreEquipo;
+    }
+
     public String getNOMBRE() {
         return NOMBRE;
     }
