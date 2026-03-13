@@ -6,6 +6,8 @@ package clasesCreadas;
 //Podemos crear equipos sin indicar obligatoriamente los campos opcionales
 //Los equipos de los datos anteriores, tienen un entrenador y un listado de jugadores
 
+import java.util.ArrayList;
+
 public class Equipos {
     private final String nombre, ciudad;
     private final int anyoFundacion;
@@ -45,12 +47,12 @@ public class Equipos {
     }
 
     //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
-    public double calcularMediaEquipo(double[] calidadEquipo) {
+    public double calcularMediaEquipo(ArrayList<Double> calidadEquipo) {
         double suma = 0;
         for (Double dbl : calidadEquipo) {
             suma += dbl;
         }
-        return suma / calidadEquipo.length;
+        return suma / calidadEquipo.size();
     }
 
     @Override
