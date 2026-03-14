@@ -1260,6 +1260,7 @@ public class Main {
      */
     public static void modificarPresidente(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
+
         System.out.println("Nombre presidente:");
         String nombrePresidente = sc.nextLine();
 
@@ -1269,7 +1270,7 @@ public class Main {
             repetir = false;
             boolean equipoEncontrado = false;
 
-            if (nombrePresidente == null || nombrePresidente.trim().isEmpty()) {
+            if (nombrePresidente == null) {
                 System.out.println("Escribe el nombre del presidente.");
                 nombrePresidente = sc.nextLine();
                 repetir = true;
@@ -1283,34 +1284,6 @@ public class Main {
                         } else {
                             System.out.println("El equipo " + eq.getNombre() + " no tiene de presidente a " + nombrePresidente);
                         }
-
-                        System.out.println("Personas fichadas en el equipo " + eq.getNombre() + ":");
-                        for (Persona p : listaFichados) {
-                            if (p.getNombreEquipo().equals(nombreEquipo)) {
-                                System.out.println(p.getNOMBRE());
-                            }
-                        }
-
-                        System.out.println("¿Quieres añadir a una persona a la presidencia? (Y, N)");
-                        char opcion = sc.next().charAt(0);
-                        sc.nextLine();
-
-                        switch (opcion) {
-                            case 'Y':
-                                eq.setNombrePresidente(nombrePresidente);
-                                System.out.println("Presidente: " + eq.getNombrePresidente());
-                                repetir = false;
-                                break;
-
-                            case 'N':
-                                System.out.println("El puesto de presidente no fue modificado.");
-                                repetir = false;
-                                break;
-
-                            default:
-                                System.out.println("Escribe Y para completar la presidencia o N para salir.");
-                                repetir = true;
-                        }
                     }
                 }
 
@@ -1319,7 +1292,6 @@ public class Main {
                     repetir = true;
                 }
             }
-
         } while (repetir);
     }
 
