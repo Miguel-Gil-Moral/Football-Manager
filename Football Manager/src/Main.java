@@ -1261,68 +1261,68 @@ public class Main {
     public static void modificarPresidente(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
         System.out.println("Nombre presidente:");
-
         String nombrePresidente = sc.nextLine();
-        boolean salirBucle;
-        boolean iterar = false;
+
+        boolean repetir;
+
         do {
-            salirBucle = true;
-            if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
-                for (Equipos eq : listaEquipos) {
-                    if (eq.getNombrePresidente().equals(nombrePresidente)) {
-                        System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
-                        iterar = true;
-                    }
-                }
-                if (!iterar) {
-                    System.out.println("El quipo no tiene de presidente a " + nombrePresidente);
-                    iterar = true;
-                }
+            repetir = false;
+            boolean equipoEncontrado = false;
+
+            if (nombrePresidente == null || nombrePresidente.trim().isEmpty()) {
+                System.out.println("Escribe el nombre del presidente.");
+                nombrePresidente = sc.nextLine();
+                repetir = true;
             } else {
-                System.out.println("Escribe el nombre del presidente para saber si el equipo tiene alguna persona asignada a la presidencia.");
-                salirBucle = false;
-                iterar = true;
+                for (Equipos eq : listaEquipos) {
+                    if (eq.getNombre().equals(nombreEquipo)) {
+                        equipoEncontrado = true;
 
-            }
+                        if (eq.getNombrePresidente() != null && eq.getNombrePresidente().equalsIgnoreCase(nombrePresidente)) {
+                            System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
+                        } else {
+                            System.out.println("El equipo " + eq.getNombre() + " no tiene de presidente a " + nombrePresidente);
+                        }
 
-            for (Equipos eq : listaEquipos) {
-                if (eq.getNombre().equals(nombreEquipo)) {
-
-                    System.out.println("Quieres añadir a una persona a la presidencia? (Y, N)");
-                    char opcion = sc.next().charAt(0);
-
-                    switch (opcion) {
-                        case 'Y':
-                            for (Persona p : listaFichados) {
+                        System.out.println("Personas fichadas en el equipo " + eq.getNombre() + ":");
+                        for (Persona p : listaFichados) {
+                            if (p.getNombreEquipo().equals(nombreEquipo)) {
                                 System.out.println(p.getNOMBRE());
                             }
-                            System.out.println("A quién quieres asignar a la presidencia?");
-                            String nuevoPresidente = sc.nextLine();
-                            eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
-                            System.out.println("Presidente: " + eq.getNombrePresidente());
-                            salirBucle = false;
-                            break;
-                        case 'N':
-                            System.out.println("El puesto faltante de presidente no fué modificado.");
-                            salirBucle = false;
-                            iterar = true;
-                            break;
+                        }
 
-                        default:
-                            System.out.println("Escribe Y para completar la presidencia faltante o N para salir directamente.");
-                            salirBucle = false;
-                            iterar = true;
+                        System.out.println("¿Quieres añadir a una persona a la presidencia? (Y, N)");
+                        char opcion = sc.next().charAt(0);
+                        sc.nextLine();
+
+                        switch (opcion) {
+                            case 'Y':
+                                eq.setNombrePresidente(nombrePresidente);
+                                System.out.println("Presidente: " + eq.getNombrePresidente());
+                                repetir = false;
+                                break;
+
+                            case 'N':
+                                System.out.println("El puesto de presidente no fue modificado.");
+                                repetir = false;
+                                break;
+
+                            default:
+                                System.out.println("Escribe Y para completar la presidencia o N para salir.");
+                                repetir = true;
+                        }
                     }
+                }
 
-                } else {
-                    System.out.println("El equipo no tiene ninguna persona asignada a la presidencia.");
-                    salirBucle = false;
-                    iterar = true;
+                if (!equipoEncontrado) {
+                    System.out.println("El equipo no existe.");
+                    repetir = true;
                 }
             }
 
-        } while (!salirBucle);
+        } while (repetir);
     }
+
 //if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
 //eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
     // limpia el salto pendiente
