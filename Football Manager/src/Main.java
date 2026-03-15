@@ -78,7 +78,7 @@ public class Main {
                                             modificarPresidente(listaEquipos, nombreEquipo);
                                             break;
                                         case 3:
-                                            destituirEntrenador();
+                                            destituirEntrenador(listaFichajes, listaFichados,  nombreEquipo);
                                             break;
                                         case 4:
                                             ficharPersona(listaFichajes, listaFichados,  nombreEquipo);
@@ -1319,14 +1319,35 @@ public class Main {
     // limpia el salto pendiente
 
     //Submenu gestionar mi equipo (opción 3):
-    //Prescinde al entrenador, previa confirmación por el usuario.
+    //✅Prescinde al entrenador, previa confirmación por el usuario.
     //El equipo se queda sin entrenador y este se pasará a formar parte de la lista del mercado de fichajes de la aplicación.
     /**
      * @since 1.0
      */
-    public static void destituirEntrenador() {
-
-    }
+    public static void destituirEntrenador(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
+        Scanner sc = new Scanner(System.in);
+        System.out.println("¿Prescinde al entrenador? (true / talse)");
+        boolean prescindeEntrenador = sc.nextBoolean();
+        boolean fichado = false;
+        if (prescindeEntrenador){
+                for (Persona p : listaFichajes) { //mal bucle
+                    //contenido en el bucle
+                    if (p instanceof Entrenador && prescindeEntrenador == true) { //mala condición
+                        p.setNombreEquipo(null);
+                        listaFichados.add(p);
+                        listaFichajes.remove(p); //p no es
+                        fichado = true;
+                        System.out.println(p.getNOMBRE() + " ha sido destituido de " + nombreEquipo);
+                    }
+                }
+                if (!fichado) {
+                    System.out.println("No se encontró ningún entrenador en el equipo " + nombreEquipo);
+                }
+            }
+            else {
+                System.out.println("No se ha destituido al entrenador.");
+            }
+        }
 
     //Submenu gestionar mi equipo (opción 4):
     //✅ Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
