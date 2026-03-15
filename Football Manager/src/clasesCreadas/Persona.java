@@ -53,7 +53,7 @@ public abstract class Persona {
     }
 
     //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
-    public void entrenamiento() {
+    protected void entrenamiento() {
         this.nivMotivacion += 0.2;
     }
 }

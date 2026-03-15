@@ -20,10 +20,6 @@ public class Jugador extends Persona {
         this.calidad = calidad;
     }
 
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombreEquipo = nombreEquipo;
-    }
-
     public void cambiarDePosicion() {
         Random rand = new Random();
         boolean salirBucle;
@@ -63,6 +59,10 @@ public class Jugador extends Persona {
         return dorsal;
     }
 
+    public void setDorsal(int dorsal) {
+        this.dorsal = dorsal;
+    }
+
     public String getPosicion() {
         return posicion;
     }
@@ -86,9 +86,9 @@ public class Jugador extends Persona {
         super.entrenamiento();
         Random rand = new Random();
         int numProbabilidad = rand.nextInt(100 + 1);
-        if (numProbabilidad <= 10) {
+        if (numProbabilidad <= 10 && numProbabilidad > 0) {
             this.calidad += 0.3;
-        } else if (numProbabilidad <= 20) {
+        } else if (numProbabilidad <= 20 && numProbabilidad > 10) {
             this.calidad += 0.2;
         } else {
             this.calidad += 0.1;

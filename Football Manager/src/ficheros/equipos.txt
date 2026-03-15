@@ -35,3 +35,4 @@ Real Sociedad Femení;2004;Donostia-San Sebastián;Zubieta;Jokin Aperribay
 Levante UD Femení;1909;València;Ciudad Deportiva de Buñol;Pablo Sánchez
 Real Betis Femení;2011;Sevilla;Ciudad Deportiva Luís del Sol;Ángel Haro
 SD Eibar Femení;1940;Eibar;Ipurua;Amaia Gorostiza
+Equipo de los atontaos;2026;Tontolandia;Tonto;El rey de los tontos

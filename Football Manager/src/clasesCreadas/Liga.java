@@ -25,7 +25,7 @@ public class Liga {
 
         for (Equipos eq : listaEquipos) {
             if (i < CANTIDAD_EQUIPOS) {
-                equipos[i][0] = eq.getNombre(); //Nombre equipo
+                equipos[i][0] = eq.getNOMBRE(); //Nombre equipo
                 equipos[i][1] = "0"; //Puntos
                 equipos[i][2] = "0"; //Partidos disputados
                 equipos[i][3] = "0"; //Goles a favor
@@ -46,14 +46,19 @@ public class Liga {
         }
     }
 
-    public String[][] disputarPartidos(double probabilidadGolLocal, double probabilidadGolVisitante) {
+    public String[][] disputarPartidos(String[][] probabilidadesEquipos) {
         Random random = new Random();
         resultadoPartidos = new String[encuentroEquipos.length][4];
-        double probabilidadLocal, probabilidadVisitante;
-        int i = 0, fila = 0;
+        double probabilidadLocal, probabilidadVisitante, probabilidadGolLocal, probabilidadGolVisitante;
+        int i = 0, fila = 0, posicionEquipoLocal = 0, posicionEquipoVisitante = 1;
 
         System.out.println("Disputando partidos...");
         for (String[] partidos : encuentroEquipos) {
+            if (posicionEquipoLocal == posicionEquipoVisitante) {
+                posicionEquipoVisitante++;
+            }
+            probabilidadGolLocal = Double.parseDouble(probabilidadesEquipos[posicionEquipoLocal][1]);
+            probabilidadGolVisitante = Double.parseDouble(probabilidadesEquipos[posicionEquipoVisitante][1]);
             int golesLocal = 0, golesVisitante = 0;
             for (int minuto = 0; minuto < 90; minuto++) {
                 for (int segundo = 0; segundo < 60; segundo++) {
@@ -76,6 +81,12 @@ public class Liga {
             resultadoPartidos[fila][2] = String.valueOf(golesVisitante);
             resultadoPartidos[fila][3] = partidos[1]; //Equipo Visitante
             fila++;
+            if (posicionEquipoVisitante < this.CANTIDAD_EQUIPOS - 1) {
+                posicionEquipoVisitante++;
+            } else {
+                posicionEquipoVisitante = 0;
+                posicionEquipoLocal++;
+            }
         }
 
         return resultadoPartidos;
