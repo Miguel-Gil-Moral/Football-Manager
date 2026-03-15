@@ -1279,7 +1279,7 @@ public class Main {
                     if (eq.getNombre().equals(nombreEquipo)) {
                         equipoEncontrado = true;
 
-                        if (eq.getNombrePresidente() != null && eq.getNombrePresidente().equalsIgnoreCase(nombrePresidente)) {
+                        if (eq.getNombrePresidente() != null && eq.getNombrePresidente().equalsIgnoreCase(nombrePresidente)) { //¡¡equalsIgnoreCase REVISAR SI ES CLASE VÁLIDA!!
                             System.out.println("El equipo " + eq.getNombre() + " ya tiene de presidente a " + nombrePresidente);
                         } else {
                             System.out.println("El equipo " + eq.getNombre() + " no tiene de presidente a " + nombrePresidente);
@@ -1336,25 +1336,25 @@ public class Main {
                         }
                         System.out.println("¿A quién quieres fichar?");
                         quienFichar = sc.nextLine();
-                do {
-                    try {
-                        salirBucleFor = true;
-                        for (Persona p : listaFichajes) {
-                            if (p instanceof Jugador && p.getNOMBRE().equals(quienFichar)) {
-                                p.setNombreEquipo(nombreEquipo);
-                                listaFichados.add(p);
-                                listaFichajes.remove(p);
-                                fichado = true;
+                        do {
+                            try {
+                                salirBucleFor = true;
+                                for (Persona p : listaFichajes) {
+                                    if (p instanceof Jugador && p.getNOMBRE().equals(quienFichar)) {
+                                        p.setNombreEquipo(nombreEquipo);
+                                        listaFichados.add(p);
+                                        listaFichajes.remove(p);
+                                        fichado = true;
+                                    }
+                                }
+                                if (!fichado) {
+                                    System.out.println(quienFichar + "no se borró de " + nombreEquipo);
+                                }
                             }
-                        }
-                        if (!fichado) {
-                            System.out.println(quienFichar + "no se borró de " + nombreEquipo);
-                        }
-                    }
-                    catch (ConcurrentModificationException e){
-                        salirBucleFor = false;
-                    }
-                } while (!salirBucleFor);
+                            catch (ConcurrentModificationException e){
+                                salirBucleFor = false;
+                            }
+                        } while (!salirBucleFor);
                     break;
                     case 2: //Entrenador
                         for (Persona p : listaFichajes) {
@@ -1364,6 +1364,25 @@ public class Main {
                         }
                         System.out.println("¿A quién quieres fichar?");
                         quienFichar = sc.nextLine();
+                        do {
+                            try {
+                                salirBucleFor = true;
+                                for (Persona p : listaFichajes) {
+                                    if (p instanceof Entrenador && p.getNOMBRE().equals(quienFichar)) {
+                                        p.setNombreEquipo(nombreEquipo);
+                                        listaFichados.add(p);
+                                        listaFichajes.remove(p);
+                                        fichado = true;
+                                    }
+                                }
+                                if (!fichado) {
+                                    System.out.println(quienFichar + "no se borró de " + nombreEquipo);
+                                }
+                            }
+                            catch (ConcurrentModificationException e){
+                                salirBucleFor = false;
+                            }
+                        } while (!salirBucleFor);
                     break;
                 }
             } catch (InputMismatchException e) {
