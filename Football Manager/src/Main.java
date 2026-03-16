@@ -825,14 +825,13 @@ public class Main {
     }
 
     /**
-     * @since 1.1
+     * @since 1.0
      * @param liga Liga con toda la información de sus atributos
      * @param listaEquipos Lista con todos los equipos que participaran
      * @param listaFichados Lista con todas las personas fichadas en un equipo para sacar su motivacion y calidad
      */
     public static void prepararPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
-        liga.agregarEquipos(listaEquipos);
-        String[][] equipos = liga.getEquipos();
+        String[][] equipos = liga.agregarEquipos(listaEquipos);
 
         int tamanyoEquipos = getTamanyoEquipos(listaFichados);
 
@@ -1013,6 +1012,8 @@ public class Main {
 
     /**
      * @since 1.0
+     * @param listaEquipos Lista con todos los equipos para guardar
+     * @param listaFichados Lista con todas las personas fichadas en un equipo
      */
     public static void guardarDatosEquipo(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
         String[] rutaArchivos = {"src/ficheros/personas_fichadas.txt", "src/ficheros/equipos.txt"};
@@ -1332,7 +1333,7 @@ public class Main {
         if (prescindeEntrenador){
                 for (Persona p : listaFichajes) { //mal bucle
                     //contenido en el bucle
-                    if (p instanceof Entrenador && prescindeEntrenador == true) { //mala condición
+                    if (p instanceof Entrenador && prescindeEntrenador) { //mala condición
                         p.setNombreEquipo(null);
                         listaFichados.add(p);
                         listaFichajes.remove(p); //p no es

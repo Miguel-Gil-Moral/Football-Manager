@@ -18,7 +18,7 @@ public class Liga {
         this.CANTIDAD_EQUIPOS = cantidadEquipos;
     }
 
-    public void agregarEquipos(ArrayList<Equipos> listaEquipos) {
+    public String[][] agregarEquipos(ArrayList<Equipos> listaEquipos) {
         int i = 0;
         encuentroEquipos = new String[(CANTIDAD_EQUIPOS - 1) * CANTIDAD_EQUIPOS][2];
         equipos = new String[CANTIDAD_EQUIPOS][5];
@@ -44,6 +44,7 @@ public class Liga {
                 }
             }
         }
+        return equipos;
     }
 
     public String[][] disputarPartidos(String[][] probabilidadesEquipos) {
@@ -109,10 +110,6 @@ public class Liga {
     public void mostrarClasificacion() {
         //printf
         //mostrar todos los equipos y sus puntos
-    }
-
-    public String[][] getEquipos() {
-        return equipos;
     }
 
     public void setEquipos(String[][] equipos) {
