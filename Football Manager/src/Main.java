@@ -24,7 +24,7 @@ public class Main {
                     opcion = menuAdmin();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga(listaLigas);
+                            verClasificacionLiga(listaLigas, listaEquipos);
                             break;
                         case 2:
                             darAltaEquipo(listaEquipos);
@@ -58,7 +58,7 @@ public class Main {
                     opcion = menuGestorEquipos();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga(listaLigas);
+                            verClasificacionLiga(listaLigas, listaEquipos);
                             break;
                         case 2:
                             //✅ Menu principal de gestor de equipos (opción 2):
@@ -303,25 +303,37 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void verClasificacionLiga(ArrayList<Liga> listaLigas) {
+    public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos) {
         Scanner sc = new Scanner(System.in);
         String nombreLiga;
         boolean ligaExsistente = false;
+        //mostrar tabla que hice con printf!!
+
 
         //Idea Miguel:
-        //Haz que cuando la lista de ligas este vacia, vaya directamente a la opcion de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
-        //Cuando haya una liga, haz opciones para que el usuario eliga si quiere ver los goles a favor, en contra, toda la clasificación, e incluso el tiempo donde marcaron los goles
-        System.out.println("Ingrese el nombre del liga actual: ");
-        nombreLiga = sc.next();
-        for ( Liga l : listaLigas) {
-            if (l.getNOMBRE().equals(nombreLiga)) {
-                l.mostrarClasificacion();
-                ligaExsistente = true;
+        //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
+        //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver los goles a favor, en contra, toda la clasificación, e incluso el tiempo donde marcaron los goles
 
+        if (listaLigas.isEmpty()) {
+            disputarNuevaLiga(listaLigas, listaEquipos);
+        } else {
+            for (Liga l : listaLigas) {
+                System.out.println(l.getNOMBRE());
             }
         }
-        if (!ligaExsistente) {
-            System.out.println("No exsiste");
+        System.out.println("Ingrese el nombre del liga actual: ");
+        nombreLiga = sc.nextLine();
+
+        if (!nombreLiga.isEmpty()) {
+            for ( Liga l : listaLigas) {
+                if (l.getNOMBRE().equals(nombreLiga) && listaLigas.isEmpty()) {
+                    l.mostrarClasificacion();
+                    ligaExsistente = true;
+                }
+            }
+            if (!ligaExsistente) {
+                System.out.println("No exsiste");
+            }
         }
     }
 
@@ -782,7 +794,7 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static Liga disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
+    public static Liga disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) { //CLASES Y LISTAS CORRESPONDIENTES
         Scanner sc = new Scanner(System.in);
         boolean salirBucle;
         String nombre;
@@ -1327,29 +1339,30 @@ public class Main {
      */
     public static void destituirEntrenador(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("¿Prescinde al entrenador? (true / talse)");
+        System.out.println("¿Hacer al entrenador prescindible? (true / false)");
         boolean prescindeEntrenador = sc.nextBoolean();
         boolean fichado = false;
-        if (prescindeEntrenador){
-                for (Persona p : listaFichajes) { //mal bucle
+        if (prescindeEntrenador) {
+            try {
+                for (Persona p : listaFichados) { //mal bucle
                     //contenido en el bucle
-                    if (p instanceof Entrenador && prescindeEntrenador) { //mala condición
+                    if (p instanceof Entrenador && p.getNombreEquipo().equals(nombreEquipo)) {
                         p.setNombreEquipo(null);
-                        listaFichados.add(p);
-                        listaFichajes.remove(p); //p no es
+                        listaFichados.remove(p);
+                        listaFichajes.add(p);
                         fichado = true;
-                        System.out.println(p.getNOMBRE() + " ha sido destituido de " + nombreEquipo);
                     }
                 }
                 if (!fichado) {
                     System.out.println("No se encontró ningún entrenador en el equipo " + nombreEquipo);
+                } else {
+                    System.out.println("No se ha destituido al entrenador.");
                 }
-            }
-            else {
-                System.out.println("No se ha destituido al entrenador.");
+            } catch (ConcurrentModificationException e) {
+                System.out.println("El entrenador ha sido destituido del equipo" + nombreEquipo);
             }
         }
-
+    }
     //Submenu gestionar mi equipo (opción 4):
     //✅ Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
     //(✅ y medio) Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
@@ -1405,7 +1418,26 @@ public class Main {
                         }
                         System.out.println("¿A quién quieres fichar?");
                         quienFichar = sc.nextLine();
-                    break;
+                        do {
+                            try {
+                                salirBucleFor = true;
+                                for (Persona p : listaFichajes) {
+                                    if (p instanceof Entrenador && p.getNOMBRE().equals(quienFichar)) {
+                                        p.setNombreEquipo(nombreEquipo);
+                                        listaFichados.add(p);
+                                        listaFichajes.remove(p);
+                                        fichado = true;
+                                    }
+                                }
+                                if (!fichado) {
+                                    System.out.println(quienFichar + "no se borró de " + nombreEquipo);
+                                }
+                            }
+                            catch (ConcurrentModificationException e){
+                                salirBucleFor = false;
+                            }
+                        } while (!salirBucleFor);
+                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("Error al escribir el fichero del mercado de fichajes");

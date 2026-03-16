@@ -28,3 +28,4 @@ J;Mikel;Oyarzabal;21/04/1997;8;6000000;10;DAV;79
 J;Alexander;Isak;21/09/1999;6;7000000;19;DAV;82
 J;Gerard;Moreno;07/04/1992;8;8000000;7;DAV;80
 J;Pau;Torres;16/01/1997;8;5000000;4;DEF;77
+E;Pepote;pepon;1/1/2009;5;1;0;false
