@@ -27,28 +27,52 @@ select * from persones;
 
 select * from jugadors;
 
-/*6- Estem a punt de crear una nova lliga. 
+/*✅ 6- Estem a punt de crear una nova lliga. 
 Hi participaran 6 equips al llarg de 6 jornades.
 Realitza els INSERT necessaris.*/
 
+insert into lligues values (3, 'La liga de Miguel', 2026);
 
+insert into participar_lligues values (38, 3);
+insert into participar_lligues values (1, 3);
+insert into participar_lligues values (2, 3);
+insert into participar_lligues values (3, 3);
+insert into participar_lligues values (4, 3);
+insert into participar_lligues values (5, 3);
 
-/*7- Crea els INSERT necessaris per poder afegir una nova jornada de lliga amb un partit en què hi hagi algun gol.*/
+insert into jornades values (39, 1, '2026-01-28', 3);
+insert into jornades values (40, 2, '2026-01-30', 3);
+insert into jornades values (41, 3, '2026-02-01', 3);
+insert into jornades values (42, 4, '2026-02-03', 3);
+insert into jornades values (43, 5, '2026-02-05', 3);
+insert into jornades values (44, 6, '2026-02-08', 3);
 
--- insert into jornada;-- 
-
+select * from equips;
 select * from jornades;
+select * from participar_lligues;
+
+/*✅ 7- Crea els INSERT necessaris per poder afegir una nova jornada de lliga amb un partit en què hi hagi algun gol.*/
+
+insert into jornades values (45, 1, '2026-02-12', 3);
+
+insert into partits values (381, 1, 6, 0, 3, 45, 38, 1);
 
 /*✅ 8- Crea els INSERT necessaris per poder donar un nou equip d'altra a la nostra base de dades, incloent el seu estadi, l'entrenador i 2 jugadors.*/
 
 insert into persones values (199, 'Miguel', 'Gil', '2005-02-17', 90, 10000000, 'jugador');
 insert into persones values (200, 'Darrell', 'Zapata', '2004-01-05', 89, 1, 'jugador');
 insert into persones values (201, 'David', 'Garcia', '2003-12-16', 88, 0, 'entrenador');
+
 insert into entrenadors values (201, 0, 0);
-insert into jugadors values (199, 13, 90, 3);
-insert into jugadors values (200, 12, 89, 2);
+
+insert into jugadors values (199, 13, 90, 3, 1);
+insert into jugadors values (200, 12, 89, 2, 1);
+
 insert into estadis values (34, 'En algun lugar de aqui', 1);
+
 insert into equips values (38, 'Equipo nuevo', 2026, 'Pepito los palotes', 1, 34, null);
+
 insert into jugadors_equips values ('2024-02-17', 199, 38, null);
 insert into jugadors_equips values ('2024-01-05', 200, 38, null);
+
 insert into entrenar_equips values ('2024-03-16', 201, 38, null);

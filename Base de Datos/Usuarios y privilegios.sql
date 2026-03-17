@@ -7,12 +7,12 @@ password history 2;
 
 grant all privileges on football_manager.* to 'superadministrador'@'localhost';
 
-/*2- Usuari adminEquips. 
+/*(MARIOOOOOOOO_____!!!!!!!!!!!!!!!!!!____________________!!!!!!!!!!!!!!!!!!!_____________________!!!!!!!!!!!!!!!!!!!!!!)2- Usuari adminEquips. 
 Aquest usuari he de poder consultar i modificar les dades dels equips, els seus estadis i les persones que en formen part. 
 No ha de poder eliminar ni afegir-ne de nous. 
 Cal forçar que l'usuari hagi de modificar la contrasenya la primera vegada que entri al sistema.*/
 
-/*3- Usuari adminLligues. 
+/*(MARIOOOOOOOO_____!!!!!!!!!!!!!!!!!!____________________!!!!!!!!!!!!!!!!!!!_____________________!!!!!!!!!!!!!!!!!!!!!!)3- Usuari adminLligues. 
 Aquest usuari s'encarregarà de la gestió completa (afegir, modificar i consultar) de la part de les lligues, que inclou les jornades, els partits i els gols. 
 Per criteris de seguretat, només podrà realitzar dues modificacions a la base de dades cada hora. 
 D'aquesta manera, si les credencials quedessin compromoses, evitem ensurts majors.*/
@@ -33,6 +33,6 @@ create user 'periodistaSport'@'localhost';
 create user 'periodistaAS'@'localhost';
 create user 'periodistaMundo'@'localhost';
 
-/*6- Els alts càrrecs del diari AS han aconseguit que els seus periodistes disposin d'accés preferent a les dades, que se'ls serviran processades per a un millor anàlisi. 
+/*(MARIOOOOOOOO_____!!!!!!!!!!!!!!!!!!____________________!!!!!!!!!!!!!!!!!!!_____________________!!!!!!!!!!!!!!!!!!!!!!)6- Els alts càrrecs del diari AS han aconseguit que els seus periodistes disposin d'accés preferent a les dades, que se'ls serviran processades per a un millor anàlisi. 
 Necessiteu crear almenys 4 vistes que mostrin informació ja filtrada i processada (podeu inspirar-vos en algunes de les consultes que us demanem al repte). 
 Per exemple: un informe dels millors llançadors de penaltis. Només l'usuari periodistaAS tindrà accés a aquests informes.*/
