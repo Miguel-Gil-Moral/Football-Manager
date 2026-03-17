@@ -16,9 +16,12 @@ Fotografia.
 
 S'ha de poder indicar si es tracta d'un  jugador o d'un entrenador.
 
-Només en el cas dels jugadors, s'ha de poder indicar de quina posició o posicions juga (defensa, davanter, migcampista, porter). Aquesta opció no ha d'aparèixer si seleccionem que es tracta d'un entrenador.
+Només en el cas dels jugadors, s'ha de poder indicar de quina posició o posicions juga (defensa, davanter, migcampista, porter). 
+Aquesta opció no ha d'aparèixer si seleccionem que es tracta d'un entrenador.
 
-Assignarem el jugador / entrenador a un equip a través d'un desplegable. Aquest desplegable s'haurà d'omplir a través de JavaScript. Creeu una llista amb tots els equips i el codi necessari per crear totes les opcions del desplegable a partir d'aquesta llista.
+Assignarem el jugador / entrenador a un equip a través d'un desplegable. 
+Aquest desplegable s'haurà d'omplir a través de JavaScript. 
+Creeu una llista amb tots els equips i el codi necessari per crear totes les opcions del desplegable a partir d'aquesta llista.
 
 🔎 Trieu el tipus de camp més adient per a cada cas i afegiu les restriccions adequades a través de l'HTML. -->
     <form action="">
@@ -34,5 +37,9 @@ Assignarem el jugador / entrenador a un equip a través d'un desplegable. Aquest
         <label for="fechaNacimiento">Fecha Nacimiento</label>
         <input type="date" name="fechaNacimiento" id="fechaNacimiento">
         <br>
+        <!--Para Mario: input para indicar si se dara alta un jugador o entrenador, 
+        otra para la fotografia, 
+        otra para la posicion, hacer que este se muestre si se escoge jugador y que permanezca invisible si elige entrenador,
+        otra para hacer un desplegable para asignarlo a un equipo (se llenara con Javascript)
 </body>
 </html>
