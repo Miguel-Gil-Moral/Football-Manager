@@ -24,7 +24,7 @@ public class Main {
                     opcion = menuAdmin();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga(listaLigas, listaEquipos);
+                            verClasificacionLiga(listaLigas, listaEquipos, listaFichados);
                             break;
                         case 2:
                             darAltaEquipo(listaEquipos);
@@ -58,7 +58,7 @@ public class Main {
                     opcion = menuGestorEquipos();
                     switch (opcion) {
                         case 1:
-                            verClasificacionLiga(listaLigas, listaEquipos);
+                            verClasificacionLiga(listaLigas, listaEquipos, listaFichados);
                             break;
                         case 2:
                             //✅ Menu principal de gestor de equipos (opción 2):
@@ -303,30 +303,29 @@ public class Main {
     /**
      * @since 1.0
      */
-    public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos) {
+    public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         Scanner sc = new Scanner(System.in);
         String nombreLiga;
         boolean ligaExsistente = false;
-        //mostrar tabla que hice con printf!!
-
-
         //Idea Miguel:
         //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
-        //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver los goles a favor, en contra, toda la clasificación, e incluso el tiempo donde marcaron los goles
+        //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver toda la clasificación, los goles a favor, en contra, e incluso el tiempo donde marcaron los goles
 
         if (listaLigas.isEmpty()) {
-            disputarNuevaLiga(listaLigas, listaEquipos);
+            System.out.println("La lista de ligas se está vacía. Por ello disputarás una nueva liga.");
+            disputarNuevaLiga(listaEquipos, listaFichados);
         } else {
             for (Liga l : listaLigas) {
                 System.out.println(l.getNOMBRE());
             }
         }
+        //poner en do while !ligaExsistente {
         System.out.println("Ingrese el nombre del liga actual: ");
         nombreLiga = sc.nextLine();
 
         if (!nombreLiga.isEmpty()) {
             for ( Liga l : listaLigas) {
-                if (l.getNOMBRE().equals(nombreLiga) && listaLigas.isEmpty()) {
+                if (l.getNOMBRE().equals(nombreLiga)) {
                     l.mostrarClasificacion();
                     ligaExsistente = true;
                 }
@@ -335,7 +334,22 @@ public class Main {
                 System.out.println("No exsiste");
             }
         }
-    }
+        //}
+
+        System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol? (Multiseleción, ejemplo: 2, 3 | 1, 4)");
+        String[] opciones = {"1 | mostrarClasificacion", "2 | consultarGolesFavor", "3 | consultarGolesContra", "4. tiempoGol (no Clase)"};
+
+        for (String opcion : opciones) {
+            System.out.println(opcion);
+        }
+
+        String respuesta = sc.nextLine();
+        // Dividir la respuesta por comas
+        String[] seleccion = respuesta.split(",");
+
+        System.out.println("Has seleccionado las opciones: " + Arrays.toString(seleccion));
+        }
+
 
     //✅ Menu principal de admin (opción 2):
     //✅ Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
@@ -679,7 +693,6 @@ public class Main {
                 System.out.println("Estadio: " + eq.getNombreEstadio());
                 System.out.println("Presidente: " + eq.getNombrePresidente());
                 System.out.println();
-
                 System.out.printf("%-1s %-10s %-1s %-11s %-1s %-19s %-1s %-10s %-1s %-9s %-1s %-2s %-1s %-3s %-1s %-3s %-1s %-5s %-1s %-5s %-1s \n",
                         "|", "NOMBRE", "|", "APELLIDO", "|", "FECHA DE NACIMIENTO", "|", "MOTIVACIÓN", "|", "SALARIO", "|", "DORSAL", "|", "CALIDAD", "|", "POSICIÓN", "|", "TORNEOS GANADOS", "|", "SELECCIONADOR NACIONAL", "|");
                 for (Persona p : listaFichados) {
@@ -697,6 +710,7 @@ public class Main {
                         }
                     }
                 }
+
             }
         }
         if (!equipoExistente) {
