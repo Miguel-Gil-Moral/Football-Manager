@@ -355,7 +355,9 @@ public class Main {
                                 break;
 
                             case 3:
-                                ArrayList <String> TiempoGol = l.getTiempoGol(); //CREAR MÉTODO DEBAJO DE ESTE O DENTRO (NO LO SÉ) PARA DEJAR GUAY TIEMPO GOL
+                                //ArrayList <String> TiempoGol = l.getTiempoGol();
+                                tiempoGol(listaLigas);
+
                                 break;
                             default:
                                 System.out.println("Opción inválida, seleccione entre 0 y 3");
@@ -371,6 +373,18 @@ public class Main {
         } while (!salirBucle);
     }
 
+    private static void tiempoGol(ArrayList<Liga> listaLigas) {
+        System.out.println("Mostrar Tiempo Gol:");
+        System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
+                "|", "Partido jugado", "|", "Minuto del gol", "|", "Equipo goleador", "|");
+
+        ArrayList <String> TiempoGol = ((Liga) l).getTiempoGol();
+        //for (Liga l : tiempoGol()) {}
+        for (String l : TiempoGol) {
+            System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
+                    "|", l[0], "|", l[1], "|", l[2], "|"); //Problemas con ligaaa
+        }
+    }
 
     //✅ Menu principal de admin (opción 2):
     //✅ Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
