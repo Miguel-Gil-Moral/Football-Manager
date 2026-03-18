@@ -382,7 +382,7 @@ public class Main {
         //for (Liga l : tiempoGol()) {}
         for (String l : TiempoGol) {
             System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
-                    "|", l[0], "|", l[1], "|", l[2], "|"); //Problemas con ligaaa
+                    "|", l[0], "|", l[1], "|", l[2], "|"); //Problemas con liga
         }
     }
 
