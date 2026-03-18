@@ -305,50 +305,102 @@ public class Main {
      */
     public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         Scanner sc = new Scanner(System.in);
-        String nombreLiga;
+        String nombreLiga; //Es cuando selecciona la liga
         boolean ligaExsistente = false;
         //Idea Miguel:
         //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
         //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver toda la clasificación, los goles a favor, en contra, e incluso el tiempo donde marcaron los goles
 
         if (listaLigas.isEmpty()) {
-            System.out.println("La lista de ligas se está vacía. Por ello disputarás una nueva liga.");
-            disputarNuevaLiga(listaEquipos, listaFichados);
+            System.out.println("La lista de ligas se está vacía. Es por esto que disputarás una nueva liga. Pulsa Enter para empezar.");
+            String respuestaDisputarNuevaLiga =  sc.nextLine();
+            if (respuestaDisputarNuevaLiga.isEmpty()) {
+                listaLigas.add(disputarNuevaLiga(listaEquipos, listaFichados)); //Créditos a Miguel :)))
+            }
         } else {
             for (Liga l : listaLigas) {
                 System.out.println(l.getNOMBRE());
             }
         }
-        //poner en do while !ligaExsistente {
-        System.out.println("Ingrese el nombre del liga actual: ");
-        nombreLiga = sc.nextLine();
 
-        if (!nombreLiga.isEmpty()) {
-            for ( Liga l : listaLigas) {
-                if (l.getNOMBRE().equals(nombreLiga)) {
-                    l.mostrarClasificacion();
-                    ligaExsistente = true;
+        int opcion = 0; //Es lo que escoge el usuario
+        boolean salirBucle = false;
+        do {
+            try {
+                System.out.println("Ingrese el nombre del liga actual: ");
+                nombreLiga = sc.nextLine();
+
+                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol? (Multiselección, ejemplo: 2, 3 | 1, 4)");
+                System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
+                        "|", "0 = mostrarClasificacion", "|", "1 = consultarGolesFavor", "|", "2 = consultarGolesContra", "|", "3 = tiempoGol (no Clase)", "|");
+
+                System.out.print("Opción: ");
+                opcion = sc.nextInt();
+
+                salirBucle = true;
+                System.out.println("Opción invalido, seleccione las opciones que se muestra en pantalla");
+
+                salirBucle = false;
+                for (Liga l : listaLigas) {
+                    switch (opcion) {
+                        case 0:
+                            do {
+                                if (l.getNOMBRE().equals(nombreLiga)) {
+                                    l.mostrarClasificacion();
+                                    ligaExsistente = true;
+                                }
+                                if (!ligaExsistente) {
+                                    System.out.println("No exsiste");
+                                }
+                            } while (ligaExsistente);
+                            break;
+
+                        case 1:
+                            do {
+                                if (l.getNOMBRE().equals(nombreLiga)) {
+                                    l.consultarGolesFavor();
+                                    ligaExsistente = true;
+                                }
+                                if (!ligaExsistente) {
+                                    System.out.println("No exsiste");
+                                }
+                            } while (ligaExsistente);
+                            break;
+
+                        case 2:
+                            do {
+                                if (l.getNOMBRE().equals(nombreLiga)) {
+                                    l.consultarGolesContra();
+                                    ligaExsistente = true;
+                                }
+                                if (!ligaExsistente) {
+                                    System.out.println("No exsiste");
+                                }
+                            } while (ligaExsistente);
+                            break;
+
+                        case 3:
+                            do {
+                                if (l.getNOMBRE().equals(nombreLiga)) {
+                                    //l.tiempoGol();
+                                    ligaExsistente = true;
+                                }
+                                if (!ligaExsistente) {
+                                    System.out.println("No exsiste");
+                                }
+                            } while (ligaExsistente);
+                        break;
+                        default:
+                            disputarNuevaLiga(listaEquipos, listaFichados);
+                    }
                 }
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalido, seleccione las opciones que se muestra en pantalla");
+                sc.next();
+                salirBucle = false;
             }
-            if (!ligaExsistente) {
-                System.out.println("No exsiste");
-            }
-        }
-        //}
-
-        System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol? (Multiseleción, ejemplo: 2, 3 | 1, 4)");
-        String[] opciones = {"1 | mostrarClasificacion", "2 | consultarGolesFavor", "3 | consultarGolesContra", "4. tiempoGol (no Clase)"};
-
-        for (String opcion : opciones) {
-            System.out.println(opcion);
-        }
-
-        String respuesta = sc.nextLine();
-        // Dividir la respuesta por comas
-        String[] seleccion = respuesta.split(",");
-
-        System.out.println("Has seleccionado las opciones: " + Arrays.toString(seleccion));
-        }
+        } while (!salirBucle);
+    }
 
 
     //✅ Menu principal de admin (opción 2):

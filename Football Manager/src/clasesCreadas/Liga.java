@@ -94,17 +94,11 @@ public class Liga {
     }
 
     public void consultarGolesFavor() {
-        System.out.println("Equipo - Goles a Favor");
-        for (String[] eq : equipos) {
-            System.out.println(eq[0] + " " + eq[3]);
-        }
+
     }
 
     public void consultarGolesContra() {
-        System.out.println("Equipo - Goles en Contra");
-        for (String[] eq : equipos) {
-            System.out.println(eq[0] + " " + eq[4]);
-        }
+
     }
 
     public void mostrarClasificacion() { //Revisar los párametros que se usan realmete.
