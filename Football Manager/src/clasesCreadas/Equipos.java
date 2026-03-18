@@ -47,7 +47,7 @@ public class Equipos {
     //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
     public double calcularMediaEquipo(String[][] equiposCalidad, int posicion) {
         double suma = 0;
-        for (int i = 1; i < equiposCalidad.length; i++) {
+        for (int i = 1; i < equiposCalidad[0].length; i++) { //ajuste by Miguel, error explosivo - Mario
             suma += Double.parseDouble(equiposCalidad[posicion][i]);
         }
         return suma / equiposCalidad.length;

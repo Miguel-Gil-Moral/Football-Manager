@@ -94,11 +94,17 @@ public class Liga {
     }
 
     public void consultarGolesFavor() {
-
+        System.out.println("Equipo - Goles a Favor");
+        for (String[] eq : equipos) {
+            System.out.println(eq[0] + " " + eq[3]);
+        }
     }
 
     public void consultarGolesContra() {
-
+        System.out.println("Equipo - Goles en Contra");
+        for (String[] eq : equipos) {
+            System.out.println(eq[0] + " " + eq[4]);
+        }
     }
 
     public void mostrarClasificacion() { //Revisar los párametros que se usan realmete.
@@ -107,11 +113,10 @@ public class Liga {
         System.out.println("Mostrar Clasificación:");
         System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
                 "|", "Equipo Local", "|", "golesLocal", "|", "golesVisitante", "|", "Equipo Visitante", "|");
+
         for (String[] eq : equipos) {
-            int fila = 0;
             System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
-                    "|", equipos[fila][0], "|", equipos[fila][1], "|", equipos[fila][2], "|", equipos[fila][3], "|");
-        fila++;
+                    "|", eq[0], "|", eq[1], "|", eq[2], "|", eq[3], "|");
         }
 
             //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
@@ -132,6 +137,10 @@ public class Liga {
 
     public String getNOMBRE() {
         return NOMBRE;
+    }
+
+    public ArrayList<String> getTiempoGol() {
+        return tiempoGol;
     }
 
     @Override

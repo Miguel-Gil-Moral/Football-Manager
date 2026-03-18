@@ -323,75 +323,44 @@ public class Main {
             }
         }
 
-        int opcion = 0; //Es lo que escoge el usuario
+        int opcion; //Es lo que escoge el usuario
         boolean salirBucle = false;
         do {
             try {
                 System.out.println("Ingrese el nombre del liga actual: ");
                 nombreLiga = sc.nextLine();
 
-                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol? (Multiselección, ejemplo: 2, 3 | 1, 4)");
+                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol?");
                 System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
                         "|", "0 = mostrarClasificacion", "|", "1 = consultarGolesFavor", "|", "2 = consultarGolesContra", "|", "3 = tiempoGol (no Clase)", "|");
 
                 System.out.print("Opción: ");
                 opcion = sc.nextInt();
 
-                salirBucle = true;
-                System.out.println("Opción invalido, seleccione las opciones que se muestra en pantalla");
-
-                salirBucle = false;
                 for (Liga l : listaLigas) {
-                    switch (opcion) {
-                        case 0:
-                            do {
-                                if (l.getNOMBRE().equals(nombreLiga)) {
-                                    l.mostrarClasificacion();
-                                    ligaExsistente = true;
-                                }
-                                if (!ligaExsistente) {
-                                    System.out.println("No exsiste");
-                                }
-                            } while (ligaExsistente);
-                            break;
+                    if (l.getNOMBRE().equals(nombreLiga)) {
+                        ligaExsistente = true;
+                        salirBucle = true;
+                        switch (opcion) {
+                            case 0:
+                                l.mostrarClasificacion();
+                                break;
 
-                        case 1:
-                            do {
-                                if (l.getNOMBRE().equals(nombreLiga)) {
-                                    l.consultarGolesFavor();
-                                    ligaExsistente = true;
-                                }
-                                if (!ligaExsistente) {
-                                    System.out.println("No exsiste");
-                                }
-                            } while (ligaExsistente);
-                            break;
+                            case 1:
+                                l.consultarGolesFavor();
+                                break;
 
-                        case 2:
-                            do {
-                                if (l.getNOMBRE().equals(nombreLiga)) {
-                                    l.consultarGolesContra();
-                                    ligaExsistente = true;
-                                }
-                                if (!ligaExsistente) {
-                                    System.out.println("No exsiste");
-                                }
-                            } while (ligaExsistente);
-                            break;
+                            case 2:
+                                l.consultarGolesContra();
+                                break;
 
-                        case 3:
-                            do {
-                                if (l.getNOMBRE().equals(nombreLiga)) {
-                                    //l.tiempoGol();
-                                    ligaExsistente = true;
-                                }
-                                if (!ligaExsistente) {
-                                    System.out.println("No exsiste");
-                                }
-                            } while (ligaExsistente);
-                        break;
-                        default:
-                            disputarNuevaLiga(listaEquipos, listaFichados);
+                            case 3:
+                                ArrayList <String> TiempoGol = l.getTiempoGol(); //CREAR MÉTODO DEBAJO DE ESTE O DENTRO (NO LO SÉ) PARA DEJAR GUAY TIEMPO GOL
+                                break;
+                            default:
+                                System.out.println("Opción inválida, seleccione entre 0 y 3");
+                                salirBucle = false;
+                        }
                     }
                 }
             } catch (InputMismatchException e) {
@@ -979,7 +948,7 @@ public class Main {
 
     public static double calcularMediaMotivacion(String[][] equiposMotivacion, int posicion) {
         double suma = 0;
-        for (int i = 1; i < equiposMotivacion.length; i++) {
+        for (int i = 1; i < equiposMotivacion[0].length; i++) {
             suma += Double.parseDouble(equiposMotivacion[posicion][i]);
         }
         return suma / equiposMotivacion.length;
