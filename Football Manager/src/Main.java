@@ -72,7 +72,7 @@ public class Main {
                                     opcionSubmenu = submenuGestorEquipos();
                                     switch (opcionSubmenu) {
                                         case 1:
-                                            darBajaEquipo(listaEquipos, nombreEquipo);
+                                            darBajaEquipo(listaEquipos, listaFichados, listaFichajes, nombreEquipo);
                                             break;
                                         case 2:
                                             modificarPresidente(listaEquipos, nombreEquipo);
@@ -357,7 +357,6 @@ public class Main {
                             case 3:
                                 //ArrayList <String> TiempoGol = l.getTiempoGol();
                                 verTiempoGol(l);
-
                                 break;
                             default:
                                 System.out.println("Opción inválida, seleccione entre 0 y 3");
@@ -1303,26 +1302,38 @@ public class Main {
     /**
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos disponibles
+     * @param listaFichados Lista con todos los jugadores que están fichados en el equipo
+     * @param listaFichajes Lista para trasladar el jugador del equipo eliminado al mercado
      * @param nombreEquipo Nombre del equipo al cual se dara de baja
      */
-    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
+    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, ArrayList<Persona> listaFichajes, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Quieres borrar el equipo " + nombreEquipo + " de la lista de equipos? («true» o «false»).");
         boolean respuestaUsuario = sc.nextBoolean();
-        int indiceEquipo = 0, temporal = 0;
-        boolean salirBucle;
+        boolean salirBucle, salirBucleFor;
 
         do {
             try {
                 salirBucle = true;
                 if (respuestaUsuario) {
-                    for (Equipos eq : listaEquipos) {
-                        if (eq.getNOMBRE().equals(nombreEquipo)) {
-                            indiceEquipo = temporal;
+                    do {
+                        try {
+                            for (Equipos eq : listaEquipos) {
+                                if (eq.getNOMBRE().equals(nombreEquipo)) {
+                                    listaEquipos.remove(eq);
+                                }
+                            }
+                            salirBucleFor = true;
+                        } catch (ConcurrentModificationException e) {
+                            salirBucleFor = false;
                         }
-                        temporal++;
+                    } while (!salirBucleFor);
+                    for (Persona persona : listaFichados) {
+                        if (persona.getNombreEquipo().equals(nombreEquipo)) {
+                            persona.setNombreEquipo(null);
+                            listaFichajes.add(persona);
+                        }
                     }
-                    listaEquipos.remove(indiceEquipo);
                 } else {
                     System.out.println(nombreEquipo + " no se borró.");
                 }
@@ -1413,9 +1424,9 @@ public class Main {
             }
         }
     }
-    //Submenu gestionar mi equipo (opción 4):
+    //✅ Submenu gestionar mi equipo (opción 4):
     //✅ Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
-    //(✅ y medio) Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
+    //✅ Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
     //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
     /**
      * @since 1.0

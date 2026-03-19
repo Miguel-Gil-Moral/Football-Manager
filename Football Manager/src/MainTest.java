@@ -53,8 +53,8 @@ class MainTest {
     }
 
     @Test
-    void mostrarClasificacion() {
-        String[][] mediaEquipo = {{"FC Barcelona", "0"}, {"Real Madrid CF", "0.03"}}; //PONER TODOS
-        assertArrayEquals(mediaEquipo, Main.aumentarProbabilidadGol(mediaEquipo), "Los arrays deben de ser iguales");
+    void aumentarProbabilidadGol() {
+        String[][] mediaEquipo = {{"FC Barcelona", "0", "0"}, {"Real Madrid CF", "0.03", "0"}}; //PONER TODOS
+        assertArrayEquals(mediaEquipo, Main.aumentarProbabilidadGol(mediaEquipo), "Los arrays son iguales");
     }
 }

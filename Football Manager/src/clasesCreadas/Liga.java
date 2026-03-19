@@ -1,7 +1,6 @@
 package clasesCreadas;
 
-import java.util.ArrayList;
-import java.util.Random;
+import java.util.*;
 
 //Clase Lliga:
 //✅ Atributos: Nombre, cantidad de equipos, lista de equipos.
@@ -110,13 +109,18 @@ public class Liga {
     public void mostrarClasificacion() { //Revisar los párametros que se usan realmete.
         //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
         //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
-        System.out.println("Mostrar Clasificación:");
-        System.out.printf("%-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s \n",
-                "|", "Equipo", "|", "Puntos", "|", "Partidos disputados", "|", "Goles a favor", "|");
+        List<String[]> clasificacion = new ArrayList<>(Arrays.asList(equipos));
 
-        for (String[] eq : equipos) {
+        Collections.sort(clasificacion, new ComparatorPuntos());
+        Collections.reverse(clasificacion);
+
+        System.out.println("Mostrar Clasificación:");
+        System.out.printf("%-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s \n",
+                "|", "Equipo", "|", "Puntos", "|", "Partidos disputados", "|", "Goles a favor", "|", "Goles en contra", "|");
+
+        for (String[] cl : clasificacion) {
             System.out.printf("%-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s \n",
-                    "|", eq[0], "|", eq[1], "|", eq[2], "|", eq[3], "|", eq[4], "|");
+                    "|", cl[0], "|", cl[1], "|", cl[2], "|", cl[3], "|", cl[4], "|");
             //ORDENARLO CON COLLECTIONS
         }
 
