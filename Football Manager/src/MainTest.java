@@ -1,5 +1,4 @@
 import clasesCreadas.Equipos;
-import clasesCreadas.Liga;
 import clasesCreadas.Persona;
 import org.junit.jupiter.api.Test;
 
@@ -43,18 +42,31 @@ class MainTest {
 
     @Test
     void DarBajaEquipos() {
-        ArrayList<Equipos> temporal = Main.cargarEquipos();
+        ArrayList<Equipos> listaEquipos = Main.cargarEquipos();
         String nombreEquipo = "RC Celta de Vigo";
-        String insertarScanner = "True\n";
-        System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
-        ArrayList<Equipos> listaEquipos2 = new ArrayList<>(temporal);
-        ArrayList<Equipos> listaEquipos = new ArrayList<>(listaEquipos2);
-        //ASSERT
+
+        assertTrue(Main.revisarEquipo(listaEquipos, nombreEquipo));
     }
 
     @Test
     void mostrarClasificacion() {
-        String[][] mediaEquipo = {{"FC Barcelona", "0"}, {"Real Madrid CF", "0.03"}}; //PONER TODOS
-        assertArrayEquals(mediaEquipo, Main.aumentarProbabilidadGol(mediaEquipo), "Los arrays deben de ser iguales");
+        String[][] mediaEquipo = {
+                {"FC Barcelona", "50", "5"},
+                {"Real Madrid CF", "50", "5"}
+        };
+
+        String[][] esperado = {
+                {"FC Barcelona", "0.03"},
+                {"Real Madrid CF", "0.03"}
+        };
+
+        assertArrayEquals(esperado, Main.aumentarProbabilidadGol(mediaEquipo));
+    }
+
+    @Test
+    public void equiposNombrePresidente() {
+        Equipos equipo = new Equipos("FC Barcelona", 1899, "Barcelona", "Camp Nou", "Joan Laporta");
+
+        assertEquals("Joan Laporta", equipo.getNombrePresidente());
     }
 }
