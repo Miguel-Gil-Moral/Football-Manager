@@ -312,7 +312,7 @@ public class Main {
         //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver toda la clasificación, los goles a favor, en contra, e incluso el tiempo donde marcaron los goles
 
         if (listaLigas.isEmpty()) {
-            System.out.println("La lista de ligas se está vacía. Es por esto que disputarás una nueva liga. Pulsa Enter para empezar.");
+            System.out.println("La lista de ligas está vacía. Es por esto que disputarás una nueva liga. Pulsa Enter para empezar.");
             String respuestaDisputarNuevaLiga =  sc.nextLine();
             if (respuestaDisputarNuevaLiga.isEmpty()) {
                 listaLigas.add(disputarNuevaLiga(listaEquipos, listaFichados)); //Créditos a Miguel :)))
@@ -330,9 +330,9 @@ public class Main {
                 System.out.println("Ingrese el nombre del liga actual: ");
                 nombreLiga = sc.nextLine();
 
-                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra y/o tiempo donde marcaron cada gol?");
+                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra o tiempo donde marcaron cada gol?");
                 System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
-                        "|", "0 = mostrarClasificacion", "|", "1 = consultarGolesFavor", "|", "2 = consultarGolesContra", "|", "3 = tiempoGol (no Clase)", "|");
+                        "|", "0 = mostrarClasificacion", "|", "1 = consultarGolesFavor", "|", "2 = consultarGolesContra", "|", "3 = verTiempoGol", "|");
 
                 System.out.print("Opción: ");
                 opcion = sc.nextInt();
@@ -356,7 +356,7 @@ public class Main {
 
                             case 3:
                                 //ArrayList <String> TiempoGol = l.getTiempoGol();
-                                tiempoGol(listaLigas);
+                                verTiempoGol(l);
 
                                 break;
                             default:
@@ -373,16 +373,17 @@ public class Main {
         } while (!salirBucle);
     }
 
-    private static void tiempoGol(ArrayList<Liga> listaLigas) {
+    private static void verTiempoGol(Liga l) {
         System.out.println("Mostrar Tiempo Gol:");
         System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
                 "|", "Partido jugado", "|", "Minuto del gol", "|", "Equipo goleador", "|");
 
-        ArrayList <String> TiempoGol = ((Liga) l).getTiempoGol();
+        ArrayList <String> tiempoGol = l.getTiempoGol();
         //for (Liga l : tiempoGol()) {}
-        for (String l : TiempoGol) {
-            System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
-                    "|", l[0], "|", l[1], "|", l[2], "|"); //Problemas con liga
+        for (String tg : tiempoGol) {
+            String[] separado =  tg.split(";");
+            System.out.printf("%-1s %-18s %-1s %-18s %-1s %-18s %-1s %-18s %-1s \n",
+                    "|", separado[0], "|", separado[1], "|", separado[2], "|", separado[3], "|");
         }
     }
 
@@ -1360,7 +1361,7 @@ public class Main {
                     if (eq.getNOMBRE().equals(nombreEquipo)) {
                         equipoEncontrado = true;
 
-                        if (eq.getNombrePresidente() != null && eq.getNombrePresidente().equalsIgnoreCase(nombrePresidente)) {
+                        if (eq.getNombrePresidente() != null && !eq.getNombrePresidente().equalsIgnoreCase(nombrePresidente)) {
                             System.out.println("El equipo " + eq.getNOMBRE() + " ya tiene de presidente a " + nombrePresidente);
                         } else {
                             System.out.println("El equipo " + eq.getNOMBRE() + " no tiene de presidente a " + nombrePresidente);

@@ -111,12 +111,13 @@ public class Liga {
         //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
         //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
         System.out.println("Mostrar Clasificación:");
-        System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
-                "|", "Equipo Local", "|", "golesLocal", "|", "golesVisitante", "|", "Equipo Visitante", "|");
+        System.out.printf("%-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s \n",
+                "|", "Equipo", "|", "Puntos", "|", "Partidos disputados", "|", "Goles a favor", "|");
 
         for (String[] eq : equipos) {
-            System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
-                    "|", eq[0], "|", eq[1], "|", eq[2], "|", eq[3], "|");
+            System.out.printf("%-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s %-19s %-1s \n",
+                    "|", eq[0], "|", eq[1], "|", eq[2], "|", eq[3], "|", eq[4], "|");
+            //ORDENARLO CON COLLECTIONS
         }
 
             //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.

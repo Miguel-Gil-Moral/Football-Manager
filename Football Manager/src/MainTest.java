@@ -1,4 +1,5 @@
 import clasesCreadas.Equipos;
+import clasesCreadas.Liga;
 import clasesCreadas.Persona;
 import org.junit.jupiter.api.Test;
 
@@ -48,6 +49,12 @@ class MainTest {
         System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
         ArrayList<Equipos> listaEquipos2 = new ArrayList<>(temporal);
         ArrayList<Equipos> listaEquipos = new ArrayList<>(listaEquipos2);
+        //ASSERT
+    }
 
+    @Test
+    void mostrarClasificacion() {
+        String[][] mediaEquipo = {{"FC Barcelona", "0"}, {"Real Madrid CF", "0.03"}}; //PONER TODOS
+        assertArrayEquals(mediaEquipo, Main.aumentarProbabilidadGol(mediaEquipo), "Los arrays deben de ser iguales");
     }
 }
