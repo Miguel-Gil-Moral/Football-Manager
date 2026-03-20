@@ -106,12 +106,12 @@ public class Liga {
         }
     }
 
-    public void mostrarClasificacion() { //Revisar los párametros que se usan realmete.
+    public void mostrarClasificacion() { //Revisar los parámetros que se usan realmente.
         //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
         //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
         List<String[]> clasificacion = new ArrayList<>(Arrays.asList(equipos));
 
-        Collections.sort(clasificacion, new ComparatorPuntos());
+        clasificacion.sort(new ComparatorPuntos());
         Collections.reverse(clasificacion);
 
         System.out.println("Mostrar Clasificación:");
