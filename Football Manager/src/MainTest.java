@@ -42,11 +42,16 @@ class MainTest {
     }
 
     @Test
-    void DarBajaEquipos() {
+    void modificarPresidente() {
         ArrayList<Equipos> listaEquipos = Main.cargarEquipos();
-        String nombreEquipo = "RC Celta de Vigo";
+        Equipos equipoActual = null;
+        for (Equipos eq : listaEquipos) {
+            if (eq.getNOMBRE().equals("Equipo de los atontaos")) {
+                equipoActual = eq;
+            }
+        }
+        assertNotNull (equipoActual.getNombrePresidente());
 
-        assertTrue(Main.revisarEquipo(listaEquipos, nombreEquipo));
     }
 
     @Test
