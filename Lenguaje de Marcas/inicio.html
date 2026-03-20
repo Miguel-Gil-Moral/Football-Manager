@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="./CSS.css">
+</head>
+<body>
+    <!-- HTML
+    La web ha d’estar dividida en diferents pàgines, incloent-hi:
+
+Una pàgina principal amb una introducció i informació general de la lliga (notícies, propers partits, jugades destacades, ...). Aquesta landing page és de contingut lliure relacionat amb la temàtica. Seria interessant que tingués diferents seccions.
+
+Una secció (pàgina apart) on en un futur podrem donar d'alta nous jugadors i entrenadors a la nostra base de dades. De moment, prepararem el formulari per introduir tota la informació.
+
+La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació, així com un footer amb la informació que vosaltres considereu adient. El logo ha de servir com a punt de retorn a la landing page.-->
+    <header>
+        <nav>
+            <img src="./imagenes/Logo FM.svg" id="logo">
+            <h1 id="encabezadoNav">Football Manager</h1>
+        </nav>
+    </header>
+    <br>
+    <!-- Formularios
+    ⚠️ Només s'ha de realitzar el disseny del formulari. NO enviarem cap informació a la base de dades! ⚠️
+
+El formulari que preparerem per poder donar d'alta jugadors i entrenadors a la base de dades ha de contenir la següent informació:
+
+Nom, alçada, pes i data de naixement del jugador.
+
+Fotografia.
+
+S'ha de poder indicar si es tracta d'un jugador o d'un entrenador.
+
+Només en el cas dels jugadors, s'ha de poder indicar de quina posició o posicions juga (defensa, davanter, migcampista, porter). 
+Aquesta opció no ha d'aparèixer si seleccionem que es tracta d'un entrenador.
+
+Assignarem el jugador / entrenador a un equip a través d'un desplegable. 
+Aquest desplegable s'haurà d'omplir a través de JavaScript. 
+Creeu una llista amb tots els equips i el codi necessari per crear totes les opcions del desplegable a partir d'aquesta llista.
+
+🔎 Trieu el tipus de camp més adient per a cada cas i afegiu les restriccions adequades a través de l'HTML. -->
+    <form action="">
+        <label for="txtNombre">Nombre</label>
+        <input type="text" name="txtNombre" id="txtNombre">
+        <br>
+        <label for="numAltura">Altura</label>
+        <input type="number" name="numAltura" id="numAltura">
+        <br>
+        <label for="numPeso">Peso</label>
+        <input type="number" name ="numPeso" id="numPeso">
+        <br>
+        <label for="fechaNacimiento">Fecha Nacimiento</label>
+        <input type="date" name="fechaNacimiento" id="fechaNacimiento">
+        <br>
+        <!--Para Mario: input para indicar si se dara alta un jugador o entrenador, 
+        otra para la fotografia, 
+        otra para la posicion, hacer que este se muestre si se escoge jugador y que permanezca invisible si elige entrenador,
+        otra para hacer un desplegable para asignarlo a un equipo (se llenara con Javascript) -->
+    </form>
+    <footer></footer>
+</body>
+</html>
