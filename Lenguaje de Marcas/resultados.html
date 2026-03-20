@@ -4,13 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./CSS.css">
 </head>
 <body>
     <header>
-        <nav>
-            <img src="./imagenes/Logo FM.svg" id="logo">
-            <h1 id="encabezadoNav">Football Manager</h1>
-        </nav>
+        <a href="inicio.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <h1 id="tituloHeader">Football Manager</h1>
+        <ul>
+            <li id="menuHeader">
+                <a href="#">Menu</a>
+                <ul class="submenu">
+                    <li><a href="./inicio.html" class="enlacesSubmenu">Inicio</a></li>
+                    <li><a href="./plantillas.html" class="enlacesSubmenu">Plantillas</a></li>
+                    <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
+                </ul>
+            </li>
+        </ul>
     </header>
     Una pàgina per veure els resultats dels partits de la darrera jornada. Aquesta informació també es proporcionarà a través d'un document JSON.
 </body>

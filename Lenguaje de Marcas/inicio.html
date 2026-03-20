@@ -16,10 +16,18 @@ Una secció (pàgina apart) on en un futur podrem donar d'alta nous jugadors i e
 
 La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació, així com un footer amb la informació que vosaltres considereu adient. El logo ha de servir com a punt de retorn a la landing page.-->
     <header>
-        <nav>
-            <img src="./imagenes/Logo FM.svg" id="logo">
-            <h1 id="encabezadoNav">Football Manager</h1>
-        </nav>
+        <a href="inicio.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <h1 id="tituloHeader">Football Manager</h1>
+        <ul>
+            <li id="menuHeader">
+                <a href="#">Menu</a>
+                <ul class="submenu">
+                    <li><a href="./plantillas.html" class="enlacesSubmenu">Plantillas</a></li>
+                    <li><a href="./resultados.html" class="enlacesSubmenu">Resultados</a></li>
+                    <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
+                </ul>
+            </li>
+        </ul>
     </header>
     <br>
     <main>
@@ -64,9 +72,7 @@ Creeu una llista amb tots els equips i el codi necessari per crear totes les opc
     </form>
     <br>
     <footer>
-        <div>
-            <img src="./imagenes/Logo FM.svg" id="logo">
-        </div>
+        <img src="./imagenes/Logo FM.svg" id="logo">
     </footer>
 </body>
 </html>

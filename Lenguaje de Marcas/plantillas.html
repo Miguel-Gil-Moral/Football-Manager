@@ -4,14 +4,30 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="./CSS.css">
 </head>
 <body>
     <header>
-        <nav>
-            <img src="./imagenes/Logo FM.svg" id="logo">
-            <h1 id="encabezadoNav">Football Manager</h1>
-        </nav>
+        <a href="inicio.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <h1 id="tituloHeader">Football Manager</h1>
+        <ul>
+            <li id="menuHeader">
+                <a href="#">Menu</a>
+                <ul class="submenu">
+                    <li><a href="./inicio.html" class="enlacesSubmenu">Inicio</a></li>
+                    <li><a href="./resultados.html" class="enlacesSubmenu">Resultado Partidos</a></li>
+                    <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
+                </ul>
+            </li>
+        </ul>
     </header>
+    <br>
+    <main>
+        <div id="jugadoresDiv">
+
+        </div>
+        <script src="./javascript.js"></script>
+    </main>
     Una pàgina per consultar les plantilles dels equips, amb els seus jugadors i l'entrenador a partir de la informació de la base de dades que us proporcionem via document JSON.
 </body>
 </html>
