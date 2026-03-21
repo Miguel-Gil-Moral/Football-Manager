@@ -51,13 +51,28 @@ header {
 
 /*Plantillas*/
 
-#plantillaDiv {
+#plantillaMasculino {
     display: grid;
-    background-color: lightgray;
+    background-color: lightblue;
     border-radius: 16px;
     align-items: center;
     padding: 10px;
     justify-content: center;
+}
+
+#plantillaFemenino {
+    display: grid;
+    background-color: lightcoral;
+    border-radius: 16px;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+}
+
+.plantillaEncabezado {
+    font-size: 34px;
+    text-align: center;
+    text-decoration: underline;
 }
 
 .encabezadoDiv {
@@ -73,6 +88,12 @@ header {
 .escudoEquipo {
     width: 5rem;
     height: 5rem;
+}
+
+.escudoEquipoFemenino {
+    width: 3.5rem;
+    height: 3.5rm;
+    margin-right: 7px;
 }
 
 .personasDiv {

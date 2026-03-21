@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function (jugadores) {
-            let contenedor = document.getElementById("plantillaDiv");
+            let contenedor = document.getElementById("plantillaMasculino");
 
             for (let i = 0; i < jugadores.length; i++) {
                 let equipo = jugadores[i];

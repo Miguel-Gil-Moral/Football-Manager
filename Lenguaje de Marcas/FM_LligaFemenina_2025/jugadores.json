@@ -1,7 +1,7 @@
 [
     {
         "equip": "FC Barcelona",
-        "escut": "source/images/logo_equip/logo_fcb.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_fcb.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/326612.jpg",
@@ -47,7 +47,7 @@
     },
     {
         "equip": "Real Madrid CF",
-        "escut": "source/images/logo_equip/logo_madrid.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_madrid.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/665699.jpg",
@@ -93,7 +93,7 @@
     },
     {
         "equip": "Atlético de Madrid",
-        "escut": "source/images/logo_equip/logo_atmadrid.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_atmadrid.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3255217.jpg",
@@ -139,7 +139,7 @@
     },
     {
         "equip": "Sevilla FC",
-        "escut": "source/images/logo_equip/logo_sevilla.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_sevilla.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3265957.jpg",
@@ -185,7 +185,7 @@
     },
     {
         "equip": "Real Sociedad",
-        "escut": "source/images/logo_equip/logo_sociedad.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_sociedad.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/862642.jpg",
@@ -231,7 +231,7 @@
     },
     {
         "equip": "Real Betis",
-        "escut": "source/images/logo_equip/logo_betis.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_betis.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3335633.jpg",
@@ -277,7 +277,7 @@
     },
     {
         "equip": "Athletic Club",
-        "escut": "source/images/logo_equip/logo_athleticclub.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_athleticclub.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/144878.jpg",
@@ -323,7 +323,7 @@
     },
     {
         "equip": "Valencia CF",
-        "escut": "source/images/logo_equip/logo_valencia.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_valencia.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/378958.jpg",
@@ -369,7 +369,7 @@
     },
     {
         "equip": "RCD Espanyol",
-        "escut": "source/images/logo_equip/logo_espanyol.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_espanyol.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/1016937.jpg",
@@ -415,7 +415,7 @@
     },
     {
         "equip": "Deportivo Abanca",
-        "escut": "source/images/logo_equip/logo_deportivo.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_deportivo.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3266007.jpg",
@@ -461,7 +461,7 @@
     },
     {
         "equip": "SD Eibar",
-        "escut": "source/images/logo_equip/logo_eibar.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_eibar.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3235579.jpg",
@@ -507,7 +507,7 @@
     },
     {
         "equip": "Granada CF",
-        "escut": "source/images/logo_equip/logo_granada.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_granada.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/871104.jpg",
@@ -553,7 +553,7 @@
     },
     {
         "equip": "Levante UD",
-        "escut": "source/images/logo_equip/logo_levante.png",
+        "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_levante.png",
         "jugadors": [
             {
                 "foto": "https://ligaf.es/media/images/2025/img_players/3523371.jpg",
