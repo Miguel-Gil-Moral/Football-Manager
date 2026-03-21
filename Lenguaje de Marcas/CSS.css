@@ -1,3 +1,4 @@
+/*Header*/
 header {
     display: flex;
     align-items: center;
@@ -48,13 +49,30 @@ header {
     color: black;
 }
 
-footer {
-    background-color: #283680;
+/*Plantillas*/
+
+#plantillaDiv {
+    background-color: lightgray;
+    border-radius: 16px;
+    padding-left: 100px;
+    align-items: center;
+    justify-content: center;
 }
 
-#jugadoresDiv {
-    background-color: lightgray;
-    border-radius: 15px;
+.equipos {
     display: grid;
-    padding-left: 20px;
+    grid-template-rows: auto auto auto auto auto;
+}
+
+.tarjetaJugador {
+    background-color: white;
+    padding: 15px;
+    width: 6cm;
+    border-radius: 16px;
+}
+
+/*Footer*/
+
+footer {
+    background-color: #283680;
 }
