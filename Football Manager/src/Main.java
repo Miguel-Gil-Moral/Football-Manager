@@ -4,10 +4,18 @@ import java.io.*;
 import java.util.*;
 
 /**
- * @author Miguel Gil Moral, Mario De Molina Martín
+ * Clase principal de la aplicacion. Gestiona menus, carga de datos y
+ * operaciones generales del sistema.
+ *
+ * @author Miguel Gil Moral, Mario De Molina Martin
  * @version 1.0
  */
 public class Main {
+    /**
+     * Punto de entrada de la aplicacion.
+     *
+     * @param args argumentos recibidos por linea de comandos
+     */
     public static void main(String[] args) {
         //AQUÍ REPLICAS (ArrayList<Clase> listaTal = cargarTal(); PARA LO QUE QUIERAS TESTEAR
         ArrayList<Persona> listaFichajes = cargarFichajes(), listaFichados = cargarPersonasFichadas();
@@ -118,6 +126,8 @@ public class Main {
     //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
 
     /**
+     * Carga las personas disponibles en el mercado de fichajes desde fichero.
+     *
      * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una lista de personas
      * @since 1.0
      */
@@ -146,6 +156,8 @@ public class Main {
     }
 
     /**
+     * Carga los equipos registrados en la aplicacion desde fichero.
+     *
      * @return La lista con todos los equipos existentes
      * @since 1.0
      */
@@ -168,6 +180,8 @@ public class Main {
     }
 
     /**
+     * Carga las personas ya fichadas por equipos desde fichero.
+     *
      * @return Lista con todos los jugadores y entrenadores fichados en un equipo
      * @since 1.0
      */
@@ -202,6 +216,8 @@ public class Main {
     //✅ Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
 
     /**
+     * Solicita al usuario el rol con el que desea acceder a la aplicacion.
+     *
      * @return Nombre del rol escogido por el usuario de estos siguientes: <ul>
      * <li>Administrador</li>
      * <li>Gestor de Equipos</li>
@@ -262,7 +278,9 @@ public class Main {
     //✅       0- Sortir
 
     /**
-     * @return Opción escogida por el administrador
+     * Muestra las opciones principales del menu de administrador.
+     *
+     * @return Opcion escogida por el administrador
      * @since 1.0
      */
     public static int menuAdmin() {
@@ -301,6 +319,11 @@ public class Main {
     //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
 
     /**
+     * Muestra las opciones de consulta de una liga y ejecuta la accion elegida.
+     *
+     * @param listaLigas ligas disponibles en la aplicacion
+     * @param listaEquipos equipos registrados en la aplicacion
+     * @param listaFichados personas fichadas por equipos
      * @since 1.0
      */
     public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
@@ -372,6 +395,11 @@ public class Main {
         } while (!salirBucle);
     }
 
+    /**
+     * Muestra el detalle temporal de los goles registrados en una liga.
+     *
+     * @param l liga cuyos goles se desean consultar
+     */
     private static void verTiempoGol(Liga l) {
         System.out.println("Mostrar Tiempo Gol:");
         System.out.printf("%-1s %-15s %-1s %-15s %-1s %-15s %-1s \n",
@@ -392,6 +420,9 @@ public class Main {
     //✅ Cuando tenga el nombre del equipo, pedirá los demás datos principales, estarán también las dos opciones opcionales.
 
     /**
+     * Solicita los datos necesarios para dar de alta un nuevo equipo.
+     *
+     * @param listaEquipos lista de equipos disponibles
      * @since 1.0
      */
     public static void darAltaEquipo(ArrayList<Equipos> listaEquipos) {
@@ -448,6 +479,9 @@ public class Main {
     //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
 
     /**
+     * Solicita los datos de una nueva persona y la agrega al mercado.
+     *
+     * @param listaFichajes lista de personas disponibles para fichar
      * @since 1.0
      */
     public static void darAltaPersona(ArrayList<Persona> listaFichajes) {
@@ -501,6 +535,9 @@ public class Main {
     }
 
     /**
+     * Solicita y valida el nombre de una persona.
+     *
+     * @param sc lector de entrada utilizado en la operacion
      * @return El nombre de la persona
      * @since 1.0
      */
@@ -520,6 +557,9 @@ public class Main {
     }
 
     /**
+     * Solicita y construye la fecha de nacimiento de una persona.
+     *
+     * @param sc lector de entrada utilizado en la operacion
      * @return Fecha de nacimiento en formato dd/MM/aaaa de tipo String
      * @since 1.0
      */
@@ -556,7 +596,10 @@ public class Main {
     }
 
     /**
-     * @return El sueldo que ganará la persona
+     * Solicita y valida el sueldo salarial de una persona.
+     *
+     * @param sc lector de entrada utilizado en la operacion
+     * @return El sueldo que ganara la persona
      * @since 1.0
      */
     public static int asignarSueldoSalarial(Scanner sc) {
@@ -581,7 +624,10 @@ public class Main {
     }
 
     /**
-     * @return Número del dorsal no escogido para el jugador
+     * Solicita y valida el dorsal de un jugador.
+     *
+     * @param sc lector de entrada utilizado en la operacion
+     * @return Numero del dorsal no escogido para el jugador
      * @since 1.0
      */
     public static int pedirDorsalJugador(Scanner sc) {
@@ -607,11 +653,14 @@ public class Main {
     }
 
     /**
-     * @return La posición que jugara el jugador de estos siguientes: <ul>
-     * <li>POR: Posición de portero</li>
-     * <li>DEF: Posición de defensa</li>
-     * <li>MIG: Posición de mediocampista</li>
-     * <li>DAV: Posición de delantero</li>
+     * Solicita y devuelve la posicion de juego de un jugador.
+     *
+     * @param sc lector de entrada utilizado en la operacion
+     * @return Posicion asignada al jugador de estos siguientes: <ul>
+     * <li>POR: Posicion de portero</li>
+     * <li>DEF: Posicion de defensa</li>
+     * <li>MIG: Posicion de mediocampista</li>
+     * <li>DAV: Posicion de delantero</li>
      * </ul>
      * @since 1.0
      */
@@ -657,6 +706,9 @@ public class Main {
     }
 
     /**
+     * Solicita el numero de torneos ganados por un entrenador.
+     *
+     * @param sc lector de entrada utilizado en la operacion
      * @return La cantidad de torneos que el entrenador ha ganado
      * @since 1.0
      */
@@ -689,6 +741,16 @@ public class Main {
      * </ul>
      * @since 1.0
      */
+    /**
+     * Solicita si un entrenador ha sido seleccionador nacional.
+     *
+     * @param sc lector de entrada utilizado en la operacion
+     * @return Resultado sobre el entrenador de estos siguientes:<ul>
+     * <li>True: El entrenador ha estado seleccionador nacional</li>
+     * <li>False: El entrenador no ha estado seleccionador nacional</li>
+     * </ul>
+     * @since 1.0
+     */
     public static boolean esSeleccionadorNacional(Scanner sc) {
         boolean salirBucle, esSeleccionadorNacional = false;
 
@@ -711,6 +773,8 @@ public class Main {
     //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
     //✅ Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
     /**
+     * Muestra la informacion general de un equipo y de sus personas asociadas.
+     *
      * @param listaEquipos Lista con todos los equipos existentes
      * @param listaFichados Lista con todos los jugadores fichados por un equipo
      * @since 1.0
@@ -759,8 +823,10 @@ public class Main {
     //✅ Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
 
     /**
+     * Busca un jugador concreto de un equipo y muestra sus datos.
+     *
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
-     * @param listaEquipos  Lista con todos los equipos para la comprobación de la existencia de ese equipo
+     * @param listaEquipos  Lista con todos los equipos para la comprobacion de la existencia de ese equipo
      * @since 1.0
      */
     public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
@@ -813,6 +879,8 @@ public class Main {
     }
 
     /**
+     * Solicita el nombre de un equipo y valida que no este vacio.
+     *
      * @since 1.0
      * @return Nombre del equipo insertado por el usuario
      */
@@ -841,6 +909,11 @@ public class Main {
     //✅ Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
 
     /**
+     * Crea una nueva liga y prepara sus partidos iniciales.
+     *
+     * @param listaEquipos equipos disponibles para participar
+     * @param listaFichados personas fichadas por equipos
+     * @return liga creada y preparada
      * @since 1.0
      */
     public static Liga disputarNuevaLiga(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) { //CLASES Y LISTAS CORRESPONDIENTES
@@ -886,8 +959,10 @@ public class Main {
     }
 
     /**
+     * Prepara los datos necesarios para disputar los partidos de una liga.
+     *
      * @since 1.0
-     * @param liga Liga con toda la información de sus atributos
+     * @param liga Liga con toda la informacion de sus atributos
      * @param listaEquipos Lista con todos los equipos que participaran
      * @param listaFichados Lista con todas las personas fichadas en un equipo para sacar su motivacion y calidad
      */
@@ -942,6 +1017,12 @@ public class Main {
         liga.setEquipos(equipos);
     }
 
+    /**
+     * Calcula el tamanyo maximo detectado en las plantillas de los equipos.
+     *
+     * @param listaFichados personas fichadas por equipos
+     * @return tamanyo maximo de plantilla encontrado
+     */
     public static int getTamanyoEquipos(ArrayList<Persona> listaFichados) {
         String equipo, equipoActual = "";
         int tamanyoEquipos = 1, tamanyoEquipoActual = 1;
@@ -960,6 +1041,13 @@ public class Main {
         return tamanyoEquipos;
     }
 
+    /**
+     * Calcula la media de motivacion de un equipo dentro de una matriz.
+     *
+     * @param equiposMotivacion matriz con las motivaciones de los equipos
+     * @param posicion posicion del equipo dentro de la matriz
+     * @return media de motivacion calculada
+     */
     public static double calcularMediaMotivacion(String[][] equiposMotivacion, int posicion) {
         double suma = 0;
         for (int i = 1; i < equiposMotivacion[0].length; i++) {
@@ -968,6 +1056,12 @@ public class Main {
         return suma / equiposMotivacion.length;
     }
 
+    /**
+     * Genera la probabilidad de gol de cada equipo a partir de sus medias.
+     *
+     * @param mediaEquipo matriz con nombre, media de calidad y motivacion
+     * @return matriz con equipos y su probabilidad de gol
+     */
     public static String[][] aumentarProbabilidadGol(String[][] mediaEquipo) {
         int fila = 0;
         String[][] probabilidadesEquipos = new String[mediaEquipo.length][2];
@@ -994,6 +1088,13 @@ public class Main {
         return probabilidadesEquipos;
     }
 
+    /**
+     * Actualiza puntos y estadisticas de los equipos tras disputar los partidos.
+     *
+     * @param resultadoPartidos resultados obtenidos en la jornada
+     * @param CANTIDAD_EQUIPOS cantidad de equipos participantes
+     * @param equipos matriz de equipos con sus estadisticas
+     */
     public static void actualizarPuntuacion(String[][] resultadoPartidos, int CANTIDAD_EQUIPOS, String[][] equipos) {
         System.out.println("Otorgando puntos...");
         for (String[] rs : resultadoPartidos) {
@@ -1015,10 +1116,12 @@ public class Main {
     }
 
     /**
+     * Aplica a un equipo concreto los puntos y estadisticas derivados de un partido.
+     *
      * @since 1.0
      * @param equipos El equipo asignado con sus puntos, partidos disputados, goles a favor y en contra
      * @param rs El resultado del partido el cual quedaron los equipos
-     * @param i El número de la iteración para la posición del array equipos
+     * @param i El numero de la iteracion para la posicion del array equipos
      * @param puntosLocal Puntos totales que lleva el equipo local
      * @param golesLocal Goles marcados durante el partido por parte del equipo local
      * @param golesVisitante Goles marcados durante el partido por parte del equipo visitante
@@ -1052,6 +1155,8 @@ public class Main {
     //✅ Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
 
     /**
+     * Ejecuta sesiones de entrenamiento sobre las personas del mercado.
+     *
      * @since 1.0
      * @param listaFichajes Lista con todos los jugadores del mercado para realizar los entrenamientos
      */
@@ -1072,6 +1177,8 @@ public class Main {
     //✅ El formato y la cantidad del fichero es totalmente libre.
 
     /**
+     * Guarda en fichero los equipos y las personas fichadas.
+     *
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos para guardar
      * @param listaFichados Lista con todas las personas fichadas en un equipo
@@ -1121,6 +1228,8 @@ public class Main {
     //✅       0- Sortir
 
     /**
+     * Muestra las opciones principales del gestor de equipos.
+     *
      * @return Opción escogida por el Gestor de equipos
      * @since 1.0
      */
@@ -1160,6 +1269,8 @@ public class Main {
     //✅ Se pedirá el dorsal hasta que se proporcione uno que esté disponible.
 
     /**
+     * Gestiona la transferencia de un jugador entre equipos.
+     *
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
      * @param listaEquipos  Lista con todos los equipos creados
      * @since 1.0
@@ -1231,10 +1342,12 @@ public class Main {
     }
 
     /**
+     * Comprueba si un equipo existe dentro de una lista dada.
+     *
      * @since 1.0
-     * @param listaEquipos Lista con todos los equipos disponibles para la revisión
+     * @param listaEquipos Lista con todos los equipos disponibles para la revision
      * @param nombreEquipo El nombre del equipo para revisar si existe en la lista
-     * @return Devolverá el resultado de la revisión en estos casos: <ul>
+     * @return Devolvera el resultado de la revision en estos casos: <ul>
      *     <li>True: Se encontro el equipo de los que existen en la lista</li>
      *     <li>False: No se encontro el equipo de los que existen en la lista</li>
      * </ul>
@@ -1263,7 +1376,9 @@ public class Main {
     //✅       0- Sortir
 
     /**
-     * @return Opción escogida por el Gestor de equipos
+     * Muestra las opciones de gestion interna de un equipo.
+     *
+     * @return Opcion escogida por el Gestor de equipos
      * @since 1.0
      */
     public static int submenuGestorEquipos() {
@@ -1300,9 +1415,11 @@ public class Main {
     //✅ Se eliminará el equipo de la lista de la aplicación, confirmación por parte del usuario.
 
     /**
+     * Da de baja un equipo y devuelve sus personas al mercado cuando procede.
+     *
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos disponibles
-     * @param listaFichados Lista con todos los jugadores que están fichados en el equipo
+     * @param listaFichados Lista con todos los jugadores que estan fichados en el equipo
      * @param listaFichajes Lista para trasladar el jugador del equipo eliminado al mercado
      * @param nombreEquipo Nombre del equipo al cual se dara de baja
      */
@@ -1345,11 +1462,14 @@ public class Main {
     }
 
     /**
+     * Solicita un nombre de presidente y valida la situacion del equipo indicado.
+     *
      * @since 1.0
-     * @param listaEquipos Submenu gestionar mi equipo (opción 2):
-     *     Se pedirá el nombre del presidente y se actualizará en los siguientes casos:
-     *     Si se proporciona el mismo presidente que ya había, mostrará un mensaje de aviso.
-     *     Si el equipo no tiene ninguna persona asignada a la presidencia, se informará al usuario del hecho con un mensaje.
+     * @param listaEquipos Submenu gestionar mi equipo (opcion 2):
+     *     Se pedira el nombre del presidente y se actualizara en los siguientes casos:
+     *     Si se proporciona el mismo presidente que ya habia, mostrara un mensaje de aviso.
+     *     Si el equipo no tiene ninguna persona asignada a la presidencia, se informara al usuario del hecho con un mensaje.
+     * @param nombreEquipo nombre del equipo que se va a revisar
      */
     public static void modificarPresidente(ArrayList<Equipos> listaEquipos, String nombreEquipo) {
         Scanner sc = new Scanner(System.in);
@@ -1396,6 +1516,11 @@ public class Main {
     //✅Prescinde al entrenador, previa confirmación por el usuario.
     //El equipo se queda sin entrenador y este se pasará a formar parte de la lista del mercado de fichajes de la aplicación.
     /**
+     * Destituye al entrenador de un equipo y lo devuelve al mercado.
+     *
+     * @param listaFichajes personas disponibles en el mercado
+     * @param listaFichados personas fichadas por equipos
+     * @param nombreEquipo nombre del equipo afectado
      * @since 1.0
      */
     public static void destituirEntrenador(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
@@ -1429,6 +1554,11 @@ public class Main {
     //✅ Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
     //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
     /**
+     * Permite fichar una persona del mercado para el equipo indicado.
+     *
+     * @param listaFichajes personas disponibles en el mercado
+     * @param listaFichados personas fichadas por equipos
+     * @param nombreEquipo nombre del equipo que realiza el fichaje
      * @since 1.0
      */
     public static void ficharPersona(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, String nombreEquipo) {
@@ -1509,6 +1639,8 @@ public class Main {
     }
 
     /**
+     * Actualiza el fichero del mercado con el estado actual de los fichajes.
+     *
      * @since 1.0
      * @param listaFichajes Lista con todos los jugadores y entrenadores guardados
      */

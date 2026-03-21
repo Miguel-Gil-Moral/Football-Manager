@@ -5,6 +5,10 @@ import java.util.*;
 //Clase Lliga:
 //✅ Atributos: Nombre, cantidad de equipos, lista de equipos.
 //✅ Métodos: agregarEquipos(), disputarPartidos(), consultarGolesFavor(), consultarGolesContra(), mostrarClasificación.
+/**
+ * Representa una liga con sus equipos, emparejamientos, resultados y
+ * registro temporal de goles.
+ */
 public class Liga {
     private final String NOMBRE;
     private final int CANTIDAD_EQUIPOS;
@@ -12,11 +16,23 @@ public class Liga {
     private String[][] encuentroEquipos, resultadoPartidos;
     private ArrayList<String> tiempoGol = new ArrayList<>();
 
+    /**
+     * Crea una liga con nombre y cantidad fija de equipos.
+     *
+     * @param nombre nombre de la liga
+     * @param cantidadEquipos cantidad de equipos participantes
+     */
     public Liga(String nombre, int cantidadEquipos) {
         this.NOMBRE = nombre;
         this.CANTIDAD_EQUIPOS = cantidadEquipos;
     }
 
+    /**
+     * Agrega equipos a la liga e inicializa sus estadisticas base.
+     *
+     * @param listaEquipos lista de equipos candidatos a participar
+     * @return matriz base de equipos de la liga
+     */
     public String[][] agregarEquipos(ArrayList<Equipos> listaEquipos) {
         int i = 0;
         encuentroEquipos = new String[(CANTIDAD_EQUIPOS - 1) * CANTIDAD_EQUIPOS][2];
@@ -46,6 +62,12 @@ public class Liga {
         return equipos;
     }
 
+    /**
+     * Disputa los partidos programados de la liga.
+     *
+     * @param probabilidadesEquipos probabilidades de gol por equipo
+     * @return matriz con los resultados de los partidos disputados
+     */
     public String[][] disputarPartidos(String[][] probabilidadesEquipos) {
         Random random = new Random();
         resultadoPartidos = new String[encuentroEquipos.length][4];
@@ -92,6 +114,9 @@ public class Liga {
         return resultadoPartidos;
     }
 
+    /**
+     * Muestra por pantalla los goles a favor de cada equipo.
+     */
     public void consultarGolesFavor() {
         System.out.println("Equipo - Goles a Favor");
         for (String[] eq : equipos) {
@@ -99,12 +124,19 @@ public class Liga {
         }
     }
 
+    /**
+     * Muestra por pantalla los goles en contra de cada equipo.
+     */
     public void consultarGolesContra() {
         System.out.println("Equipo - Goles en Contra");
         for (String[] eq : equipos) {
             System.out.println(eq[0] + " " + eq[4]);
         }
     }
+
+    /**
+     * Muestra la clasificacion actual de la liga.
+     */
 
     public void mostrarClasificacion() { //Revisar los parámetros que se usan realmente.
         //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
@@ -132,22 +164,47 @@ public class Liga {
 
     }
 
+    /**
+     * Sustituye la matriz interna de equipos de la liga.
+     *
+     * @param equipos nueva matriz de equipos y estadisticas
+     */
     public void setEquipos(String[][] equipos) {
         this.equipos = equipos;
     }
 
+    /**
+     * Devuelve la cantidad de equipos de la liga.
+     *
+     * @return cantidad de equipos de la liga
+     */
     public int getCANTIDAD_EQUIPOS() {
         return CANTIDAD_EQUIPOS;
     }
 
+    /**
+     * Devuelve el nombre de la liga.
+     *
+     * @return nombre de la liga
+     */
     public String getNOMBRE() {
         return NOMBRE;
     }
 
+    /**
+     * Devuelve el registro temporal de goles.
+     *
+     * @return lista con el detalle temporal de los goles
+     */
     public ArrayList<String> getTiempoGol() {
         return tiempoGol;
     }
 
+    /**
+     * Devuelve la representacion textual de la liga.
+     *
+     * @return cadena con los datos de la liga
+     */
     @Override
     public String toString() {
         return NOMBRE + ";" +
