@@ -12,26 +12,35 @@ document.addEventListener("DOMContentLoaded", function () {
             for (let i = 0; i < jugadores.length; i++) {
                 let equipo = jugadores[i];
 
-                let plantillaDiv = document.createElement("div");
-                plantillaDiv.className = "equipos";
+                let plantilla = document.createElement("div");
+                plantilla.className = "equipos";
+
+                let encabezadoDiv = document.createElement("div");
+                encabezadoDiv.className = "encabezadoDiv";
+                let escudo = document.createElement("img");
+                escudo.src = equipo.escut;
+                escudo.className = "escudoEquipo";
+                encabezadoDiv.appendChild(escudo);
 
                 let nombreEquipo = document.createElement("h2");
                 nombreEquipo.textContent = equipo.equip;
-                plantillaDiv.appendChild(nombreEquipo); //PlaceHolder
+                encabezadoDiv.appendChild(nombreEquipo)
+                plantilla.appendChild(encabezadoDiv);
+
+                let personasDiv = document.createElement("div");
+                personasDiv.className = "personasDiv";
 
                 let infoJugadores = equipo.jugadors;
 
-                let jugadoresDiv = document.createElement("div");
-                jugadoresDiv.className = "jugadoresDiv";
-
                 for (let j = 0; j < infoJugadores.length; j++) {
                     let jugador = infoJugadores[j];
-
+                    
                     let tarjetaJugador = document.createElement("div");
-                    tarjetaJugador.className = "tarjetaJugador"
+                    tarjetaJugador.className = "tarjetas";
 
                     let fotoJugador = document.createElement("img");
-                    fotoJugador.src = "./imagenes/images.jpeg"
+                    fotoJugador.src = "./imagenes/images.jpeg";
+                    fotoJugador.className = "imagenPersona";
                     tarjetaJugador.appendChild(fotoJugador);
 
                     let nombreJugador = document.createElement("p");
@@ -44,13 +53,45 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     let posicionJugador = document.createElement("p");
                     posicionJugador.textContent = "Posición: " + jugador.posicio;
-                    jugadoresDiv.appendChild(tarjetaJugador);
+                    tarjetaJugador.appendChild(posicionJugador);
 
                     let calidadJugador = document.createElement("p");
+                    calidadJugador.textContent = "Calidad: " + jugador.qualitat;
+                    tarjetaJugador.appendChild(calidadJugador);
                     
+                    personasDiv.appendChild(tarjetaJugador);
+                    plantilla.appendChild(personasDiv);
                 }
-                plantillaDiv.appendChild(jugadoresDiv);
-                contenedor.appendChild(plantillaDiv);
+                
+                let tarjetaEntrenador = document.createElement("div");
+                tarjetaEntrenador.className = "tarjetas";
+
+                let infoEntrenador = equipo.entrenador;
+
+                let fotoEntrenador = document.createElement("img");
+                fotoEntrenador.src = "./imagenes/entrenadores/" + infoEntrenador.nomPersona + ".png";
+                fotoEntrenador.className = "imagenPersona";
+                tarjetaEntrenador.appendChild(fotoEntrenador);
+
+                let nombreEntrenador = document.createElement("p");
+                nombreEntrenador.textContent = "Nombre: " + infoEntrenador.nomPersona;
+                tarjetaEntrenador.appendChild(nombreEntrenador);
+
+                let seleccionadorEntrenador = document.createElement("p");
+                
+                let seleccionador;
+                if (infoEntrenador.esSeleccionador == 0) {
+                    seleccionador = "No";
+                } else {
+                    seleccionador = "Sí";
+                }
+                seleccionadorEntrenador.textContent = "Seleccionador: " + seleccionador;
+                tarjetaEntrenador.appendChild(seleccionadorEntrenador);
+
+                personasDiv.appendChild(tarjetaEntrenador);
+                plantilla.appendChild(personasDiv);
+
+                contenedor.appendChild(plantilla);
                 contenedor.appendChild(document.createElement("br"));
             }
         })

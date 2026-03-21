@@ -1,7 +1,7 @@
 [
     {
         "equip": "FC Barcelona",
-        "escut": "",
+        "escut": "./imagenes/escudos/barcelona.png",
         "jugadors": [
             {
                 "foto": "",
@@ -47,7 +47,7 @@
     },
     {
         "equip": "Real Madrid CF",
-        "escut": "",
+        "escut": "./imagenes/escudos/real-madrid.png",
         "jugadors": [
             {
                 "foto": "",
@@ -93,7 +93,7 @@
     },
     {
         "equip": "Atlético de Madrid",
-        "escut": "",
+        "escut": "./imagenes/escudos/atletico-madrid.png",
         "jugadors": [
             {
                 "foto": "",
@@ -139,7 +139,7 @@
     },
     {
         "equip": "Sevilla FC",
-        "escut": "",
+        "escut": "./imagenes/escudos/sevilla.png",
         "jugadors": [
             {
                 "foto": "",
@@ -185,7 +185,7 @@
     },
     {
         "equip": "Real Sociedad",
-        "escut": "",
+        "escut": "./imagenes/escudos/real-sociedad.png",
         "jugadors": [
             {
                 "foto": "",
@@ -231,7 +231,7 @@
     },
     {
         "equip": "Real Betis",
-        "escut": "",
+        "escut": "./imagenes/escudos/betis.png",
         "jugadors": [
             {
                 "foto": "",
@@ -277,7 +277,7 @@
     },
     {
         "equip": "Athletic Club",
-        "escut": "",
+        "escut": "./imagenes/escudos/athletic.png",
         "jugadors": [
             {
                 "foto": "",
@@ -323,7 +323,7 @@
     },
     {
         "equip": "Villarreal CF",
-        "escut": "",
+        "escut": "./imagenes/escudos/villarreal.png",
         "jugadors": [
             {
                 "foto": "",
@@ -369,7 +369,7 @@
     },
     {
         "equip": "Valencia CF",
-        "escut": "",
+        "escut": "./imagenes/escudos/valencia.png",
         "jugadors": [
             {
                 "foto": "",
@@ -415,7 +415,7 @@
     },
     {
         "equip": "RC Celta de Vigo",
-        "escut": "",
+        "escut": "./imagenes/escudos/celta.png",
         "jugadors": [
             {
                 "foto": "",
@@ -461,7 +461,7 @@
     },
     {
         "equip": "RCD Mallorca",
-        "escut": "",
+        "escut": "./imagenes/escudos/mallorca.png",
         "jugadors": [
             {
                 "foto": "",
@@ -507,7 +507,7 @@
     },
     {
         "equip": "Girona FC",
-        "escut": "",
+        "escut": "./imagenes/escudos/girona.png",
         "jugadors": [
             {
                 "foto": "",
@@ -553,7 +553,7 @@
     },
     {
         "equip": "CA Osasuna",
-        "escut": "",
+        "escut": "./imagenes/escudos/osasuna.png",
         "jugadors": [
             {
                 "foto": "",
@@ -599,7 +599,7 @@
     },
     {
         "equip": "Getafe CF",
-        "escut": "",
+        "escut": "./imagenes/escudos/getafe.png",
         "jugadors": [
             {
                 "foto": "",
@@ -645,7 +645,7 @@
     },
     {
         "equip": "UD Las Palmas",
-        "escut": "",
+        "escut": "./imagenes/escudos/las-palmas.png",
         "jugadors": [
             {
                 "foto": "",
@@ -691,7 +691,7 @@
     },
     {
         "equip": "RCD Espanyol",
-        "escut": "",
+        "escut": "./imagenes/escudos/espanyol.png",
         "jugadors": [
             {
                 "foto": "",
@@ -737,7 +737,7 @@
     },
     {
         "equip": "CD Leganés",
-        "escut": "",
+        "escut": "./imagenes/escudos/leganes.png",
         "jugadors": [
             {
                 "foto": "",
@@ -783,7 +783,7 @@
     },
     {
         "equip": "Real Valladolid CF",
-        "escut": "",
+        "escut": "./imagenes/escudos/valladolid.png",
         "jugadors": [
             {
                 "foto": "",
@@ -829,7 +829,7 @@
     },
     {
         "equip": "Rayo Vallecano",
-        "escut": "",
+        "escut": "./imagenes/escudos/rayo.png",
         "jugadors": [
             {
                 "foto": "",
@@ -875,7 +875,7 @@
     },
     {
         "equip": "Deportivo Alavés",
-        "escut": "",
+        "escut": "./imagenes/escudos/alaves.png",
         "jugadors": [
             {
                 "foto": "",

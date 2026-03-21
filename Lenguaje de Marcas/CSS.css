@@ -52,23 +52,46 @@ header {
 /*Plantillas*/
 
 #plantillaDiv {
+    display: grid;
     background-color: lightgray;
     border-radius: 16px;
-    padding-left: 100px;
     align-items: center;
+    padding: 10px;
     justify-content: center;
 }
 
-.equipos {
-    display: grid;
-    grid-template-rows: auto auto auto auto auto;
+.encabezadoDiv {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
-.tarjetaJugador {
+.encabezadoDiv > h2 {
+    font-size: 48px;
+}
+
+.escudoEquipo {
+    width: 5rem;
+    height: 5rem;
+}
+
+.personasDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.tarjetas {
+    border: 1px solid black;
     background-color: white;
     padding: 15px;
     width: 6cm;
     border-radius: 16px;
+}
+
+.imagenPersona {
+    width: 100%;
 }
 
 /*Footer*/
