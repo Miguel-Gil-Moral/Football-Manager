@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //Equipo Local
                 let escudoEquipoLocal = document.createElement("img");
                 escudoEquipoLocal.src = partido.equip_local.escut;
-                escudoEquipoLocal.className = "escudoEquipo";
+                escudoEquipoLocal.className = "escudoEquipoFemenino";
                 nombreEquipoLocal.appendChild(escudoEquipoLocal);
 
                 let equipoLocal = document.createElement("p");
