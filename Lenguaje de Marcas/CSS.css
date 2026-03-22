@@ -27,6 +27,7 @@ header {
 }
 
 #menuHeader > a {
+    position: relative;
     text-decoration: none;
     color: white;
 }
@@ -38,10 +39,13 @@ header {
     display: none;
     background-color: lightgray;
     position: absolute;
+    left: 90%;
 }
 
 #menuHeader:hover .submenu{
     display: block;
+    border-radius: 16px;
+    padding: 10px;
 }
 
 .enlacesSubmenu {
