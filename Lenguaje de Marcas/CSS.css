@@ -121,7 +121,46 @@ header {
 
 /*Clasificación*/
 
+#clasificaciones {
+    display: grid;
+    grid-template-areas: 'areaMasculino areaFemenino';
+    gap: 10px;
+    padding: 20px;;
+    background-color: gray;
+    border-radius: 16px;
+}
 
+#clasificacionMasculino {
+    grid-area: areaMasculino;
+    border-radius: 16px;
+    background-color: lightblue;
+}
+
+#clasificacionMasculino > h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+#clasificacionFemenino {
+    grid-area: areaFemenino;
+    border-radius: 16px;
+    background-color: lightcoral;
+}
+
+#clasificacionFemenino > h2 {
+    text-align: center;
+    text-decoration: underline;
+}
+
+.nombreEquipo {
+    display: flex;
+    align-items: center;
+    padding-left: 25px;
+}
+
+.nombreEquipo > p {
+    font-size: 24px;
+}
 
 /*Footer*/
 
