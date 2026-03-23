@@ -177,7 +177,7 @@ join persones on jugadors.persones_id = persones.id
 group by equips.nom
 order by Media_edad desc;
 
-/*✅ 14- Donat el nom d'una lliga i la temporada. 
+/*(revisar) 14- Donat el nom d'una lliga i la temporada. 
 Mostrar el màxim golejador*/
 
 set @nombre_liga = 'La Liga EA Sports';
