@@ -1,3 +1,5 @@
+use football_manager;
+
 /*(MARIOOOOOOOO_____!!!!!!!!!!!!!!!!!!____________________!!!!!!!!!!!!!!!!!!!_____________________!!!!!!!!!!!!!!!!!!!!!!) 1- Donat el nom de la lliga i la temporada. 
 Es vol realitzar una consulta que retorni el nom de l'equip, l'any de fundació , 
 el nom del president, el nom de la ciutat de l'equip, el nom de l'estadi i el nombre d'espectadors que tinguin un estadi entre 3.000 i 5.000 espectadors. 
@@ -8,7 +10,7 @@ Ordenar pel nombre d'espectadors de major a menor. Utilitzar alies per identific
 Dels equips que siguin de 'Barcelona', 'Madrid' o 'Sevilla i que el nom del seu entrenador no comenci per 'F' i el seu cognom contingui la 'e'.*/
 
 
-/*✅ 3- Donat el nom de la lliga i la temporada. 
+/*3- Donat el nom de la lliga i la temporada. 
 Mostrar la classificació de la lliga amb el nom de l'equip i la puntuació total. 
 Ordenar els equips pel nombre de punts de major a menor.*/
 
@@ -34,8 +36,15 @@ and lligues.temporada = @temporada_liga
 group by equips.nom
 order by Puntos_totales desc;
 
-select nom
-from equips;
+select * from equips;
+
+select sum(punts_local)
+from partits
+where equips_id_local = 20;
+
+select sum(punts_visitant)
+from partits
+where equips_id_visitant = 20;
 
 /*✅ 4- Mostrar l'entrenador i els jugadors d'un equip donat. 
 S'ha de mostrar el nom de l'equip, el tipus de persona, el nom i el cognoms de l'entrenador o jugador concatenats i amb un espai al mig.*/
@@ -56,6 +65,7 @@ join jugadors_equips on jugadors.persones_id = jugadors_equips.jugadors_id
 join equips on jugadors_equips.equips_id = equips.id
 where equips.nom = @nombre_equipo;
 
+
 /*✅ 5- Donat un nom de lliga i una temporada, comptar el nombre de jugadors per cada posició. 
 Mostrar la posició i el nombre de jugadors. 
 Ordenar per la posició en ordre alfabètic. 
@@ -64,7 +74,7 @@ Només s'han de mostrar els jugadors que estiguin d'alta.*/
 set @nombre_liga = 'La Liga EA Sports';
 set @temporada_liga = 2024;
 
-select persones.nom 'Nombre_jugador', posicions.posicio 'Posición'
+select count(persones.nom) 'Numero_jugadores', posicions.posicio 'Posición'
 from persones
 join jugadors on persones.id = jugadors.persones_id
 join posicions on jugadors.posicions_id = posicions.id
@@ -74,6 +84,7 @@ join participar_lligues on equips.id = participar_lligues.equips_id
 join lligues on participar_lligues.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
+group by posicions.posicio
 order by posicions.posicio asc;
 
 /*✅ 6- Donat el nom de la lliga, la temporada i el nom d'un equip, seleccionar tots els partits jugats per aquest equip en la temporada. 
@@ -92,7 +103,7 @@ join jornades on partits.jornades_id = jornades.id
 join lligues on jornades.lligues_id = lligues.id
 where lligues.nom = @nombre_liga
 and lligues.temporada = @temporada_liga
-and (equips_local.nom = @nombre_equipo or @nombre_equipo = equips_visitant.nom)
+and (equips_local.nom = @nombre_equipo or equips_visitant.nom = @nombre_equipo)
 order by jornades.data asc;
 
 /*✅ 7- Donada una lliga, una temporada, un equip local i un equip visitant, seleccionar els gols marcats en aquest partit. 
