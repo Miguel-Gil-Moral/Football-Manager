@@ -12,8 +12,10 @@ document.addEventListener("DOMContentLoaded", function () {
             for (let i = 0; i < clasificacion.length; i++) {
                 let partido = clasificacion[i];
 
-                let clasificacionEquipo = document.createElement("div");
-                clasificacionEquipo.className = "clasificacionEquipos";
+                let clasificacionEquipoLocal = document.createElement("div");
+                clasificacionEquipoLocal.className = "clasificacionEquipos";
+                let clasificacionEquipoVisitante = document.createElement("div");
+                clasificacionEquipoVisitante.className = "clasificacionEquipos";
                 let nombreEquipoLocal = document.createElement("div");
                 nombreEquipoLocal.className = "nombreEquipo";
                 let nombreEquipoVisitante = document.createElement("div");
@@ -29,9 +31,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 equipoLocal.textContent = partido.equip_local.nom;
                 nombreEquipoLocal.appendChild(equipoLocal);
 
-                clasificacionEquipo.appendChild(nombreEquipoLocal);
-                contenedor.appendChild(clasificacionEquipo);
-
                 //Equipo Visitante
                 let escudoEquipoVisitante = document.createElement("img");
                 escudoEquipoVisitante.src = partido.equip_visitant.escut;
@@ -42,28 +41,49 @@ document.addEventListener("DOMContentLoaded", function () {
                 equipoVisitante.textContent = partido.equip_visitant.nom;
                 nombreEquipoVisitante.appendChild(equipoVisitante);
 
-                clasificacionEquipo.appendChild(nombreEquipoVisitante);
-                contenedor.appendChild(clasificacionEquipo);
-
                 //Puntos
-                /*
-                let resultados = clasificacion.resultat;
+                let puntosLocalDiv = document.createElement("div");
+                puntosLocalDiv.className = "puntosDiv";
+                let puntosVisitanteDiv = document.createElement("div");
+                puntosVisitanteDiv.className = "puntosDiv";
 
-                let golesLocal = parseInt(resultados[0]);
-                let golesVisitante = parseInt(resultados[2]);
+                let resultados = partido.resultat;
 
-                let puntosLocal = 0;
-                let puntosVisitante = 0;
+                let golesLocal = document.createElement("p");
+                let golesVisitante = document.createElement("p");
 
-                if (golesLocal > golesVisitante) {
-                    puntosLocal = 3;
-                } else if (golesLocal < golesVisitante) {
-                    puntosVisitante = 3;
+                golesLocal.textContent = parseInt(resultados[0]) + " Goles a favor";
+                golesVisitante.textContent = parseInt(resultados[2]) + " Goles a favor";
+
+                let puntosLocal = document.createElement("p");
+                let puntosVisitante = document.createElement("p");
+
+                puntosLocal.textContent = 0 + " puntos";
+                puntosVisitante.textContent = 0 + " puntos";
+
+                if (golesLocal.textContent > golesVisitante.textContent) {
+                    puntosLocal.textContent = 3 + " puntos";
+                } else if (golesLocal.textContent < golesVisitante.textContent) {
+                    puntosVisitante.textContent = 3 + " puntos";
                 } else {
-                    puntosLocal = 1;
-                    puntosVisitante = 1;
+                    puntosLocal.textContent = 1 + " puntos";
+                    puntosVisitante.textContent = 1 + " puntos";
                 }
-                     */
+
+                puntosLocalDiv.appendChild(puntosLocal);
+                puntosLocalDiv.appendChild(golesLocal);
+                puntosVisitanteDiv.appendChild(puntosVisitante);
+                puntosVisitanteDiv.appendChild(golesVisitante);
+
+                //Local
+                clasificacionEquipoLocal.appendChild(nombreEquipoLocal);
+                clasificacionEquipoLocal.appendChild(puntosLocalDiv);
+                contenedor.appendChild(clasificacionEquipoLocal);
+
+                //Visitante
+                clasificacionEquipoVisitante.appendChild(nombreEquipoVisitante);
+                clasificacionEquipoVisitante.appendChild(puntosVisitanteDiv);
+                contenedor.appendChild(clasificacionEquipoVisitante);
             }
         })
         .catch(function (error) {

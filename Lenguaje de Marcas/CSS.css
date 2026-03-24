@@ -124,8 +124,8 @@ header {
 #clasificaciones {
     display: grid;
     grid-template-areas: 'areaMasculino areaFemenino';
-    gap: 10px;
-    padding: 20px;;
+    gap: 50px;
+    padding: 20px;
     background-color: gray;
     border-radius: 16px;
 }
@@ -152,10 +152,22 @@ header {
     text-decoration: underline;
 }
 
+.clasificacionEquipos {
+    display: flex;
+    justify-content: space-between;
+}
+
 .nombreEquipo {
     display: flex;
     align-items: center;
-    padding-left: 25px;
+    padding-left: 45px;
+}
+
+.puntosDiv {
+    display: flex;
+    gap: 20px;
+    padding-right: 45px;
+    align-items: center;
 }
 
 .nombreEquipo > p {
