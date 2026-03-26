@@ -42,6 +42,10 @@ header {
     left: 90%;
 }
 
+.submenu > li {
+    padding-bottom: 10px;
+}
+
 #menuHeader:hover .submenu{
     display: block;
     border-radius: 16px;
@@ -51,6 +55,12 @@ header {
 .enlacesSubmenu {
     text-decoration: none;
     color: black;
+}
+
+/*General*/
+
+p {
+    font-family: 'Lato', sans-serif;
 }
 
 /*Plantillas*/
@@ -64,6 +74,10 @@ header {
     justify-content: center;
 }
 
+#plantillaMasculino > h1 {
+    font-family: 'Oswald', sans-serif;
+}
+
 #plantillaFemenino {
     display: grid;
     background-color: lightcoral;
@@ -73,6 +87,10 @@ header {
     justify-content: center;
 }
 
+#plantillaFemenino > h1 {
+    font-family: 'Oswald', sans-serif;
+}
+
 .plantillaEncabezado {
     font-size: 34px;
     text-align: center;
@@ -80,6 +98,7 @@ header {
 }
 
 .encabezadoDiv {
+    font-family: 'Bebas Neue', sans-serif;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -137,6 +156,7 @@ header {
 }
 
 #clasificacionMasculino > h2 {
+    font-family: 'Oswald', sans-serif;
     text-align: center;
     text-decoration: underline;
 }
@@ -148,6 +168,7 @@ header {
 }
 
 #clasificacionFemenino > h2 {
+    font-family: 'Oswald', sans-serif;
     text-align: center;
     text-decoration: underline;
 }
@@ -158,6 +179,7 @@ header {
 }
 
 .nombreEquipo {
+    font-family: 'Bebas Neue', sans-serif;
     display: flex;
     align-items: center;
     padding-left: 45px;
