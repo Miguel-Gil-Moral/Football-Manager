@@ -3,8 +3,8 @@ package clasesCreadas;
 import java.util.Comparator;
 
 /**
- * Compara dos equipos de una clasificacion segun sus puntos y, en caso de
- * empate, segun los goles a favor.
+ * Compara dos equipos de una clasificacion según sus puntos y, en caso de
+ * empate, según los goles a favor.
  */
 public class ComparatorPuntos implements Comparator<String[]> {
 

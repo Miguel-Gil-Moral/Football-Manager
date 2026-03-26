@@ -1,9 +1,5 @@
 package clasesCreadas;
 
-//Clase Jugadores y Entrenadores
-//✅ Atributos (Los dos): nombre, apellido, día de nacimiento, nivel motivación(1-10), sueldo salarial
-//✅ Atributos (Entrenador): número torneos ganados, ha estado seleccionador nacional(booleano)
-//✅ Los atributos de nombre, apellido y el día de nacimiento no se pueden modificar cuando se da de alta el jugador.
 /**
  * Representa a un entrenador con experiencia competitiva y posible
  * trayectoria como seleccionador nacional.
@@ -29,7 +25,6 @@ public class Entrenador extends Persona {
         this.seleccionadorNacional = seleccionadorNacional;
     }
 
-    //✅ Método entrenadores: incrementarSou(), incrementara el salario actual en un 0,5%.
     /**
      * Incrementa el salario actual del entrenador.
      */
@@ -47,7 +42,7 @@ public class Entrenador extends Persona {
     }
 
     /**
-     * Devuelve el numero de torneos ganados.
+     * Devuelve el número de torneos ganados.
      *
      * @return numero de torneos ganados
      */
@@ -76,8 +71,6 @@ public class Entrenador extends Persona {
                 seleccionadorNacional;
     }
 
-    //✅ Los entrenadores sobreescribirán completamente el método entrenament() de la clase padre.
-    //✅ Si el entrenador es seleccionador nacional aumentará la motivación a 0.3 puntos, si no lo es lo hará a 0.15.
     /**
      * Ejecuta el entrenamiento del entrenador actualizando su motivacion.
      */

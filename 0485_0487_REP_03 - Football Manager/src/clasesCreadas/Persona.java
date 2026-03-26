@@ -3,7 +3,7 @@ package clasesCreadas;
 
 /**
  * Clase base abstracta para las personas gestionadas por la aplicacion.
- * Reune la informacion comun de jugadores y entrenadores.
+ * Reune la información comun de jugadores y entrenadores.
  */
 public abstract class Persona {
     protected final String NOMBRE, APELLIDO, FECHA_NACIMIENTO;
@@ -105,7 +105,6 @@ public abstract class Persona {
         return nombreEquipo;
     }
 
-    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
     /**
      * Aplica el entrenamiento basico de la clase base.
      */

@@ -33,7 +33,7 @@ class MainTest {
     void darAltaPersona() {
         String insertarScanner = "1\nMiguel\nGil\n17\n02\n2005\n10000\n6\n3\n";
         System.setIn(new ByteArrayInputStream(insertarScanner.getBytes()));
-        ArrayList<Persona> listaFichajes2 = Main.cargarFichajes();
+        ArrayList<Persona> listaFichajes2 = Main.cargarMercado();
         ArrayList<Persona> listaFichajes = new ArrayList<>(listaFichajes2);
 
         Main.darAltaPersona(listaFichajes2);

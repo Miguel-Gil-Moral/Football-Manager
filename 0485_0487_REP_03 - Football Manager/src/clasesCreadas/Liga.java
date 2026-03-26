@@ -2,9 +2,6 @@ package clasesCreadas;
 
 import java.util.*;
 
-//Clase Lliga:
-//✅ Atributos: Nombre, cantidad de equipos, lista de equipos.
-//✅ Métodos: agregarEquipos(), disputarPartidos(), consultarGolesFavor(), consultarGolesContra(), mostrarClasificación.
 /**
  * Representa una liga con sus equipos, emparejamientos, resultados y
  * registro temporal de goles.
@@ -138,9 +135,7 @@ public class Liga {
      * Muestra la clasificacion actual de la liga.
      */
 
-    public void mostrarClasificacion() { //Revisar los parámetros que se usan realmente.
-        //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
-        //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
+    public void mostrarClasificacion() {
         List<String[]> clasificacion = new ArrayList<>(Arrays.asList(equipos));
 
         clasificacion.sort(new ComparatorPuntos());
@@ -156,13 +151,6 @@ public class Liga {
                     "|", (posicion + "º"), "|", cl[0], "|", cl[1], "|", cl[2], "|", cl[3], "|", cl[4], "|");
             posicion++;
         }
-
-            //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
-            //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver los goles a favor, en contra, toda la clasificación, e incluso el tiempo donde marcaron los goles
-
-            //printf
-            //mostrar todos los equipos y sus puntos
-
     }
 
     /**

@@ -1,13 +1,8 @@
 package clasesCreadas;
 
 
-//Clase equipos
-//✅ Atributos: nombre, año fundación, ciudad, nombre del estadio(opcional), nombre presidente(opcional)
-//Podemos crear equipos sin indicar obligatoriamente los campos opcionales
-//Los equipos de los datos anteriores, tienen un entrenador y un listado de jugadores
-
 /**
- * Representa a un equipo de futbol con su informacion institucional.
+ * Representa a un equipo de futbol con su información institucional.
  */
 public class Equipos {
     private final String NOMBRE, CIUDAD;
@@ -19,7 +14,7 @@ public class Equipos {
      * Crea un equipo con sus datos principales.
      *
      * @param nombre nombre del equipo
-     * @param anyoFundacion anyo de fundacion del equipo
+     * @param anyoFundacion año de fundacion del equipo
      * @param ciudad ciudad del equipo
      * @param nombreEstadio nombre del estadio del equipo
      * @param nombrePresidente nombre del presidente del equipo
@@ -86,7 +81,6 @@ public class Equipos {
         this.nombrePresidente = nombrePresidente;
     }
 
-    //Método equipos: calcularMediaEquipo(), ha de calcular la media del equipo en base a la calidad de los jugadores
     /**
      * Calcula la media de calidad de un equipo dentro de una matriz.
      *

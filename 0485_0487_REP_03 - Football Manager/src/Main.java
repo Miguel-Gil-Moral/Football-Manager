@@ -8,7 +8,7 @@ import java.util.*;
  * operaciones generales del sistema.
  *
  * @author Miguel Gil Moral, Mario De Molina Martin
- * @version 1.1
+ * @version 1.2
  */
 public class Main {
     /**
@@ -17,7 +17,7 @@ public class Main {
      * @param args argumentos recibidos por linea de comandos
      */
     public static void main(String[] args) {
-        ArrayList<Persona> listaFichajes = cargarFichajes(), listaFichados = cargarPersonasFichadas();
+        ArrayList<Persona> listaMercado = cargarMercado(), listaFichados = cargarPersonasFichadas();
         ArrayList<Equipos> listaEquipos = cargarEquipos();
         ArrayList<Liga> listaLigas = new ArrayList<>();
         String rol = pedirRol();
@@ -38,7 +38,7 @@ public class Main {
                             numCreados++;
                             break;
                         case 3:
-                            darAltaPersona(listaFichajes);
+                            darAltaPersona(listaMercado);
                             numCreados++;
                             break;
                         case 4:
@@ -51,7 +51,7 @@ public class Main {
                             listaLigas.add(disputarNuevaLiga(listaEquipos, listaFichados));
                             break;
                         case 7:
-                            realizarEntrenamientoMercado(listaFichajes);
+                            realizarEntrenamientoMercado(listaMercado);
                             break;
                         case 8:
                             guardarDatosEquipo(listaFichados, listaEquipos);
@@ -68,9 +68,6 @@ public class Main {
                             verClasificacionLiga(listaLigas, listaEquipos, listaFichados);
                             break;
                         case 2:
-                            //✅ Menu principal de gestor de equipos (opción 2):
-                            //✅ Al seleccionar la opción, se pedirá el nombre del equipo. Si no se encuentra se mostrará un mensaje de error y se volverá al menu principal.
-                            //✅ Si se encuentra el equipo, se mostrará un submenu específico.
                             String nombreEquipo = pedirNombreEquipo();
                             equipoExistente = revisarEquipo(listaEquipos, nombreEquipo);
                             Equipos equipoSubmenu = null;
@@ -84,17 +81,17 @@ public class Main {
                                     opcionSubmenu = submenuGestorEquipos();
                                     switch (opcionSubmenu) {
                                         case 1:
-                                            darBajaEquipo(listaEquipos, listaFichados, listaFichajes, equipoSubmenu);
+                                            darBajaEquipo(listaEquipos, listaFichados, listaMercado, equipoSubmenu);
                                             salirBucleSubmenu = true;
                                             break;
                                         case 2:
                                             modificarPresidente(equipoSubmenu);
                                             break;
                                         case 3:
-                                            destituirEntrenador(listaFichajes, listaFichados, equipoSubmenu);
+                                            destituirEntrenador(listaMercado, listaFichados, equipoSubmenu);
                                             break;
                                         case 4:
-                                            ficharPersona(listaFichajes, listaFichados, equipoSubmenu);
+                                            ficharPersona(listaMercado, listaFichados, equipoSubmenu);
                                             break;
                                         case 0:
                                             salirBucleSubmenu = true;
@@ -125,10 +122,8 @@ public class Main {
             }
         } while (!salirBucle);
         System.out.println("Se han dado de alta " + numCreados + " personas");
-        actualizarFichero(listaFichajes);
+        actualizarFichero(listaMercado);
     }
-
-    //✅ Cargar jugadores y entrenadores disponibles del fichero al iniciar el programa.
 
     /**
      * Carga las personas disponibles en el mercado de fichajes desde fichero.
@@ -136,28 +131,28 @@ public class Main {
      * @return Todos los jugadores/as y entrenadores/as guardados de un fichero de texto en una lista de personas
      * @since 1.0
      */
-    public static ArrayList<Persona> cargarFichajes() {
+    public static ArrayList<Persona> cargarMercado() {
         String linea;
         String[] separado;
-        ArrayList<Persona> listaFichajes = new ArrayList<>();
+        ArrayList<Persona> listaMercado = new ArrayList<>();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/ficheros/mercat_fitxatges.txt"));
             while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
                 if (separado[0].equals("J")) {
-                    listaFichajes.add(new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                    listaMercado.add(new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
                             Integer.parseInt(separado[5]), Integer.parseInt(separado[6]),
                             separado[7], Integer.parseInt(separado[8])));
                 } else if (separado[0].equals("E")) {
-                    listaFichajes.add(new Entrenador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                    listaMercado.add(new Entrenador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
                             Integer.parseInt(separado[5]), Integer.parseInt(separado[6]), Boolean.parseBoolean(separado[7])));
                 }
             }
         } catch (IOException e) {
             System.out.println("Error al abrir el archivo");
         }
-        return listaFichajes;
+        return listaMercado;
     }
 
     /**
@@ -218,8 +213,6 @@ public class Main {
         return listaFichados;
     }
 
-    //✅ Al inicio pedir si es Admin o un gestor de equipos, no hace falta poner la contraseña ni nada parecido
-
     /**
      * Solicita al usuario el rol con el que desea acceder a la aplicacion.
      *
@@ -263,25 +256,6 @@ public class Main {
         return rol;
     }
 
-    //✅ Un menu principal para admin:
-    //✅       1- Veure classificació lliga actual 🏆
-    //✅
-    //✅       2- Donar d'alta equip
-    //✅
-    //✅       3- Donar d'alta jugador/a o entrenador/a
-    //✅
-    //✅       4- Consultar dades equip
-    //✅
-    //✅       5- Consultar dades jugador/a equip
-    //✅
-    //✅       6- Disputar nova lliga
-    //✅
-    //✅       7- Realitzar sessió entrenament (del mercat fitxatges)
-    //✅
-    //✅       8- Desar dades equips
-    //✅
-    //✅       0- Sortir
-
     /**
      * Muestra las opciones principales del menu de administrador.
      *
@@ -319,10 +293,6 @@ public class Main {
         return opcion;
     }
 
-    //Menu principal gestor de equipos(opción 1):
-    //Mostrará la clasificación de la liga actual, mostrará el nombre del equipo, puntos, partidos, goles a favor y goles en contra.
-    //Debe de estar ordenada por puntos y en caso de tener mismos puntos, diferencia entre goles a favor y en contra.
-
     /**
      * Muestra las opciones de consulta de una liga y ejecuta la accion elegida.
      *
@@ -335,9 +305,6 @@ public class Main {
         Scanner sc = new Scanner(System.in);
         String nombreLiga; //Es cuando selecciona la liga
         boolean ligaExsistente = false;
-        //Idea Miguel:
-        //Haz que cuando la lista de ligas esté vacía, vaya directamente a la opción de disputarNuevaLiga, si hay una no hace falta que vaya a ese método.
-        //Cuando haya una liga, haz opciones para que el usuario elija si quiere ver toda la clasificación, los goles a favor, en contra, e incluso el tiempo donde marcaron los goles
 
         if (listaLigas.isEmpty()) {
             System.out.println("La lista de ligas está vacía. Es por esto que disputarás una nueva liga. Pulsa Enter para empezar.");
@@ -439,11 +406,6 @@ public class Main {
         }
     }
 
-    //✅ Menu principal de admin (opción 2):
-    //✅ Se pedirá el primer nombre para verificar que no este dado de alta en la aplicación.
-    //✅ Solo se pedirá el resto de datos si el equipo no existe, en caso contrario se mostrará un mensaje de error y volverá a pedir otro nombre, se repetirá tantas veces hasta que ponga un nombre que exista.
-    //✅ Cuando tenga el nombre del equipo, pedirá los demás datos principales, estarán también las dos opciones opcionales.
-
     /**
      * Solicita los datos necesarios para dar de alta un nuevo equipo.
      *
@@ -504,21 +466,13 @@ public class Main {
 
     }
 
-    //✅ Menu principal de admin (opción 3):
-    //✅ Preguntará si quiere dar de alta a un jugador o a un entrenador.
-    //✅ Al dar de alta, todos los datos serán obligatorio.
-    //✅ Para asegurar que todos los valores són valídos, la calidad del jugador se generará con un número aleatorio
-    //✅ La motivación comenzará siempre en 5, y los valores de las posiciones se extraerán de la clase Jugador.
-    //✅ El nuevo jugador o entrenador creado se guardará en una lista que contiene el mercado de fichajes.
-    //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que los jugadores o entrenadores estén disponibles en el mercado para la siguiente ejecución del programa.
-
     /**
      * Solicita los datos de una nueva persona y la agrega al mercado.
      *
-     * @param listaFichajes lista de personas disponibles para fichar
+     * @param listaMercado lista de personas disponibles para fichar
      * @since 1.0
      */
-    public static void darAltaPersona(ArrayList<Persona> listaFichajes) {
+    public static void darAltaPersona(ArrayList<Persona> listaMercado) {
         Scanner sc = new Scanner(System.in);
         Random random = new Random();
         boolean salirBucle, nombreVacio;
@@ -549,12 +503,12 @@ public class Main {
                     case 1:
                         Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, 5, sueldoSalarial,
                                 pedirDorsalJugador(sc), asignarPosicionJugador(sc), random.nextInt(100));
-                        listaFichajes.add(jugador);
+                        listaMercado.add(jugador);
                         break;
                     case 2:
                         Entrenador entrenador = new Entrenador(nombre, apellido, fechaNacimiento, 5,
                                 sueldoSalarial, asignarTorneosGanado(sc), esSeleccionadorNacional(sc));
-                        listaFichajes.add(entrenador);
+                        listaMercado.add(entrenador);
                         break;
                     default:
                         System.out.println("Opción invalido, escoja 1 o 2");
@@ -634,14 +588,14 @@ public class Main {
      *
      * @param sc lector de entrada utilizado en la operacion
      * @return El sueldo que ganara la persona
-     * @since 1.0
+     * @since 1.2
      */
     public static int asignarSueldoSalarial(Scanner sc) {
         boolean salirBucle;
         int sueldoSalarial = 0;
         do {
             try {
-                System.out.print("Introduzca sueldo de sueldo: ");
+                System.out.print("Introduzca sueldo de la persona: ");
                 sueldoSalarial = sc.nextInt();
                 salirBucle = true;
                 if (sueldoSalarial < 0) {
@@ -661,7 +615,7 @@ public class Main {
      * Solicita y valida el dorsal de un jugador.
      *
      * @param sc lector de entrada utilizado en la operacion
-     * @return Numero del dorsal no escogido para el jugador
+     * @return Número del dorsal no escogido para el jugador
      * @since 1.0
      */
     public static int pedirDorsalJugador(Scanner sc) {
@@ -740,7 +694,7 @@ public class Main {
     }
 
     /**
-     * Solicita el numero de torneos ganados por un entrenador.
+     * Solicita el número de torneos ganados por un entrenador.
      *
      * @param sc lector de entrada utilizado en la operacion
      * @return La cantidad de torneos que el entrenador ha ganado
@@ -795,12 +749,8 @@ public class Main {
         return esSeleccionadorNacional;
     }
 
-// EMOJI DE CARGANDOOO 🔃
-    //✅ Menu principal de admin (opción 4):
-    //✅ Pedirá el equipo del que se quiere consultar los datos (a través del nombre). Si no se encuentra, se mostrará un mensaje de error volviendo así al menú principal.
-    //✅ Si el equipo se encuentra se mostrará todos los datos incluyendo la del entrenador y el listado de los jugadores.
     /**
-     * Muestra la informacion general de un equipo y de sus personas asociadas.
+     * Muestra la información general de un equipo y de sus personas asociadas.
      *
      * @param listaEquipos Lista con todos los equipos existentes
      * @param listaFichados Lista con todos los jugadores fichados por un equipo
@@ -840,21 +790,16 @@ public class Main {
             }
         }
         if (!equipoExistente) {
-            System.out.println("El equipo " + nombreEquipo + " no existe");
+            System.out.println("El equipo " + nombreEquipo + " no exsiste");
         }
     }
-
-    //✅ Menu principal de admin (opción 5):
-    //✅ Solicitará el nombre del equipo, para solicitar seguidamente el nombre del jugador en cuestión. Si no se encuentra el equipo mostrará un mensaje de error y se volverá al menu principal.
-    //✅ Si el equipo se encuentra se pedirá el nombre y el dorsal del jugador. Con estos datos se buscará jugador del equipo y se mostrará sus datos.
-    //✅ Si el jugador no se encuentra se avisará al usuario y se volverá al menu principal.
 
     /**
      * Busca un jugador concreto de un equipo y muestra sus datos.
      *
      * @param listaFichados Lista con todos los jugadores fichados en un equipo
      * @param listaEquipos  Lista con todos los equipos para la comprobacion de la existencia de ese equipo
-     * @since 1.0
+     * @since 1.2
      */
     public static void consultarDatosJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
 
@@ -893,20 +838,21 @@ public class Main {
                     System.out.println("Dorsal: " + ((Jugador) pr).getDorsal());       //mostrar los datos (atributos) exclusivos de jugador
                     System.out.println("Posición: " + ((Jugador) pr).getPosicion());  //mostrar los datos (atributos) exclusivos de jugador
                     System.out.println("Calidad: " + ((Jugador) pr).getCalidad());   //mostrar los datos (atributos) exclusivos de jugador
+                    System.out.println("Equipo: " + pr.getNombreEquipo());
                 }
             }
             if (!jugadorEncontrado) {
                 System.out.println("El jugador junto con su dorsal no se ha encontrado");
             }
         } else {
-            System.out.println("¡No existe el equipo " + nombreEquipo + "!...");
+            System.out.println("¡No exsiste el equipo " + nombreEquipo + "!...");
 
             //7) TERMINAR (el menú exterior vuelve a mostrarse por su bucle)
         }
     }
 
     /**
-     * Solicita el nombre de un equipo y valida que no este vacio.
+     * Solicita el nombre de un equipo y válida que no este vacio.
      *
      * @since 1.0
      * @return Nombre del equipo insertado por el usuario
@@ -928,12 +874,6 @@ public class Main {
         }  while (!equipoNoVacio);
         return nombreEquipo;
     }
-
-    //✅ Menu principal de admin (opción 6):
-    //✅ Pedirá los datos básicos para crear una nueva liga: Nombre, número de equipos que participaran.
-    //✅ Se le asignará al objeto "Lliga" de la clase a la aplicación.
-    //✅ Una vez creada la liga, se pedirá a todos los equipos que participen, asegurándose de no agregar un equipo repetido.
-    //✅ Una vez agregado todos los equipos a la liga, se disputarán automáticamente los partidos cuantas sean necesarios para completar la liga(Podemos hacer que puedan hacer un partido con cada uno o hacer salida y vuelta).
 
     /**
      * Crea una nueva liga y prepara sus partidos iniciales.
@@ -989,7 +929,7 @@ public class Main {
      * Prepara los datos necesarios para disputar los partidos de una liga.
      *
      * @since 1.0
-     * @param liga Liga con toda la informacion de sus atributos
+     * @param liga Liga con toda la información de sus atributos
      * @param listaEquipos Lista con todos los equipos que participaran
      * @param listaFichados Lista con todas las personas fichadas en un equipo para sacar su motivacion y calidad
      */
@@ -1045,10 +985,10 @@ public class Main {
     }
 
     /**
-     * Calcula el tamanyo maximo detectado en las plantillas de los equipos.
+     * Calcula el tamaño maximo detectado en las plantillas de los equipos.
      *
      * @param listaFichados personas fichadas por equipos
-     * @return tamanyo maximo de plantilla encontrado
+     * @return Tamaño maximo de plantilla encontrada
      */
     public static int getTamanyoEquipos(ArrayList<Persona> listaFichados) {
         String equipo, equipoActual = "";
@@ -1148,7 +1088,7 @@ public class Main {
      * @since 1.0
      * @param equipos El equipo asignado con sus puntos, partidos disputados, goles a favor y en contra
      * @param rs El resultado del partido el cual quedaron los equipos
-     * @param i El numero de la iteracion para la posicion del array equipos
+     * @param i El número de la iteracion para la posicion del array equipos
      * @param puntosLocal Puntos totales que lleva el equipo local
      * @param golesLocal Goles marcados durante el partido por parte del equipo local
      * @param golesVisitante Goles marcados durante el partido por parte del equipo visitante
@@ -1176,19 +1116,14 @@ public class Main {
         equipos[i][4] = String.valueOf(golesContra);
     }
 
-    //✅ Menu principal admin (opción 7):
-    //✅ Permitirá actualizar la calidad y el nivel de motivación de los jugadores y entrenadores disponibles al mercado de fichajes.
-    //✅ Se necesita recorrer la lista de jugadores y entrenadores disponibles y ejecutar el método entrenament() para cada elemento de la lista.
-    //✅ Según si es jugador o entrenador se ejecutaran los métodos canviPosicio() para los jugadores, y incrementarSou() para los entrenadores.
-
     /**
      * Ejecuta sesiones de entrenamiento sobre las personas del mercado.
      *
      * @since 1.0
-     * @param listaFichajes Lista con todos los jugadores del mercado para realizar los entrenamientos
+     * @param listaMercado Lista con todos los jugadores del mercado para realizar los entrenamientos
      */
-    public static void realizarEntrenamientoMercado(ArrayList<Persona> listaFichajes) {
-        for (Persona p : listaFichajes) {
+    public static void realizarEntrenamientoMercado(ArrayList<Persona> listaMercado) {
+        for (Persona p : listaMercado) {
             if (p instanceof Jugador) {
                 ((Jugador) p).entrenamiento();
                 ((Jugador) p).cambiarDePosicion();
@@ -1198,10 +1133,6 @@ public class Main {
             }
         }
     }
-
-    //✅ Menu principal de admin (opción 8):
-    //✅ Se guardará los datos de todos los equipos de la aplicación incluyendo la suya y todos los datos de los entrenadores y los jugadores para poder recuperarlos para la siguiente ejecución del programa.
-    //✅ El formato y la cantidad del fichero es totalmente libre.
 
     /**
      * Guarda en fichero los equipos y las personas fichadas.
@@ -1239,21 +1170,6 @@ public class Main {
         System.out.println("Todos los equipos se han guardado correctamente");
     }
 
-    //✅ Menu principal para gestor de equipos:
-    //✅       1- Veure classificació lliga actual 🏆
-    //✅
-    //✅       2- Gestionar el meu equip ⚽
-    //✅
-    //✅       3- Consultar dades equip
-    //✅
-    //✅       4- Consultar dades jugador/a equip
-    //✅
-    //✅       5- Transferir jugador/a
-    //✅
-    //✅       6 - Desar dades equips
-    //✅
-    //✅       0- Sortir
-
     /**
      * Muestra las opciones principales del gestor de equipos.
      *
@@ -1289,11 +1205,6 @@ public class Main {
         } while (!salirBucle);
         return opcion;
     }
-
-    //✅ Menu principal gestor de equipos (opción 5):
-    //✅ Asegurar que el equipo donde el jugador esta y el equipo donde se quiere transferir existan.
-    //✅ En caso afirmativo, se pedirá el nuevo dorsal del jugador transferido (habrá que verificar si está disponible).
-    //✅ Se pedirá el dorsal hasta que se proporcione uno que esté disponible.
 
     /**
      * Gestiona la transferencia de un jugador entre equipos.
@@ -1391,17 +1302,6 @@ public class Main {
         return encontrado;
     }
 
-    //✅ Submenu para gestor de mi propio equipo(opcion 2):
-    //✅       1- Donar de baixa l'equip
-    //✅
-    //✅       2- Modificar president/a
-    //✅
-    //✅       3- Destituir entrenador/a
-    //✅
-    //✅       4- Fitxar jugador/a o entrenador/a
-    //✅
-    //✅       0- Sortir
-
     /**
      * Muestra las opciones de gestion interna de un equipo.
      *
@@ -1438,19 +1338,16 @@ public class Main {
         return opcionSubmenu;
     }
 
-    //✅ Submenu gestionar mi equipo (opción 1):
-    //✅ Se eliminará el equipo de la lista de la aplicación, confirmación por parte del usuario.
-
     /**
      * Da de baja un equipo y devuelve sus personas al mercado cuando procede.
      *
      * @since 1.1
      * @param listaEquipos Lista para borrar el equipo
      * @param listaFichados Lista con todos los jugadores que están fichados en el equipo
-     * @param listaFichajes Lista para trasladar el jugador del equipo eliminado al mercado
+     * @param listaMercado Lista para trasladar el jugador del equipo eliminado al mercado
      * @param equipoSubmenu Equipo el cual le daremos baja
      */
-    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, ArrayList<Persona> listaFichajes, Equipos equipoSubmenu) {
+    public static void darBajaEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados, ArrayList<Persona> listaMercado, Equipos equipoSubmenu) {
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Quieres borrar el equipo " + equipoSubmenu.getNOMBRE() + " de la lista de equipos? («true» o «false»).");
         boolean respuestaUsuario = sc.nextBoolean();
@@ -1475,7 +1372,7 @@ public class Main {
                     for (Persona persona : listaFichados) {
                         if (persona.getNombreEquipo().equals(equipoSubmenu.getNOMBRE())) {
                             persona.setNombreEquipo(null);
-                            listaFichajes.add(persona);
+                            listaMercado.add(persona);
                         }
                     }
                 } else {
@@ -1528,22 +1425,15 @@ public class Main {
         } while (repetir);
     }
 
-//if (nombrePresidente!= null && !nombrePresidente.isEmpty()) { //!nombrePresidente.isEmpty()) buscado en google como "is not empty exists in java?" https://www.google.com/search?q=is+not+empty+exists+in+java%3F&sxsrf=ANbL-n45El-lM9lPUzt23PJzBHeoZ6EFBg%3A1773136571371&udm=50&aep=1&ntc=1
-//eq.setNombrePresidente(nuevoPresidente); //Tip de Miguel: Setter
-    // limpia el salto pendiente
-
-    //Submenu gestionar mi equipo (opción 3):
-    //✅Prescinde al entrenador, previa confirmación por el usuario.
-    //El equipo se queda sin entrenador y este se pasará a formar parte de la lista del mercado de fichajes de la aplicación.
     /**
      * Destituye al entrenador de un equipo y lo devuelve al mercado.
      *
-     * @param listaFichajes personas disponibles en el mercado
+     * @param listaMercado personas disponibles en el mercado
      * @param listaFichados personas fichadas por equipos
      * @param equipoSubmenu nombre del equipo afectado
      * @since 1.1
      */
-    public static void destituirEntrenador(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, Equipos equipoSubmenu) {
+    public static void destituirEntrenador(ArrayList<Persona> listaMercado, ArrayList<Persona> listaFichados, Equipos equipoSubmenu) {
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Hacer al entrenador prescindible? (true / false)");
         boolean prescindeEntrenador = sc.nextBoolean();
@@ -1555,7 +1445,7 @@ public class Main {
                     if (p instanceof Entrenador && p.getNombreEquipo().equals(equipoSubmenu.getNOMBRE())) {
                         p.setNombreEquipo(null);
                         listaFichados.remove(p);
-                        listaFichajes.add(p);
+                        listaMercado.add(p);
                         fichado = true;
                     }
                 }
@@ -1569,19 +1459,16 @@ public class Main {
             }
         }
     }
-    //✅ Submenu gestionar mi equipo (opción 4):
-    //✅ Preguntará qué se quiere fichar, después mostrará todos los jugadores o entrenadores disponibles y se podrá seleccionar quien quiere fichar.
-    //✅ Fichar a un jugador o entrenador implica eliminarlo de la lista del mercado de fichajes de la aplicación y agregarlo al equipo que estamos gestionando.
-    //✅ (Opcional) Actualizar el fichero.txt al final de la ejecución del programa para que el jugador fichado no esté disponible en el mercado de fichajes en la siguiente ejecución del programa.
+    
     /**
      * Permite fichar una persona del mercado para el equipo indicado.
      *
-     * @param listaFichajes personas disponibles en el mercado
+     * @param listaMercado personas disponibles en el mercado
      * @param listaFichados personas fichadas por equipos
      * @param equiposSubmenu nombre del equipo que realiza el fichaje
      * @since 1.1
      */
-    public static void ficharPersona(ArrayList<Persona> listaFichajes, ArrayList<Persona> listaFichados, Equipos equiposSubmenu) {
+    public static void ficharPersona(ArrayList<Persona> listaMercado, ArrayList<Persona> listaFichados, Equipos equiposSubmenu) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle, fichado = false, salirBucleFor;
         String quienFichar;
@@ -1594,7 +1481,7 @@ public class Main {
                 salirBucle = true;
                 switch (queFichar) {
                     case 1: //Jugador
-                        for (Persona p : listaFichajes) {
+                        for (Persona p : listaMercado) {
                             if (p instanceof Jugador) {
                                 System.out.println(p.getNOMBRE());
                             }
@@ -1604,11 +1491,11 @@ public class Main {
                 do {
                     try {
                         salirBucleFor = true;
-                        for (Persona p : listaFichajes) {
+                        for (Persona p : listaMercado) {
                             if (p instanceof Jugador && p.getNOMBRE().equals(quienFichar)) {
                                 p.setNombreEquipo(equiposSubmenu.getNOMBRE());
                                 listaFichados.add(p);
-                                listaFichajes.remove(p);
+                                listaMercado.remove(p);
                                 fichado = true;
                             }
                         }
@@ -1622,7 +1509,7 @@ public class Main {
                 } while (!salirBucleFor);
                     break;
                     case 2: //Entrenador
-                        for (Persona p : listaFichajes) {
+                        for (Persona p : listaMercado) {
                             if (p instanceof Entrenador) {
                                 System.out.println(p.getNOMBRE());
                             }
@@ -1632,11 +1519,11 @@ public class Main {
                         do {
                             try {
                                 salirBucleFor = true;
-                                for (Persona p : listaFichajes) {
+                                for (Persona p : listaMercado) {
                                     if (p instanceof Entrenador && p.getNOMBRE().equals(quienFichar)) {
                                         p.setNombreEquipo(equiposSubmenu.getNOMBRE());
                                         listaFichados.add(p);
-                                        listaFichajes.remove(p);
+                                        listaMercado.remove(p);
                                         fichado = true;
                                     }
                                 }
@@ -1662,11 +1549,11 @@ public class Main {
      * Actualiza el fichero del mercado con el estado actual de los fichajes.
      *
      * @since 1.0
-     * @param listaFichajes Lista con todos los jugadores y entrenadores guardados
+     * @param listaMercado Lista con todos los jugadores y entrenadores guardados
      */
-    public static void actualizarFichero(ArrayList<Persona> listaFichajes){
+    public static void actualizarFichero(ArrayList<Persona> listaMercado){
         try (BufferedWriter bw = new BufferedWriter(new FileWriter("src/ficheros/mercat_fitxatges.txt"))){
-            for (Persona persona : listaFichajes) {
+            for (Persona persona : listaMercado) {
                 if (persona instanceof Jugador) {
                     bw.write(((Jugador)persona).toString() + "\n");
                 } else if (persona instanceof Entrenador) {
@@ -1677,41 +1564,4 @@ public class Main {
             System.out.println("Error al escribir el fichero del mercado de fichajes");
         }
     }
-
-    //✅ Gestionará un conjunto de equipos, mercado de fichajes, y permitirá generar ligas entre estos equipos.
-    //✅ Mercado de fichajes en un fichero.
-
-    //Seguir los principios de clean code.
-    //Revisar para aplicar patrones de refactoring.
-    //Colocar JavaDoc mientras vamos acabando con las funciones o métodos.
-
-    //✅ Cargar todos los equipos y su información relacionada.
-
-    //✅ Clase Main gestionará los menus y dispondrá de los listados con todos los equipos, jugadores y entrenadores disponibles para fichar, y un objeto que represente la liga
-    //✅ La información de la liga no se guardará en la ejecución del programa ni de la aplicación.
-
-    //✅ Puntuación:
-    //✅ Partidos ganados: 3 puntos
-    //✅ Partidos empatados: 1 puntos
-    //✅ Partidos perdidos: 0 puntos
-
-    //✅ Se necesita cuantos goles se han generado por cada equipo a favor y en contra, es necesaria para la clasificación.
-    //La calificación media de los equipos y la motivación han de influir de alguna manera en las posibilidades de victoria del equipo.
-
-    //Por si somos atrevidos:thumbsup:
-    //Aparte de guardar clasificaciones con los resultados de los partidos, goleadores, etc... Podemos crear un sistema capaz de consultar datos de cada partido de manera individual, no solo el resultado final de la liga.
-    //(✅ y medio) Pensar como guardar los goleadores de cada partido y sobre todo en que minuto ha marcado.
-
-    //Adicional:
-    //✅ Saber cuantos jugadores se han creado hasta el momento en la aplicación.
-    //✅ La clase Jugador y Entrenador que tengan una herencia con una clase general con un nombre coherente.
-    //✅ Los jugadores extienden el método entrenamiento de la clase padre.
-    //✅ Se aplicará cada vez que listemos los jugadores del mercado de fichajes.
-    //Por su posición (Orden alfabético). Si tienen la misma posición, ordenaremos de mayor a menor la calidad.
-    //Se aplicará cada vez que listemos los jugadores de un equipo.
-
-    //Consideraciones finales:
-    //✅ Las clases deben de tener diferentes constructores para adaptarse a los requisitos del enunciado para la creación de objetos.
-    //✅ Hace falta ser curioso con la visibilidad de diferentes elementos, intentando que todo el acceso a la información sea siempre la más restrictiva posible.
-    //✅ Hace falta asegurarse que cada clase sea responsable de sus propias cosas.
 }
