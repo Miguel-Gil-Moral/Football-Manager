@@ -70,17 +70,24 @@ document.addEventListener("DOMContentLoaded", function () {
                     puntosVisitante.textContent = 1 + " puntos";
                 }
 
+                let golesLocalContra = document.createElement("p");
+                let golesVisitanteContra = document.createElement("p");
+                golesLocalContra.textContent = golesVisitante.textContent[0] + " Goles en contra";
+                golesVisitanteContra.textContent = golesLocal.textContent[0] + " Goles en contra";
+
                 puntosLocalDiv.appendChild(puntosLocal);
                 puntosLocalDiv.appendChild(golesLocal);
+                puntosLocalDiv.appendChild(golesLocalContra);
                 puntosVisitanteDiv.appendChild(puntosVisitante);
                 puntosVisitanteDiv.appendChild(golesVisitante);
+                puntosVisitanteDiv.appendChild(golesVisitanteContra);
 
-                //Local
+                //Añadir Local
                 clasificacionEquipoLocal.appendChild(nombreEquipoLocal);
                 clasificacionEquipoLocal.appendChild(puntosLocalDiv);
                 contenedor.appendChild(clasificacionEquipoLocal);
 
-                //Visitante
+                //Añadir Visitante
                 clasificacionEquipoVisitante.appendChild(nombreEquipoVisitante);
                 clasificacionEquipoVisitante.appendChild(puntosVisitanteDiv);
                 contenedor.appendChild(clasificacionEquipoVisitante);
