@@ -1,15 +1,120 @@
-J;Lamine;Yamal;13/07/2007;9;1670000;10;DAV;91;FC Barcelona
-J;Robert;Lewandowski;21/08/1988;8;33000000;9;DAV;94;FC Barcelona
-E;Hansi;Flick;24/02/1965;7;3000000;8;false;FC Barcelona
-J;Marc-André;ter Stegen;30/04/1992;9;15000000;1;POR;90;FC Barcelona
-J;Jules;Koundé;12/11/1998;8;10000000;23;DEF;88;FC Barcelona
-J;Alejandro;Balde;18/10/2003;9;3000000;12;DEF;85;FC Barcelona
-J;Ronald;Araújo;07/03/1999;8;5000000;4;DEF;87;FC Barcelona
-J;Pedri;González;25/11/2002;9;7000000;8;MIG;92;FC Barcelona
-J;Gavi;Páez;05/08/2004;9;5000000;6;MIG;86;FC Barcelona
-E;Diego;Simeone;28/04/1970;9;4000000;10;true;Real Madrid CF
-J;Ferran;Torres;29/02/2000;7;6000000;11;DAV;85;Real Madrid CF
-J;Raphinha;Dias;14/12/1996;8;9000000;22;DAV;88;Real Madrid CF
-J;Frenkie;de Jong;12/05/1997;8;8000000;21;MIG;82;Real Madrid CF
-J;Andreas;Christensen;10/04/1996;8;6000000;15;DEF;86;Real Madrid CF
-J;Iñigo;Martínez;17/05/1991;7;4000000;5;DEF;74;Real Madrid CF
+J;Marc-André;ter Stegen;1992/04/30;90;6000000;1;POR;90;FC Barcelona
+J;Ronald;Araujo;1999/03/07;85;5000000;3;DEF;85;FC Barcelona
+E;Luis;Enrique;1970/05/08;88;10000000;18;false;FC Barcelona
+J;Frenkie;de Jong;1997/05/12;88;10000000;5;MIG;88;FC Barcelona
+J;Robert;Lewandowski;1988/08/21;95;12000000;10;DAV;95;FC Barcelona
+J;Vinícius;Júnior;2000/07/12;94;15000000;7;DAV;94;FC Barcelona
+E;Arsène;Wenger;1949/10/22;90;500000;35;false;Real Madrid CF
+J;Kylian;Mbappé;1998/12/20;96;20000000;9;DAV;89;Real Madrid CF
+J;Luka;Modric;1985/09/09;90;8000000;19;MIG;87;Real Madrid CF
+J;Jude;Bellingham;2003/06/29;92;12000000;8;MIG;86;Real Madrid CF
+J;David;Alaba;1992/06/24;88;9000000;4;DEF;88;Real Madrid CF
+J;Antoine;Griezmann;1991/03/21;93;11000000;17;DEF;85;Real Madrid CF
+E;Jürgen;Klopp;1967/06/16;92;18000000;25;false;Atlético de Madrid
+J;Jan;Oblak;1993/01/07;91;7000000;10;DAV;84;Atlético de Madrid
+J;Marcos;Llorente;1995/01/30;86;6000000;18;DEF;83;Atlético de Madrid
+J;Koke;Resurrección;1992/01/08;87;8000000;20;MIG;82;Atlético de Madrid
+J;Nico;Williams;2002/07/12;89;7000000;11;DAV;80;Atlético de Madrid
+J;Iñaki;Williams;1994/06/15;85;6500000;21;MIG;85;Atlético de Madrid
+E;Manuel;Pellegrini;1953/09/16;82;5500000;10;false;Sevilla FC
+J;Oihan;Sancet;2000/04/25;83;5000000;6;MIG;86;Sevilla FC
+J;Lucas;Ocampos;1994/07/11;84;4500000;7;DAV;87;Sevilla FC
+J;Yassine;Bounou;1991/04/05;88;5500000;13;POR;88;Sevilla FC
+J;Ivan;Rakitic;1988/03/10;85;6000000;8;MIG;85;Sevilla FC
+J;Mikel;Merino;1996/06/22;87;7000000;14;MIG;84;Sevilla FC
+E;Unai;Emery;1971/11/03;84;6000000;20;false;Real Sociedad
+J;Takefusa;Kubo;2001/06/04;88;7500000;23;DAV;83;Real Sociedad
+J;Alexander;Sørloth;1995/12/05;85;5500000;9;DAV;82;Real Sociedad
+J;Isco;Alarcón;1992/04/21;86;5000000;22;DAV;81;Real Sociedad
+J;Nabil;Fekir;1993/07/18;87;8000000;16;MIG;84;Real Sociedad
+J;Guido;Rodríguez;1994/04/12;84;6000000;15;MIG;83;Real Sociedad
+E;Alex;Ferguson;1941/12/31;99;1000000;30;false;Real Betis
+J;Gerard;Moreno;1992/04/07;88;7000000;19;DAV;82;Real Betis
+J;Dani;Parejo;1989/04/16;85;6500000;5;DEF;85;Real Betis
+J;Yeremy;Pino;2002/10/20;84;6000000;12;DEF;84;Real Betis
+J;Iago;Aspas;1987/08/01;89;5000000;3;DEF;83;Real Betis
+J;Gabri;Veiga;2002/05/27;86;10000000;2;DEF;82;Real Betis
+E;Josep;Guardiola;1971/01/18;95;25000000;15;false;Athletic Club
+J;Vedat;Muriqi;1994/04/24;84;4500000;14;MIG;85;Athletic Club
+J;Kang-in;Lee;2001/02/19;85;6000000;18;DAV;84;Athletic Club
+J;Artem;Dovbyk;1997/06/21;84;5500000;20;DAV;83;Athletic Club
+J;Viktor;Tsygankov;1997/11/15;83;6000000;21;MIG;82;Athletic Club
+J;Aleix;García;1997/06/28;85;5000000;4;MIG;81;Athletic Club
+E;Hansi;Flick;1965/02/24;89;9000000;20;false;Athletic Club
+E;Quique;Sánchez Flores;1965/02/05;79;3500000;25;false;Villarreal CF
+J;David;García;1994/02/14;84;4000000;11;DEF;80;Villarreal CF
+J;Chimy;Ávila;1994/02/06;82;3500000;24;MIG;79;Villarreal CF
+J;Borja;Mayoral;1997/04/05;81;4000000;25;DEF;78;Villarreal CF
+J;David;Soria;1993/04/04;82;3000000;13;POR;77;Villarreal CF
+J;Kirian;Rodríguez;1996/03/05;80;2500000;12;MIG;76;Villarreal CF
+E;Marcelino;García Toral;1965/08/14;80;4000000;12;false;Valencia CF
+J;Alberto;Moleiro;2003/09/30;83;5000000;2;DAV;75;Valencia CF
+J;Sergi;Darder;1993/12/22;82;4500000;5;DAV;74;Valencia CF
+J;Raúl;de Tomás;1994/10/17;81;6000000;1;DEF;73;Valencia CF
+J;Isi;Palazón;1994/12/27;82;4000000;6;MIG;72;Valencia CF
+J;Luis;Rioja;1993/10/16;79;3000000;3;POR;80;Valencia CF
+E;Jose;Mourinho;1963/01/26;93;11000000;6;false;RC Celta de Vigo
+J;Guruzeta;Gorka;1996/09/12;78;2500000;22;DEF;85;RC Celta de Vigo
+J;Miguel;de la Fuente;1999/09/03;77;2000000;15;DEF;84;RC Celta de Vigo
+J;Cyle;Larin;1995/04/17;76;3500000;10;MIG;85;RC Celta de Vigo
+J;Martin;Braithwaite;1991/06/05;80;4000000;17;DAV;86;RC Celta de Vigo
+J;Gerard;Gumbau;1994/12/18;75;2500000;18;MIG;84;RC Celta de Vigo
+E;Antonio;Conte;1969/07/31;88;10500000;15;false;RCD Mallorca
+J;Javi;Puado;1998/05/25;78;3500000;19;MIG;83;RCD Mallorca
+J;Brian;Oliván;1994/04/01;74;2000000;9;DAV;82;RCD Mallorca
+J;Munir;El Haddadi;1995/09/01;76;3000000;7;DAV;81;RCD Mallorca
+J;Álvaro;García;1992/10/27;79;2500000;14;MIG;82;RCD Mallorca
+J;Oscar;Trejo;1988/04/26;77;1500000;11;DAV;80;RCD Mallorca
+E;Julian;Nagelsmann;1987/07/23;87;8000000;14;false;Girona FC
+J;Kike;García;1989/11/25;75;1200000;8;DAV;79;Girona FC
+J;Jon;Guridi;1995/02/28;77;2000000;3;DEF;78;Girona FC
+J;Ander;Guevara;1997/07/07;76;2500000;2;DEF;77;Girona FC
+J;Sergio;Camello;2001/02/10;78;3500000;16;MIG;76;Girona FC
+J;Pathé;Ciss;1994/03/16;74;2000000;4;DAV;75;Girona FC
+E;Carlo;Ancelotti;1959/06/10;94;12000000;12;false;CA Osasuna
+J;Lucas;Boyé;1996/02/28;79;4500000;21;MIG;88;CA Osasuna
+J;Uzuni;Myrto;1995/05/31;78;3500000;6;DEF;86;CA Osasuna
+J;Bryan;Zaragoza;2001/09/09;81;5000000;5;DEF;85;CA Osasuna
+J;Chimy;Avila;1994/02/06;80;4000000;11;DAV;85;CA Osasuna
+J;Ante;Budimir;1991/07/22;79;3000000;7;DAV;84;CA Osasuna
+J;Borja;Mayoral;1997/04/05;82;5500000;10;MIG;83;Getafe CF
+J;Mason;Greenwood;2001/10/01;84;15000000;13;MIG;82;Getafe CF
+J;Isco;Alarcón;1992/04/21;85;4000000;20;MIG;82;Getafe CF
+J;Ayoze;Pérez;1993/07/29;81;3500000;2;MIG;81;Getafe CF
+J;Assane;Diao;2005/09/07;78;10000000;18;MIG;80;Getafe CF
+E;Mikel;Arteta;1982/03/26;85;7000000;8;false;RCD Espanyol
+J;Aurélien;Tchouaméni;2000/01/27;87;90000000;8;DAV;78;RCD Espanyol
+J;Eduardo;Camavinga;2002/11/10;86;90000000;14;MIG;79;RCD Espanyol
+J;Éder;Militão;1998/01/18;89;70000000;2;DEF;81;RCD Espanyol
+J;Rodrygo;Goes;2001/01/09;88;100000000;27;MIG;78;RCD Espanyol
+E;Diego;Simeone;1970/04/28;90;20000000;5;false;CD Leganés
+J;Aleix;García;1997/06/28;85;15000000;14;DEF;77;CD Leganés
+J;Sávio;Moreira;2004/04/10;86;25000000;5;DEF;76;CD Leganés
+J;Paulo;Gazzaniga;1992/01/02;79;4000000;13;POR;79;CD Leganés
+J;Yan;Couto;2002/06/03;81;12000000;22;DEF;78;CD Leganés
+J;Daley;Blind;1990/03/09;80;3000000;12;DEF;77;CD Leganés
+E;Ernesto;Valverde;1964/02/09;81;4500000;5;false;UD Las Palmas
+J;Unai;Simón;1997/06/11;86;25000000;23;POR;79;UD Las Palmas
+J;Daniel;Vivian;1999/07/08;83;12000000;9;DAV;85;UD Las Palmas
+J;Robin;Le Normand;1996/11/11;85;35000000;17;DAV;92;UD Las Palmas
+J;Martín;Zubimendi;1999/02/02;86;40000000;15;MIG;81;UD Las Palmas
+J;Brais;Méndez;1997/01/07;84;30000000;8;MIG;82;UD Las Palmas
+J;Gerard;Moreno;1992/04/07;85;20000000;30;DAV;80;UD Las Palmas
+J;Alexander;Sørloth;1995/12/05;83;18000000;6;DEF;83;UD Las Palmas
+J;Youssef;En-Nesyri;1997/06/01;82;15000000;24;DAV;80;UD Las Palmas
+E;Mauricio;Pochettino;1972/03/02;83;7500000;7;false;Real Valladolid CF
+J;Iván;Martín;1999/02/26;81;10000000;18;MIG;76;Real Valladolid CF
+J;Yangel;Herrera;1998/01/07;80;15000000;20;MIG;75;Real Valladolid CF
+J;Iago;Aspas;1987/08/01;84;5000000;7;DAV;85;Real Valladolid CF
+J;Jørgen;Strand Larsen;2000/02/06;82;18000000;21;DAV;82;Real Valladolid CF
+J;Fran;Beltrán;1999/02/03;79;12000000;25;DEF;81;Real Valladolid CF
+J;Ronald;Araujo;1999/03/07;88;70000000;22;DAV;82;Real Valladolid CF
+E;Zinedine;Zidane;1972/06/23;91;15000000;10;false;Deportivo Alavés
+J;Alejandro;Baena;2001/07/20;83;20000000;11;MIG;78;Deportivo Alavés
+E;Thomas;Tuchel;1973/08/29;86;9500000;10;false;Rayo Vallecano
+J;Sergio;Ramos;1986/03/30;84;4000000;29;MIG;79;Rayo Vallecano
+J;Jonathan;Bamba;1996/03/26;80;15000000;19;MIG;79;Rayo Vallecano
+J;Pedri;González;2002/11/25;90;80000000;3;MIG;85;Rayo Vallecano
+J;Thibaut;Courtois;1992/05/11;92;45000000;12;POR;82;Rayo Vallecano
+J;Gavi;Páez;2004/08/05;88;70000000;10;MIG;84;Rayo Vallecano
+J;Federico;Valverde;1998/07/22;91;100000000;16;MIG;80;Rayo Vallecano

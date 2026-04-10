@@ -1,5 +1,5 @@
 document.addEventListener("DOMContentLoaded", function () {
-    fetch("./FM_partits_masc.json")
+    fetch("./json/FM_partits_fem.json")
         .then(function (response) {
             if(!response.ok) {
                 throw new Error("El archivo JSON no se ha podido cargar");
@@ -7,7 +7,7 @@ document.addEventListener("DOMContentLoaded", function () {
             return response.json();
         })
         .then(function (clasificacion) {
-            let contenedor = document.getElementById("clasificacionMasculino");
+            let contenedor = document.getElementById("clasificacionFemenino");
 
             for (let i = 0; i < clasificacion.length; i++) {
                 let partido = clasificacion[i];
@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //Equipo Local
                 let escudoEquipoLocal = document.createElement("img");
                 escudoEquipoLocal.src = partido.equip_local.escut;
-                escudoEquipoLocal.className = "escudoEquipo";
+                escudoEquipoLocal.className = "escudoEquipoFemenino";
                 nombreEquipoLocal.appendChild(escudoEquipoLocal);
 
                 let equipoLocal = document.createElement("p");
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 //Equipo Visitante
                 let escudoEquipoVisitante = document.createElement("img");
                 escudoEquipoVisitante.src = partido.equip_visitant.escut;
-                escudoEquipoVisitante.className = "escudoEquipo";
+                escudoEquipoVisitante.className = "escudoEquipoFemenino";
                 nombreEquipoVisitante.appendChild(escudoEquipoVisitante);
 
                 let equipoVisitante = document.createElement("p");
@@ -82,12 +82,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 puntosVisitanteDiv.appendChild(golesVisitante);
                 puntosVisitanteDiv.appendChild(golesVisitanteContra);
 
-                //Añadir Local
+                //Local
                 clasificacionEquipoLocal.appendChild(nombreEquipoLocal);
                 clasificacionEquipoLocal.appendChild(puntosLocalDiv);
                 contenedor.appendChild(clasificacionEquipoLocal);
 
-                //Añadir Visitante
+                //Visitante
                 clasificacionEquipoVisitante.appendChild(nombreEquipoVisitante);
                 clasificacionEquipoVisitante.appendChild(puntosVisitanteDiv);
                 contenedor.appendChild(clasificacionEquipoVisitante);
