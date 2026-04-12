@@ -1,0 +1,122 @@
+[
+    {
+        "equip_local": {
+            "nom": "FC Barcelona",
+            "escut": "./imagenes/escudos/barcelona.png"
+        },
+        "equip_visitant": {
+            "nom": "Real Sociedad",
+            "escut": "./imagenes/escudos/real-sociedad.png"
+        },
+        "resultat": "2-1",
+        "data": "2025-03-15T16:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Real Madrid CF",
+            "escut": "./imagenes/escudos/real-madrid.png"
+        },
+        "equip_visitant": {
+            "nom": "Valencia CF",
+            "escut": "./imagenes/escudos/valencia.png"
+        },
+        "resultat": "3-0",
+        "data": "2025-03-15T18:15:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Atlético de Madrid",
+            "escut": "./imagenes/escudos/atletico-madrid.png"
+        },
+        "equip_visitant": {
+            "nom": "RCD Espanyol",
+            "escut": "./imagenes/escudos/espanyol.png"
+        },
+        "resultat": "1-1",
+        "data": "2025-03-15T20:30:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Sevilla FC",
+            "escut": "./imagenes/escudos/sevilla.png"
+        },
+        "equip_visitant": {
+            "nom": "CA Osasuna",
+            "escut": "./imagenes/escudos/osasuna.png"
+        },
+        "resultat": "2-2",
+        "data": "2025-03-16T16:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Real Betis",
+            "escut": "./imagenes/escudos/betis.png"
+        },
+        "equip_visitant": {
+            "nom": "Getafe CF",
+            "escut": "./imagenes/escudos/getafe.png"
+        },
+        "resultat": "1-0",
+        "data": "2025-03-16T18:15:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Athletic Club",
+            "escut": "./imagenes/escudos/athletic.png"
+        },
+        "equip_visitant": {
+            "nom": "Girona FC",
+            "escut": "./imagenes/escudos/girona.png"
+        },
+        "resultat": "2-0",
+        "data": "2025-03-16T20:30:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Villarreal CF",
+            "escut": "./imagenes/escudos/villarreal.png"
+        },
+        "equip_visitant": {
+            "nom": "RCD Mallorca",
+            "escut": "./imagenes/escudos/mallorca.png"
+        },
+        "resultat": "0-1",
+        "data": "2025-03-15T17:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "RC Celta de Vigo",
+            "escut": "./imagenes/escudos/celta.png"
+        },
+        "equip_visitant": {
+            "nom": "UD Las Palmas",
+            "escut": "./imagenes/escudos/las-palmas.png"
+        },
+        "resultat": "3-2",
+        "data": "2025-03-16T17:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "CD Leganés",
+            "escut": "./imagenes/escudos/leganes.png"
+        },
+        "equip_visitant": {
+            "nom": "Rayo Vallecano",
+            "escut": "./imagenes/escudos/rayo.png"
+        },
+        "resultat": "1-0",
+        "data": "2025-03-15T19:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Real Valladolid CF",
+            "escut": "./imagenes/escudos/valladolid.png"
+        },
+        "equip_visitant": {
+            "nom": "Deportivo Alavés",
+            "escut": "./imagenes/escudos/alaves.png"
+        },
+        "resultat": "2-2",
+        "data": "2025-03-16T19:30:00"
+    }
+]

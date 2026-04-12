@@ -1,0 +1,74 @@
+[
+    {
+        "equip_local": {
+            "nom": "FC Barcelona",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_fcb.png"
+        },
+        "equip_visitant": {
+            "nom": "Real Sociedad",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_sociedad.png"
+        },
+        "resultat": "3-1",
+        "data": "2025-03-22T16:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Real Madrid CF",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_madrid.png"
+        },
+        "equip_visitant": {
+            "nom": "Valencia CF",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_valencia.png"
+        },
+        "resultat": "2-0",
+        "data": "2025-03-22T18:15:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Atlético de Madrid",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_atmadrid.png"
+        },
+        "equip_visitant": {
+            "nom": "Athletic Club",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_athleticclub.png"
+        },
+        "resultat": "1-1",
+        "data": "2025-03-22T20:30:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Sevilla FC",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_sevilla.png"
+        },
+        "equip_visitant": {
+            "nom": "Granada CF",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_granada.png"
+        },
+        "resultat": "2-2",
+        "data": "2025-03-23T16:00:00"
+    },
+    {
+        "equip_local": {
+            "nom": "Real Betis",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_betis.png"
+        },
+        "equip_visitant": {
+            "nom": "Levante UD",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_levante.png"
+        },
+        "resultat": "0-1",
+        "data": "2025-03-23T18:15:00"
+    },
+    {
+        "equip_local": {
+            "nom": "RCD Espanyol",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_espanyol.png"
+        },
+        "equip_visitant": {
+            "nom": "SD Eibar",
+            "escut": "./FM_LligaFemenina_2025/images/logo_equip/logo_eibar.png"
+        },
+        "resultat": "1-0",
+        "data": "2025-03-23T19:30:00"
+    }
+]

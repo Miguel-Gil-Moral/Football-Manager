@@ -1,0 +1,203 @@
+/*Header*/
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #308242;
+}
+
+#logo {
+    width: 7rem;
+    height: 7rem;
+}
+
+#tituloHeader {
+    font-family: 'Archivo Black', sans-serif;
+    color: white;
+    font-size: 48px;
+}
+
+#menuHeader {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    font-family: 'Anton', sans-serif;
+    font-size: 24px;
+    margin-right: 25px;
+}
+
+#menuHeader > a {
+    position: relative;
+    text-decoration: none;
+    color: white;
+}
+
+.submenu {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: none;
+    background-color: lightgray;
+    position: absolute;
+    left: 90%;
+}
+
+.submenu > li {
+    padding-bottom: 10px;
+}
+
+#menuHeader:hover .submenu{
+    display: block;
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.enlacesSubmenu {
+    text-decoration: none;
+    color: black;
+}
+
+/*General*/
+
+p {
+    font-family: 'Lato', sans-serif;
+}
+
+/*Plantillas*/
+
+#plantillaMasculino {
+    display: grid;
+    background-color: lightblue;
+    border-radius: 16px;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+}
+
+#plantillaMasculino > h1 {
+    font-family: 'Oswald', sans-serif;
+}
+
+#plantillaFemenino {
+    display: grid;
+    background-color: lightcoral;
+    border-radius: 16px;
+    align-items: center;
+    padding: 10px;
+    justify-content: center;
+}
+
+#plantillaFemenino > h1 {
+    font-family: 'Oswald', sans-serif;
+}
+
+.plantillaEncabezado {
+    font-size: 34px;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.encabezadoDiv {
+    font-family: 'Bebas Neue', sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.encabezadoDiv > h2 {
+    font-size: 48px;
+}
+
+.escudoEquipo {
+    width: 5rem;
+    height: 5rem;
+}
+
+.escudoEquipoFemenino {
+    width: 3.5rem;
+    height: 3.5rem;
+    margin-right: 7px;
+}
+
+.personasDiv {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+
+.tarjetas {
+    border: 1px solid black;
+    background-color: white;
+    padding: 15px;
+    width: 6cm;
+    border-radius: 16px;
+}
+
+.imagenPersona {
+    width: 100%;
+}
+
+/*Clasificación*/
+
+#clasificaciones {
+    display: grid;
+    grid-template-areas: 'areaMasculino areaFemenino';
+    gap: 50px;
+    padding: 20px;
+    background-color: gray;
+    border-radius: 16px;
+}
+
+#clasificacionMasculino {
+    grid-area: areaMasculino;
+    border-radius: 16px;
+    background-color: lightblue;
+}
+
+#clasificacionMasculino > h2 {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    text-decoration: underline;
+}
+
+#clasificacionFemenino {
+    grid-area: areaFemenino;
+    border-radius: 16px;
+    background-color: lightcoral;
+}
+
+#clasificacionFemenino > h2 {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    text-decoration: underline;
+}
+
+.clasificacionEquipos {
+    display: flex;
+    justify-content: space-between;
+}
+
+.nombreEquipo {
+    font-family: 'Bebas Neue', sans-serif;
+    display: flex;
+    align-items: center;
+    padding-left: 45px;
+}
+
+.puntosDiv {
+    display: flex;
+    gap: 20px;
+    padding-right: 45px;
+    align-items: center;
+}
+
+.nombreEquipo > p {
+    font-size: 24px;
+}
+
+/*Footer*/
+
+footer {
+    background-color: #283680;
+}
