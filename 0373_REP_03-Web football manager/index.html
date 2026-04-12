@@ -3,19 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plantillas</title>
+    <title>Football_Manager</title>
     <link rel="stylesheet" href="./styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <!-- HTML
+    La web ha d’estar dividida en diferents pàgines, incloent-hi:
+
+Una pàgina principal amb una introducció i informació general de la lliga (notícies, propers partits, jugades destacades, ...). Aquesta landing page és de contingut lliure relacionat amb la temàtica. Seria interessant que tingués diferents seccions.
+
+Una secció (pàgina apart) on en un futur podrem donar d'alta nous jugadors i entrenadors a la nostra base de dades. De moment, prepararem el formulari per introduir tota la informació.
+
+La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació, així com un footer amb la informació que vosaltres considereu adient. El logo ha de servir com a punt de retorn a la landing page.-->
     <header>
-        <a href="inicio.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <a href="index.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
         <h1 id="tituloHeader">Football Manager</h1>
         <ul>
             <li id="menuHeader">
                 <a href="#">Menu</a>
                 <ul class="submenu">
-                    <li><a href="./inicio.html" class="enlacesSubmenu">Inicio</a></li>
+                    <li><a href="./plantillas.html" class="enlacesSubmenu">Plantillas</a></li>
                     <li><a href="./resultados.html" class="enlacesSubmenu">Resultados</a></li>
                     <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
                     <li><a href="./formulario.html" class="enlacesSubmenu">Dar Alta</a></li>
@@ -25,20 +33,11 @@
     </header>
     <br>
     <main>
-        <div id="plantillaMasculino">
-            <h1 class="plantillaEncabezado">Plantilla Masculino</h1>
-        </div>
-        <br>
-        <div id="plantillaFemenino">
-            <h1 class="plantillaEncabezado">Plantilla Femenino</h1>
-        </div>
-        <br>
+        
     </main>
     <br>
     <footer>
         <img src="./imagenes/Logo FM.svg" id="logo">
     </footer>
-    <script src="./javascript/plantillas_masculino.js"></script>
-    <script src="./javascript/plantillas_femenino.js"></script>
 </body>
 </html>
