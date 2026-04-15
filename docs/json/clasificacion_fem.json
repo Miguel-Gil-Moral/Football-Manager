@@ -1,0 +1,146 @@
+[
+    {
+        "nom": "Athletic Club",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_athleticclub.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 39,
+                "gols_favor": 37,
+                "gols_contra": 24
+            }
+        ]
+    },
+    {
+        "nom": "Real Betis",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_betis.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 37,
+                "gols_favor": 38,
+                "gols_contra": 31
+            }
+        ]
+    },
+    {
+        "nom": "Levante UD",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_levante.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 33,
+                "gols_favor": 36,
+                "gols_contra": 32
+            }
+        ]
+    },
+    {
+        "nom": "Real Madrid CF",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_madrid.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 33,
+                "gols_favor": 33,
+                "gols_contra": 33
+            }
+        ]
+    },
+    {
+        "nom": "Granada CF",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_granada.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 33,
+                "gols_favor": 30,
+                "gols_contra": 25
+            }
+        ]
+    },
+    {
+        "nom": "Valencia CF",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_valencia.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 31,
+                "gols_favor": 26,
+                "gols_contra": 23
+            }
+        ]
+    },
+    {
+        "nom": "FC Barcelona",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_fcb.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 29,
+                "gols_favor": 36,
+                "gols_contra": 41
+            }
+        ]
+    },
+    {
+        "nom": "Atlético de Madrid",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_atmadrid.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 26,
+                "gols_favor": 26,
+                "gols_contra": 33
+            }
+        ]
+    },
+    {
+        "nom": "SD Eibar",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_eibar.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 26,
+                "gols_favor": 25,
+                "gols_contra": 25
+            }
+        ]
+    },
+    {
+        "nom": "Sevilla FC",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_sevilla.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 25,
+                "gols_favor": 30,
+                "gols_contra": 38
+            }
+        ]
+    },
+    {
+        "nom": "Real Sociedad",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_sociedad.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 25,
+                "gols_favor": 27,
+                "gols_contra": 31
+            }
+        ]
+    },
+    {
+        "nom": "RCD Espanyol",
+        "escut": "../FM_LligaFemenina_2025/images/logo_equip/logo_espanyol.png",
+        "clasificacio": [
+            {
+                "partits_jugats": 22,
+                "punts": 19,
+                "gols_favor": 22,
+                "gols_contra": 36
+            }
+        ]
+    }
+]

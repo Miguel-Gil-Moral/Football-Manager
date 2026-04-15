@@ -962,9 +962,9 @@ public class Main {
      * Prepara los datos necesarios para disputar los partidos de una liga.
      *
      * @since 1.0
-     * @param liga Liga con toda la informacion de sus atributos
+     * @param liga Liga con toda la información de sus atributos
      * @param listaEquipos Lista con todos los equipos que participaran
-     * @param listaFichados Lista con todas las personas fichadas en un equipo para sacar su motivacion y calidad
+     * @param listaFichados Lista con todas las personas fichadas en un equipo para sacar su motivación y calidad
      */
     public static void prepararPartidos(Liga liga, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         String[][] equipos = liga.agregarEquipos(listaEquipos);

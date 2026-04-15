@@ -8,7 +8,7 @@ import java.util.*;
  * operaciones generales del sistema.
  *
  * @author Miguel Gil Moral, Mario De Molina Martin
- * @version 1.2
+ * @version 1.3
  */
 public class Main {
     /**
@@ -299,7 +299,7 @@ public class Main {
      * @param listaLigas ligas disponibles en la aplicacion
      * @param listaEquipos equipos registrados en la aplicacion
      * @param listaFichados personas fichadas por equipos
-     * @since 1.1
+     * @since 1.3
      */
     public static void verClasificacionLiga(ArrayList<Liga> listaLigas, ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaFichados) {
         Scanner sc = new Scanner(System.in);
@@ -325,18 +325,17 @@ public class Main {
                 System.out.println("Ingrese el nombre del liga actual: ");
                 nombreLiga = sc.nextLine();
 
-                System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra o tiempo donde marcaron cada gol?");
-                System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
-                        "|", "1 = mostrarClasificacion", "|", "2 = consultarGolesFavor", "|", "3 = consultarGolesContra", "|", "4 = verTiempoGol", "|", "0 = salirMenu", "|");
-
-                System.out.print("Opción: ");
-                opcion = sc.nextInt();
-
                 for (Liga l : listaLigas) {
                     if (l.getNOMBRE().equals(nombreLiga)) {
                         ligaExsistente = true;
                         salirBucle = true;
                         do {
+                            System.out.println("¿Quieres ver toda la clasificación, los goles a favor, en contra o tiempo donde marcaron cada gol?");
+                            System.out.printf("%-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s %-16s %-1s \n",
+                                    "|", "1 = mostrarClasificacion", "|", "2 = consultarGolesFavor", "|", "3 = consultarGolesContra", "|", "4 = verTiempoGol", "|", "0 = salirMenu", "|");
+
+                            System.out.print("Opción: ");
+                            opcion = sc.nextInt();
                             salirBucleOpcion = false;
                             switch (opcion) {
                                 case 1:
@@ -359,7 +358,6 @@ public class Main {
                                 default:
                                     System.out.println("Opción inválida, seleccione entre 0 y 4");
                                     salirBucle = false;
-                                    salirBucleOpcion = true;
                             }
                         } while (!salirBucleOpcion);
                     }

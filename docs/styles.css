@@ -63,6 +63,10 @@ p {
     font-family: 'Lato', sans-serif;
 }
 
+button {
+    border-radius: 16px;
+}
+
 /*Plantillas*/
 
 #plantillaMasculino {

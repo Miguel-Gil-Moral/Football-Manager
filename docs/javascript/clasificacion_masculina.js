@@ -1,4 +1,33 @@
 document.addEventListener("DOMContentLoaded", function () {
+    fetch("./json/clasificacion_masc.json")
+        .then(function (response) {
+            if(!response.ok) {
+                throw new Error("El archivo JSON no se ha podido cargar");
+            }
+            return response.json();
+        })
+        .then(function (clasificacion) {
+            let contenedor = document.getElementById("clasificacionMasculino");
+        })
+        .catch(function (error) {
+            console.error("Esto es un error: ", error);
+        });
+    let boton = document.getElementsByTagName("button");
+    boton.addEventListener("click", function () {
+        if (boton.textContent === "Ver femenino") {
+            let divClasificacion = document.getElementById("clasificacionMasculino");
+
+            divClasificacion.id.toogle("clasificacionFemenino");
+            boton.textContent = "Ver masculino";
+        } else {
+            let divClasificacion = document.getElementById("clasificacionFemenino");
+
+            divClasificacion.id.toogle("clasificacionMasculino")
+            boton.textContent = "Ver femenino";
+        }
+    })
+});
+/*document.addEventListener("DOMContentLoaded", function () {
     fetch("./json/FM_partits_masc.json")
         .then(function (response) {
             if(!response.ok) {
@@ -96,4 +125,4 @@ document.addEventListener("DOMContentLoaded", function () {
         .catch(function (error) {
             console.error("Esto es un error: ", error);
         });
-})
+})*/
