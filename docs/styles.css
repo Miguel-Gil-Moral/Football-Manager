@@ -63,8 +63,18 @@ p {
     font-family: 'Lato', sans-serif;
 }
 
-button {
-    border-radius: 16px;
+table {
+    width: 50%;
+    border: 1px solid black;
+}
+
+td {
+    display: flex;
+    align-items: center;
+}
+
+tr {
+    display: flex;
 }
 
 /*Plantillas*/
@@ -145,8 +155,6 @@ button {
 /*Clasificación*/
 
 #clasificaciones {
-    display: grid;
-    grid-template-areas: 'areaMasculino areaFemenino';
     gap: 50px;
     padding: 20px;
     background-color: gray;
@@ -154,19 +162,18 @@ button {
 }
 
 #clasificacionMasculino {
-    grid-area: areaMasculino;
     border-radius: 16px;
     background-color: lightblue;
 }
 
 #clasificacionMasculino > h2 {
+    padding-top: 20px;
     font-family: 'Oswald', sans-serif;
     text-align: center;
     text-decoration: underline;
 }
 
 #clasificacionFemenino {
-    grid-area: areaFemenino;
     border-radius: 16px;
     background-color: lightcoral;
 }
@@ -175,11 +182,6 @@ button {
     font-family: 'Oswald', sans-serif;
     text-align: center;
     text-decoration: underline;
-}
-
-.clasificacionEquipos {
-    display: flex;
-    justify-content: space-between;
 }
 
 .nombreEquipo {
@@ -198,6 +200,13 @@ button {
 
 .nombreEquipo > p {
     font-size: 24px;
+}
+
+#botonClasificacion {
+    border-radius: 16px;
+    padding: 10px;
+    background-color: #10B981;
+    color: white;
 }
 
 /*Footer*/

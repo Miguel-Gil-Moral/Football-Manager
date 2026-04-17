@@ -5,7 +5,7 @@ create user 'superadministrador'@'localhost'
 password expire interval 30 day
 password history 2;
 
-grant all privileges on football_manager.* to 'superadministrador'@'localhost';
+grant insert, select, delete, update on football_manager.* to 'superadministrador'@'localhost';
 
 /*(MARIOOOOOOOO_____!!!!!!!!!!!!!!!!!!____________________!!!!!!!!!!!!!!!!!!!_____________________!!!!!!!!!!!!!!!!!!!!!!)2- Usuari adminEquips. 
 Aquest usuari he de poder consultar i modificar les dades dels equips, els seus estadis i les persones que en formen part. 

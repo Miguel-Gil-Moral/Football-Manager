@@ -2,241 +2,201 @@
     {
         "nom": "UD Las Palmas",
         "escut": "../imagenes/escudos/las-palmas.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 66,
-                "gols_favor": 56,
-                "gols_contra": 41
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 66,
+            "gols_favor": 56,
+            "gols_contra": 41
+        }
     },
     {
         "nom": "Girona FC",
         "escut": "../imagenes/escudos/girona.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 65,
                 "gols_favor": 63,
                 "gols_contra": 49
             }
-        ]
     },
     {
         "nom": "Athletic Club",
         "escut": "../imagenes/escudos/athletic.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 64,
                 "gols_favor": 64,
                 "gols_contra": 44
             }
-        ]
     },
     {
         "nom": "RCD Espanyol",
         "escut": "../imagenes/escudos/espanyol.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 63,
-                "gols_favor": 61,
-                "gols_contra": 50
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 63,
+            "gols_favor": 61,
+            "gols_contra": 50
+        }
     },
     {
         "nom": "RC Celta de Vigo",
         "escut": "../imagenes/escudos/celta.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 63,
-                "gols_favor": 59,
-                "gols_contra": 60
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 63,
+            "gols_favor": 59,
+            "gols_contra": 60
+        }
     },
     {
         "nom": "RCD Mallorca",
         "escut": "../imagenes/escudos/mallorca.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 59,
-                "gols_favor": 59,
-                "gols_contra": 47
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 59,
+            "gols_favor": 59,
+            "gols_contra": 47
+        }
     },
     {
         "nom": "Real Madrid CF",
         "escut": "../imagenes/escudos/real-madrid.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 56,
                 "gols_favor": 59,
                 "gols_contra": 53
             }
-        ]
     },
     {
         "nom": "Deportivo Alavés",
         "escut": "../imagenes/escudos/alaves.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 56,
                 "gols_favor": 56,
                 "gols_contra": 66
             }
-        ]
     },
     {
         "nom": "Real Betis",
         "escut": "../imagenes/escudos/betis.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 52,
                 "gols_favor": 59,
                 "gols_contra": 58
             }
-        ]
     },
     {
         "nom": "Atlético de Madrid",
         "escut": "../imagenes/escudos/atletico-madrid.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 51,
                 "gols_favor": 59,
                 "gols_contra": 63
             }
-        ]
     },
     {
         "nom": "FC Barcelona",
         "escut": "../imagenes/escudos/barcelona.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 50,
                 "gols_favor": 63,
                 "gols_contra": 67
             }
-        ]
     },
     {
         "nom": "Getafe CF",
         "escut": "../imagenes/escudos/getafe.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 49,
                 "gols_favor": 61,
                 "gols_contra": 69
             }
-        ]
     },
     {
         "nom": "CD Leganés",
         "escut": "../imagenes/escudos/leganes.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 49,
                 "gols_favor": 50,
                 "gols_contra": 56
             }
-        ]
     },
     {
         "nom": "Sevilla FC",
         "escut": "../imagenes/escudos/sevilla.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 49,
                 "gols_favor": 48,
                 "gols_contra": 63
             }
-        ]
     },
     {
         "nom": "Real Valladolid",
         "escut": "../imagenes/escudos/valladolid.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 47,
                 "gols_favor": 63,
                 "gols_contra": 50
             }
-        ]
     },
     {
         "nom": "Valencia CF",
         "escut": "../imagenes/escudos/valencia.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 46,
                 "gols_favor": 51,
                 "gols_contra": 61
             }
-        ]
     },
     {
         "nom": "CA Osasuna",
         "escut": "../imagenes/escudos/osasuna.png",
-        "clasificacio": [
-            {
+        "clasificacio": {
                 "partits_jugats": 38,
                 "punts": 45,
                 "gols_favor": 48,
                 "gols_contra": 54
             }
-        ]
     },
     {
         "nom": "Villarreal CF",
         "escut": "../imagenes/escudos/villarreal.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 43,
-                "gols_favor": 56,
-                "gols_contra": 57
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 43,
+            "gols_favor": 56,
+            "gols_contra": 57
+        }
     },
     {
         "nom": "Real Sociedad",
         "escut": "../imagenes/escudos/real-sociedad.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 40,
-                "gols_favor": 51,
-                "gols_contra": 61
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 40,
+            "gols_favor": 51,
+            "gols_contra": 61
+        }
     },
     {
         "nom": "Rayo Vallecano",
         "escut": "../imagenes/escudos/rayo.png",
-        "clasificacio": [
-            {
-                "partits_jugats": 38,
-                "punts": 35,
-                "gols_favor": 40,
-                "gols_contra": 57
-            }
-        ]
+        "clasificacio": {
+            "partits_jugats": 38,
+            "punts": 35,
+            "gols_favor": 40,
+            "gols_contra": 57
+        }
     }
 ]
