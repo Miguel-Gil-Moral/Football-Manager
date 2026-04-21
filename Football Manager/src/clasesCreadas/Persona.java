@@ -9,7 +9,6 @@ public abstract class Persona {
     protected final String NOMBRE, APELLIDO, FECHA_NACIMIENTO;
     protected double nivMotivacion;
     protected int sueldoSalarial;
-    protected String nombreEquipo;
 
     /**
      * Crea una persona con sus datos identificativos y laborales.
@@ -42,13 +41,8 @@ public abstract class Persona {
                 sueldoSalarial;
     }
 
-    /**
-     * Asigna el equipo actual de la persona.
-     *
-     * @param nombreEquipo nombre del equipo al que pertenece
-     */
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombreEquipo = nombreEquipo;
+    protected void entrenamiento() {
+        this.nivMotivacion += 0.2;
     }
 
     /**
@@ -94,22 +88,5 @@ public abstract class Persona {
      */
     public int getSueldoSalarial() {
         return sueldoSalarial;
-    }
-
-    /**
-     * Devuelve el nombre del equipo asociado.
-     *
-     * @return nombre del equipo actual
-     */
-    public String getNombreEquipo() {
-        return nombreEquipo;
-    }
-
-    //✅ La clase nueva tendrá de método llamado entrenament() que aumentara la motivación en 0.2 puntos.
-    /**
-     * Aplica el entrenamiento basico de la clase base.
-     */
-    protected void entrenamiento() {
-        this.nivMotivacion += 0.2;
     }
 }

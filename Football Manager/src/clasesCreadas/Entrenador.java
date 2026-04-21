@@ -38,15 +38,6 @@ public class Entrenador extends Persona {
     }
 
     /**
-     * Asigna el equipo actual del entrenador.
-     *
-     * @param nombreEquipo nombre del equipo asignado
-     */
-    public void setNombreEquipo(String nombreEquipo) {
-        this.nombreEquipo = nombreEquipo;
-    }
-
-    /**
      * Devuelve el numero de torneos ganados.
      *
      * @return numero de torneos ganados
