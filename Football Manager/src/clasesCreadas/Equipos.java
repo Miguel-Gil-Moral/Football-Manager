@@ -119,7 +119,6 @@ public class Equipos {
                                 salirBucleFor = true;
                                 for (Persona p : listaMercado) {
                                     if (p instanceof Entrenador && p.getNOMBRE().equals(quienFichar)) {
-
                                         entrenador = (Entrenador)p;
                                         listaMercado.remove(p);
                                         fichado = true;
@@ -151,11 +150,10 @@ public class Equipos {
      *
      * @since 1.0
      */
-    public void destituirEntrenador() {
+    public Entrenador destituirEntrenador() {
         Scanner sc = new Scanner(System.in);
         System.out.println("¿Hacer al entrenador prescindible? (true / false)");
         boolean prescindeEntrenador = sc.nextBoolean();
-        boolean fichado = false;
         Entrenador ent = null;
         if (prescindeEntrenador) {
             ent = entrenador;
@@ -164,79 +162,61 @@ public class Equipos {
         } else {
             System.out.println("No se ha destituido al entrenador.");
         }
+        return ent;
     }
 
     /**
      * Gestiona la transferencia de un jugador entre equipos.
      *
-     * @param listaFichados Lista con todos los jugadores fichados en un equipo
-     * @param listaEquipos  Lista con todos los equipos creados
+     * @param equipoTransferir  Lista con todos los equipos creados
      * @since 1.0
      */
-    public void transferirJugador(ArrayList<Persona> listaFichados, ArrayList<Equipos> listaEquipos) {
+    public void transferirJugador(Equipos equipoTransferir) {
         Scanner sc = new Scanner(System.in);
         boolean salirBucle, dorsalLibre = true, jugadorEncontrado = false;
 
-        String equipo1, equipo2;
         do {
-            System.out.print("Escriba el equipo donde se encuentra el jugador: ");
-            equipo1 = sc.nextLine();
-            System.out.print("Escriba el equipo donde quiere transferir al jugador: ");
-            equipo2 = sc.nextLine();
             salirBucle = true;
-            if (equipo1.isEmpty() || equipo2.isEmpty()) {
-                System.out.println("Uno de los equipos esta vacío, rellene los campos");
+            try {
+                do {
+                    String nombreJugador = sc.nextLine();
+                    int dorsalJugador = sc.nextInt();
+                    for (Jugador p : jugadores) {
+                        if (p.getNOMBRE().equals(nombreJugador) && p.getDorsal() == dorsalJugador) {
+                            System.out.println("El jugador se ha encontrado");
+                            jugadorEncontrado = true;
+                        }
+                    }
+                    if (jugadorEncontrado) {
+                        System.out.print("Escriba el nuevo dorsal del jugador: ");
+                        int dorsalNuevo = sc.nextInt();
+                        dorsalLibre = true;
+                        for (Jugador pr : jugadores) {
+                            if (pr.getDorsal() == dorsalNuevo && NOMBRE.equals(equipoTransferir.getNOMBRE())) { //(EN UN CONCEPTO SIMILAR AL CASTEO (INT --> FLOAT)) LA MENCIÓN A LAS CLASES HIJAS SE HACE INTRODUCIÉNDOLAS ENTRE PARÉNTESIS.
+                                System.out.println("Dorsal ya existe, escoja otro dorsal");
+                                dorsalLibre = false;
+                            }
+                        }
+                        if (dorsalLibre) {
+                            for (Jugador persona : jugadores) {
+                                if (persona.getNOMBRE().equals(nombreJugador) && persona.getDorsal() == dorsalJugador) {
+                                    persona.setDorsal(dorsalNuevo);
+                                    List<Jugador> listaJugadores = equipoTransferir.getJugadores();
+                                    listaJugadores.add(persona);
+                                    equipoTransferir.setJugadores(listaJugadores);
+                                }
+                            }
+                        }
+                    } else {
+                        System.out.println("El jugador junto con el dorsal no se ha encontrado, vuelve a intentarlo");
+                    }
+                } while (!dorsalLibre);
+            } catch (InputMismatchException e) {
+                System.out.println("Opción invalida, escriba el dorsal solo con números enteros");
                 salirBucle = false;
+                sc.next();
             }
         } while (!salirBucle);
-
-        boolean equipo1Encontrado = revisarEquipo(listaEquipos, equipo1);
-        boolean equipo2Encontrado = revisarEquipo(listaEquipos, equipo2);
-
-        if (equipo1Encontrado && equipo2Encontrado) {
-            do {
-                try {
-                    do {
-                        String nombreJugador = pedirNombrePersona(sc);
-                        int dorsalJugador = pedirDorsalJugador(sc);
-                        for (Persona p : listaFichados) {
-                            if (p.getNOMBRE().equals(nombreJugador) && ((Jugador) p).getDorsal() == dorsalJugador) {
-                                System.out.println("El jugador se ha encontrado");
-                                jugadorEncontrado = true;
-                            }
-                        }
-                        if (jugadorEncontrado) {
-                            System.out.print("Escriba el nuevo dorsal del jugador: ");
-                            int dorsalNuevo = sc.nextInt();
-                            salirBucle = true;
-                            dorsalLibre = true;
-                            for (Persona pr : listaFichados) {
-                                if (((Jugador) pr).getDorsal() == dorsalNuevo && pr.getNombreEquipo().equals(equipo2)) { //(EN UN CONCEPTO SIMILAR AL CASTEO (INT --> FLOAT)) LA MENCIÓN A LAS CLASES HIJAS SE HACE INTRODUCIÉNDOLAS ENTRE PARÉNTESIS.
-                                    System.out.println("Dorsal ya existe, escoja otro dorsal");
-                                    dorsalLibre = false;
-                                }
-                            }
-                            if (dorsalLibre) {
-                                for (Persona persona : listaFichados) {
-                                    if (persona.getNOMBRE().equals(nombreJugador) && ((Jugador) persona).getDorsal() == dorsalJugador) {
-                                        ((Jugador) persona).setDorsal(dorsalNuevo);
-                                        persona.setNombreEquipo(equipo2);
-                                    }
-                                }
-                            }
-                        } else {
-                            System.out.println("El jugador junto con el dorsal no se ha encontrado, vuelve a intentarlo");
-                        }
-                    } while (!dorsalLibre);
-                } catch (InputMismatchException e) {
-                    System.out.println("Opción invalida, escriba el dorsal solo con números enteros");
-                    salirBucle = false;
-                    sc.next();
-                }
-            } while (!salirBucle);
-        } else {
-            System.out.println("Uno o dos equipos no se han encontrado");
-        }
     }
 
     /**
@@ -291,13 +271,11 @@ public class Equipos {
      *
      * @since 1.0
      * @param listaEquipos Lista con todos los equipos disponibles
-     * @param listaFichados Lista con todos los jugadores que estan fichados en el equipo
      * @param listaMercado Lista para trasladar el jugador del equipo eliminado al mercado
-     * @param nombreEquipo Nombre del equipo al cual se dara de baja
      */
-    public void darBajaEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaMercado, String nombreEquipo) {
+    public void darBajaEquipo(ArrayList<Equipos> listaEquipos, ArrayList<Persona> listaMercado) {
         Scanner sc = new Scanner(System.in);
-        System.out.println("¿Quieres borrar el equipo " + nombreEquipo + " de la lista de equipos? («true» o «false»).");
+        System.out.println("¿Quieres borrar el equipo " + NOMBRE + " de la lista de equipos? («true» o «false»).");
         boolean respuestaUsuario = sc.nextBoolean();
         boolean salirBucle, salirBucleFor;
 
@@ -366,6 +344,14 @@ public class Equipos {
         return nombrePresidente;
     }
 
+    public List<Jugador> getJugadores() {
+        return jugadores;
+    }
+
+    public Entrenador getEntrenador() {
+        return entrenador;
+    }
+
     /**
      * Devuelve el anyo de fundacion del equipo.
      *
@@ -373,6 +359,10 @@ public class Equipos {
      */
     public int getANYO_FUNDACION() {
         return ANYO_FUNDACION;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
     }
 
     /**

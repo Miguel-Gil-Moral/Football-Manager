@@ -35,7 +35,6 @@ public class Main {
                             break;
                         case 2:
                             darAltaEquipo(listaEquipos);
-                            numCreados++;
                             break;
                         case 3:
                             darAltaPersona(listaMercado);
@@ -308,7 +307,7 @@ public class Main {
 
         if (listaLigas.isEmpty()) {
             System.out.println("La lista de ligas está vacía. Es por esto que disputarás una nueva liga. Pulsa Enter para empezar.");
-            String respuestaDisputarNuevaLiga =  sc.nextLine();
+            String respuestaDisputarNuevaLiga = sc.nextLine();
             if (respuestaDisputarNuevaLiga.isEmpty()) {
                 listaLigas.add(disputarNuevaLiga(listaEquipos, listaFichados)); //Créditos a Miguel :)))
             }
@@ -380,7 +379,7 @@ public class Main {
         String equipoRevisar;
         sc.nextLine();
         do {
-            System.out.println("¿Que equipo quiere revisar los minutos marcados?:");
+            System.out.println("De qué equipo quieres revisar los minutos marcados?:");
             equipoRevisar = sc.nextLine();
             salirBucle = true;
             if (equipoRevisar.isEmpty()) {
