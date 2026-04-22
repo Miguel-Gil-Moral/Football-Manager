@@ -365,6 +365,10 @@ public class Equipos {
         this.jugadores = jugadores;
     }
 
+    public void setEntrenador(Entrenador entrenador) {
+        this.entrenador = entrenador;
+    }
+
     /**
      * Modifica el presidente asociado al equipo.
      *

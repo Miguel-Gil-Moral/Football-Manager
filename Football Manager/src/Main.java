@@ -169,17 +169,39 @@ public class Main {
      */
     public static ArrayList<Equipos> cargarEquipos() {
         String linea;
-        String[] separado;
+        String[] separado, separado2;
+        Entrenador entrenador;
         ArrayList<Equipos> listaEquipos = new ArrayList<>();
+        List<Jugador> jugadores = new ArrayList<>();
 
         try {
             BufferedReader br = new BufferedReader(new FileReader("src/ficheros/equipos.txt"));
             while ((linea = br.readLine()) != null) {
                 separado = linea.split(";");
-                listaEquipos.add(new Equipos(separado[0], Integer.parseInt(separado[1]), separado[2], separado[3], separado[4]));
+                Equipos equipo = new Equipos(separado[0], Integer.parseInt(separado[1]), separado[2], separado[3], separado[4]);
+                try {
+                    BufferedReader br2 = new BufferedReader(new FileReader("src/ficheros/personas_fichadas.txt"));
+                    while ((linea = br2.readLine()) != null) {
+                        jugadores = new ArrayList<>();
+                        separado2 = linea.split(";");
+                        if (separado2[0].equals("J") && separado2[9].equals(equipo.getNOMBRE())) {
+                            jugadores.add(new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                                    Integer.parseInt(separado[5]), Integer.parseInt(separado[6]),
+                                    separado[7], Integer.parseInt(separado[8])));
+                        } else if (separado2[0].equals("E") && separado2[8].equals(equipo.getNOMBRE())) {
+                            entrenador = new Entrenador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                                    Integer.parseInt(separado[5]), Integer.parseInt(separado[6]), Boolean.parseBoolean(separado[7]));
+                            equipo.setEntrenador(entrenador);
+                        }
+                    }
+                    equipo.setJugadores(jugadores);
+                } catch (IOException e) {
+                    System.out.println("Error al abrir el archivo personas fichadas");
+                }
+                listaEquipos.add(equipo);
             }
         } catch (IOException e) {
-            System.out.println("Error al abrir el archivo");
+            System.out.println("Error al abrir el archivo equipos");
         }
 
         return listaEquipos;
