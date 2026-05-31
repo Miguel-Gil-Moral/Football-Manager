@@ -3,7 +3,7 @@ header {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #308242;
+    background-color: #064E3B;
 }
 
 #logo {
@@ -12,7 +12,7 @@ header {
 }
 
 #tituloHeader {
-    font-family: 'Archivo Black', sans-serif;
+    font-family: 'Inter', sans-serif;
     color: white;
     font-size: 48px;
 }
@@ -59,6 +59,12 @@ header {
 
 /*General*/
 
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #1a1a1a;
+}
+
 p {
     font-family: 'Lato', sans-serif;
 }
@@ -77,36 +83,29 @@ tr {
     display: flex;
 }
 
+button {
+    color: white;
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    width: 25%;
+}
+
 /*Plantillas*/
 
-#plantillaMasculino {
+#divPlantillaGeneral {
     display: grid;
-    background-color: lightblue;
-    border-radius: 16px;
+    background-color: gray;
     align-items: center;
-    padding: 10px;
+    padding: 20px;
     justify-content: center;
 }
 
-#plantillaMasculino > h1 {
-    font-family: 'Oswald', sans-serif;
-}
-
-#plantillaFemenino {
-    display: grid;
-    background-color: lightcoral;
-    border-radius: 16px;
-    align-items: center;
-    padding: 10px;
-    justify-content: center;
-}
-
-#plantillaFemenino > h1 {
+#divPlantillaGeneral > h1 {
     font-family: 'Oswald', sans-serif;
 }
 
 .plantillaEncabezado {
-    font-size: 34px;
+    font-size: 32px;
     text-align: center;
     text-decoration: underline;
 }
@@ -152,13 +151,19 @@ tr {
     width: 100%;
 }
 
+#botonPlantilla {
+    border-radius: 0.5rem;
+    border: 0;
+    padding: 10px;
+    background-color: #10B981;
+    color: white;
+}
+
 /*Clasificación*/
 
 #clasificaciones {
-    gap: 50px;
     padding: 20px;
     background-color: gray;
-    border-radius: 16px;
 }
 
 #clasificacionMasculino {
@@ -168,7 +173,7 @@ tr {
 
 #clasificacionMasculino > h2 {
     padding-top: 20px;
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Inter', sans-serif;
     text-align: center;
     text-decoration: underline;
 }
@@ -179,13 +184,13 @@ tr {
 }
 
 #clasificacionFemenino > h2 {
-    font-family: 'Oswald', sans-serif;
+    font-family: 'Inter', sans-serif;
     text-align: center;
     text-decoration: underline;
 }
 
 .nombreEquipo {
-    font-family: 'Bebas Neue', sans-serif;
+    font-family: 'Inter', sans-serif;
     display: flex;
     align-items: center;
     padding-left: 45px;
@@ -203,7 +208,8 @@ tr {
 }
 
 #botonClasificacion {
-    border-radius: 16px;
+    border: 0;
+    border-radius: 0.5rem;
     padding: 10px;
     background-color: #10B981;
     color: white;
@@ -212,5 +218,5 @@ tr {
 /*Footer*/
 
 footer {
-    background-color: #283680;
+    background-color: #064E3B;
 }
