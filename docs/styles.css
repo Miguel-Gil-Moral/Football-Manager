@@ -70,18 +70,30 @@ p {
 }
 
 table {
-    margin-left: 22%;
-    width: 50%;
-    border: 1px solid black;
+    background-color: #F2F2F2;
+    width: auto;
+    border: 2px solid black;
+    border-collapse: collapse;
 }
 
 td {
-    display: flex;
-    align-items: center;
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
 }
 
-tr {
-    display: flex;
+th {
+    background-color: rgb(160, 159, 159);
+    border-right: 2px solid black;
+    border-bottom: 2px solid black;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+.ultimaCelda {
+    border-right: 0;
 }
 
 button {
@@ -167,11 +179,22 @@ button {
     background-color: gray;
 }
 
-#clasificacionMasculino > h2, #clasificacionFemenino > h2 {
+#clasificacionGeneros {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#clasificacionGeneros > h2{
     padding-top: 20px;
     font-family: 'Inter', sans-serif;
     text-align: center;
     text-decoration: underline;
+}
+
+.imagenClasificacion {
+    width: 50%;
+    height: auto;
 }
 
 .nombreEquipo {
