@@ -185,7 +185,7 @@ public class Main {
                         jugadores = new ArrayList<>();
                         separado2 = linea.split(";");
                         if (separado2[0].equals("J") && separado2[9].equals(equipo.getNOMBRE())) {
-                            jugadores.add(new Jugador(separado[1], separado[2], separado[3], Double.parseDouble(separado[4]),
+                            jugadores.add(new Jugador(separado[1], separado[2], separado[3], Integer.parseInt(separado[4]),
                                     Integer.parseInt(separado[5]), Integer.parseInt(separado[6]),
                                     separado[7], Integer.parseInt(separado[8])));
                         } else if (separado2[0].equals("E") && separado2[8].equals(equipo.getNOMBRE())) {

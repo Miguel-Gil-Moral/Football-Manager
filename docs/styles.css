@@ -70,6 +70,7 @@ p {
 }
 
 table {
+    margin-left: 22%;
     width: 50%;
     border: 1px solid black;
 }
@@ -166,24 +167,8 @@ button {
     background-color: gray;
 }
 
-#clasificacionMasculino {
-    border-radius: 16px;
-    background-color: lightblue;
-}
-
-#clasificacionMasculino > h2 {
+#clasificacionMasculino > h2, #clasificacionFemenino > h2 {
     padding-top: 20px;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-    text-decoration: underline;
-}
-
-#clasificacionFemenino {
-    border-radius: 16px;
-    background-color: lightcoral;
-}
-
-#clasificacionFemenino > h2 {
     font-family: 'Inter', sans-serif;
     text-align: center;
     text-decoration: underline;
