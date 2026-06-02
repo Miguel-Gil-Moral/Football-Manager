@@ -103,6 +103,20 @@ button {
     width: 25%;
 }
 
+h2 {
+    font-family: 'Inter', sans-serif;
+    text-align: center;
+    text-decoration: underline;
+}
+
+/*Index*/
+
+section {
+    background-color: gray;
+    padding: 20px;
+    text-align: center;
+}
+
 /*Plantillas*/
 
 #divPlantillaGeneral {
@@ -132,6 +146,7 @@ button {
 
 .encabezadoDiv > h2 {
     font-size: 48px;
+    text-decoration: none;
 }
 
 .escudoEquipo {
@@ -172,6 +187,74 @@ button {
     color: white;
 }
 
+/*Resultados*/
+
+#resultados {
+    padding: 20px;
+    background-color: gray;
+}
+
+#botonResultados {
+    background-color: #10B981;
+    border: 0;
+    border-radius: 0.5rem;
+    padding: 10px;
+}
+
+#resultadosGeneros {
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#partidos {
+    width: 50%;
+}
+
+.horario {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.enfrentamiento {
+    border-radius: 8px;
+    background-color: #F2F2F2;
+    padding: 20px;
+    margin: 20px;
+}
+
+.enfrentamiento:hover {
+    background-color: #c2c2c2;
+    box-shadow: 0 4px 12px black;
+}
+
+.fechaResultados {
+    text-align: right;
+}
+
+.resultadoPartido {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.equipoResultado {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.equipoResultado > img {
+    width: 20%;
+    height: auto;
+}
+
+.puntosResultado {
+    font-weight: bold;
+}
+
 /*Clasificación*/
 
 #clasificaciones {
@@ -187,9 +270,6 @@ button {
 
 #clasificacionGeneros > h2{
     padding-top: 20px;
-    font-family: 'Inter', sans-serif;
-    text-align: center;
-    text-decoration: underline;
 }
 
 .imagenClasificacion {
@@ -220,7 +300,6 @@ button {
     border-radius: 0.5rem;
     padding: 10px;
     background-color: #10B981;
-    color: white;
 }
 
 /*Footer*/

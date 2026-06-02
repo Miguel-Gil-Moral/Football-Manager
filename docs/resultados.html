@@ -10,13 +10,13 @@
 </head>
 <body>
     <header>
-        <a href="index.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <a href="./"><img src="./imagenes/Logo FM.svg" id="logo"></a>
         <h1 id="tituloHeader">Football Manager</h1>
         <ul>
             <li id="menuHeader">
                 <a href="#">Menu</a>
                 <ul class="submenu">
-                    <li><a href="./index.html" class="enlacesSubmenu">Inicio</a></li>
+                    <li><a href="./" class="enlacesSubmenu">Inicio</a></li>
                     <li><a href="./plantillas.html" class="enlacesSubmenu">Plantillas</a></li>
                     <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
                     <li><a href="./formulario.html" class="enlacesSubmenu">Dar Alta</a></li>
@@ -24,10 +24,21 @@
             </li>
         </ul>
     </header>
-    Una pàgina per veure els resultats dels partits de la darrera jornada. Aquesta informació també es proporcionarà a través d'un document JSON.
+    <br>
+    <!--Una pàgina per veure els resultats dels partits de la darrera jornada. Aquesta informació també es proporcionarà a través d'un document JSON.-->
+    <main>
+        <div id="resultados">
+            <button id="botonResultados">Ver resultados femenino</button>
+            <div id="resultadosGeneros">
+                <h2 id="encabezado_resultados">Resultados masculino</h2>
+                <div id="partidos"></div>
+            </div>
+        </div>
+    </main>
     <br>
     <footer>
         <img src="./imagenes/Logo FM.svg" id="logo">
     </footer>
+    <script src="./javascript/resultados.js"></script>
 </body>
 </html>
