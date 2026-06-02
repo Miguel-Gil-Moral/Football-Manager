@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", function () {
     
     const botonPlantilla = document.getElementById("botonPlantilla");
-    extraerPlantillaMasculina("plantillaMasculino")
+    extraerPlantillaMasculina("plantillaMasculino");
 
     botonPlantilla.addEventListener("click", function () {
         if (botonPlantilla.textContent == "Ver plantilla femenino") {

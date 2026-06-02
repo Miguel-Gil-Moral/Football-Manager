@@ -19,7 +19,7 @@ Una secció (pàgina apart) on en un futur podrem donar d'alta nous jugadors i e
 
 La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació, així com un footer amb la informació que vosaltres considereu adient. El logo ha de servir com a punt de retorn a la landing page.-->
     <header>
-        <a href="index.html"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <a href="./"><img src="./imagenes/Logo FM.svg" id="logo"></a>
         <h1 id="tituloHeader">Football Manager</h1>
         <ul>
             <li id="menuHeader">
@@ -28,18 +28,122 @@ La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació,
                     <li><a href="./plantillas.html" class="enlacesSubmenu">Plantillas</a></li>
                     <li><a href="./resultados.html" class="enlacesSubmenu">Resultados</a></li>
                     <li><a href="./clasificacion.html" class="enlacesSubmenu">Clasificación</a></li>
-                    <li><a href="./formulario.html" class="enlacesSubmenu">Dar Alta</a></li>
                 </ul>
             </li>
         </ul>
     </header>
-    <br>
     <main>
-        
+        <section id="seccion_formulario">
+            <div id="divFormulario">
+                <h2>Date de alta</h2>
+                <form action="">
+                    <label for="txtNombre">Nombre</label>
+                    <input type="text" minlength="2" maxlength="27" id="txtNombre">
+                    <br>
+                    <label for="numAltura">Altura</label>
+                    <input type="number" step="0.01" min="1.00" max="2.08" id="numAltura">
+                    <br>
+                    <label for="numPeso">Peso</label>
+                    <input type="number" step="00.1" min="47.0" max="80.0" id="numPeso">
+                    <br>
+                    <label for="fechaNacimiento">Fecha Nacimiento</label>
+                    <input type="date" id="fechaNacimiento">
+                    <br>
+                    <label for="imagen">Fotografia</label>
+                    <input type="file" id="imagen">
+                    <br>
+                    <input type="radio" id="jugador" name="tipo" checked>
+                    <label for="jugador">Jugador</label>
+                    <input type="radio" id="entrenador" name="tipo">
+                    <label for="entrenador">Entrenador</label>
+                    <br>
+                    <div id="inputs_jugador">
+                        <label for="slctPosicion">Posición</label>
+                        <select id="slctPosicion">
+                            <option value="defecto" selected>Seleccione una posición</option>
+                            <option value="portero">Portero</option>
+                            <option value="defensa">Defensa</option>
+                            <option value="mediocampista">Mediocampista</option>
+                            <option value="delantero">Delantero</option>
+                        </select>
+                    </div>
+                    <label for="">Asignar equipo</label>
+                    <select id="slctEquipos"></select>
+                    <br><br>
+                    <button id="boton_formulario">Enviar</button>
+                </form>
+            </div>
+        </section>
+        <section id="seccion_introduccion">
+            <h2>Sobre Football Manager</h2>
+            <p>Este football manager es completo en cuanto a recursos que proporciona 
+                para tu equipo pueda llegar hasta la cima. 
+                Podras fichar jugadores y tu entrenador para tu equipo y competir en cualquier liga que se dispute. 
+                Tu tienes la elección total sobre tu equipo, para poder destituir tu entrenador, 
+                transferir uno de tus jugadores, ver las estadisticas de tu equipo o dar de baja tu equipo.</p>
+        </section>
+        <br>
+        <section id="seccion_noticias">
+            <h2>Noticias</h2>
+            <div id="noticias">
+                <div>
+                    <img src="./imagenes/noticia1.jpg" alt="noticia1" id="noticia1">
+                    <p>Le mando a callar al arbitro con su tarjeta amarilla con la poderosa carta del reverso. 
+                        Tremendo ganador es este tio</p>
+                </div>
+                <div>
+                    <img src="./imagenes/noticia2.jpg" alt="noticia2" id="noticia2">
+                    <p>
+                        El jugador "Yo" recibe tarjeta roja por hacer perder el tiempo con su actuación 
+                        y se le da bola para el jugador "Lunes De la semana", menudo sinvergüenza de jugador.</p>
+                </div>
+            </div>
+        </section>
+        <br>
+        <section id="seccion_resultados">
+            <h2>Partidos destacados</h2>
+            <div id="resultadosGeneros">
+                <div class="enfrentamiento">
+                    <div class="resultadoPartido">
+                        <div class="equipoResultado">
+                            <img src="./imagenes/escudos/real-madrid.png" alt="Escudo Real Madrid CF">
+                            <h3>Real Madrid CF</h3>
+                        </div>
+                        <p class="puntosResultado">3-0</p>
+                        <div class="equipoResultado">
+                            <h3>Valencia CF</h3>
+                            <img src="./imagenes/escudos/valencia.png" alt="Escudo Valencia CF">
+                        </div>
+                    </div>
+                </div>
+                <div class="enfrentamiento">
+                    <div class="resultadoPartido">
+                        <div class="equipoResultado">
+                            <img src="./imagenes/escudos/celta.png" alt="Escudo Athletic Club">
+                            <h3>RCD Celta de Vigo</h3>
+                        </div>
+                        <p class="puntosResultado">3-2</p>
+                        <div class="equipoResultado">
+                            <h3>UD Las Palmas FC</h3>
+                            <img src="./imagenes/escudos/las-palmas.png" alt="Escudo Girona FC">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <a href="./resultados.html"><button>Ver mas resultados</button></a>
+        </section>
     </main>
     <br>
     <footer>
         <img src="./imagenes/Logo FM.svg" id="logo">
+        <p>&copy; 2026 Miguel Gil Moral - Football Manager</p>
+        <div>
+            <p>0373 - Lenguaje de Marcas</p>
+            <p>Email: mgilm2324@politecnics.barcelona</p>
+            <p>Telefono: (+34) 603 65 01 82</p>
+            <p>Ubicación: Centre d'Estudis Politécnics</p>
+        </div>
     </footer>
+    <script src="./javascript/script.js"></script>
 </body>
 </html>
