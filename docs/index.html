@@ -19,7 +19,7 @@ Una secció (pàgina apart) on en un futur podrem donar d'alta nous jugadors i e
 
 La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació, així com un footer amb la informació que vosaltres considereu adient. El logo ha de servir com a punt de retorn a la landing page.-->
     <header>
-        <a href="./"><img src="./imagenes/Logo FM.svg" id="logo"></a>
+        <a href="./"><img src="./imagenes/Logo FM.svg" alt="logo" id="logo"></a>
         <h1 id="tituloHeader">Football Manager</h1>
         <ul>
             <li id="menuHeader">
@@ -67,7 +67,7 @@ La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació,
                             <option value="delantero">Delantero</option>
                         </select>
                     </div>
-                    <label for="">Asignar equipo</label>
+                    <label for="slctEquipos">Asignar equipo</label>
                     <select id="slctEquipos"></select>
                     <br><br>
                     <button id="boton_formulario">Enviar</button>
@@ -75,12 +75,16 @@ La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació,
             </div>
         </section>
         <section id="seccion_introduccion">
-            <h2>Sobre Football Manager</h2>
-            <p>Este football manager es completo en cuanto a recursos que proporciona 
-                para tu equipo pueda llegar hasta la cima. 
-                Podras fichar jugadores y tu entrenador para tu equipo y competir en cualquier liga que se dispute. 
-                Tu tienes la elección total sobre tu equipo, para poder destituir tu entrenador, 
-                transferir uno de tus jugadores, ver las estadisticas de tu equipo o dar de baja tu equipo.</p>
+            <div>
+                <h2>Sobre Football Manager</h2>
+                <p>Este football manager es completo en cuanto a recursos que proporciona 
+                    para tu equipo pueda llegar hasta la cima. 
+                    Podras fichar jugadores y tu entrenador para tu equipo y competir en cualquier liga que se dispute. 
+                    Tu tienes la elección total sobre tu equipo, para poder destituir tu entrenador, 
+                    transferir uno de tus jugadores, ver las estadisticas de tu equipo o dar de baja tu equipo.
+                </p>
+            </div>
+            <img src="./imagenes/introduccion.jpg" alt="introduccion_imagen">
         </section>
         <br>
         <section id="seccion_noticias">
@@ -89,13 +93,15 @@ La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació,
                 <div>
                     <img src="./imagenes/noticia1.jpg" alt="noticia1" id="noticia1">
                     <p>Le mando a callar al arbitro con su tarjeta amarilla con la poderosa carta del reverso. 
-                        Tremendo ganador es este tio</p>
+                        Tremendo ganador es este tio
+                    </p>
                 </div>
                 <div>
                     <img src="./imagenes/noticia2.jpg" alt="noticia2" id="noticia2">
                     <p>
                         El jugador "Yo" recibe tarjeta roja por hacer perder el tiempo con su actuación 
-                        y se le da bola para el jugador "Lunes De la semana", menudo sinvergüenza de jugador.</p>
+                        y se le da bola para el jugador "Lunes De la semana", menudo sinvergüenza de jugador.
+                    </p>
                 </div>
             </div>
         </section>
@@ -135,7 +141,7 @@ La pàgina ha de tenir un encapaçlament amb un logo, nom i menú de navegació,
     </main>
     <br>
     <footer>
-        <img src="./imagenes/Logo FM.svg" id="logo">
+        <img src="./imagenes/Logo FM.svg" alt="logo" id="logo">
         <p>&copy; 2026 Miguel Gil Moral - Football Manager</p>
         <div>
             <p>0373 - Lenguaje de Marcas</p>
