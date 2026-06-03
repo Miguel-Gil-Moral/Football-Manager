@@ -109,10 +109,13 @@ h2 {
     text-decoration: underline;
 }
 
+<<<<<<< HEAD
 input, select {
     margin-bottom: 20px;
 }
 
+=======
+>>>>>>> c22e20fbcae6172c2de3960efb7e186789285c69
 /*Index*/
 
 section {
@@ -121,6 +124,7 @@ section {
     text-align: center;
 }
 
+<<<<<<< HEAD
 #seccion_formulario {
     display: flex;
     justify-content: center;
@@ -189,6 +193,8 @@ section {
     width: 700px;
 }
 
+=======
+>>>>>>> c22e20fbcae6172c2de3960efb7e186789285c69
 /*Plantillas*/
 
 #divPlantillaGeneral {
