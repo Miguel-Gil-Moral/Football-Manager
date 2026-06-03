@@ -59,7 +59,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     let escudoLocal = document.createElement("img");
                     escudoLocal.src = resultadoEquipos.equip_local.escut;
-                    escudoLocal.alt = "Escudo" + resultadoEquipos.equip_local.nom;
+                    escudoLocal.alt = "Escudo " + resultadoEquipos.equip_local.nom;
 
                     let nombreLocal = document.createElement("h3");
                     nombreLocal.textContent = resultadoEquipos.equip_local.nom;
@@ -74,7 +74,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     let escudoVisitante = document.createElement("img");
                     escudoVisitante.src = resultadoEquipos.equip_visitant.escut;
-                    escudoVisitante.alt = "Escudo" + resultadoEquipos.equip_visitant.nom;
+                    escudoVisitante.alt = "Escudo " + resultadoEquipos.equip_visitant.nom;
 
                     let nombreVisitante = document.createElement("h3");
                     nombreVisitante.textContent = resultadoEquipos.equip_visitant.nom;

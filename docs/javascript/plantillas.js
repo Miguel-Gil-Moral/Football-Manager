@@ -36,6 +36,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let escudo = document.createElement("img");
                     escudo.src = equipo.escut;
                     escudo.className = "escudoEquipo";
+                    escudo.alt = "Escudo " + equipo.equip;
                     encabezadoDiv.appendChild(escudo);
 
                     let nombreEquipo = document.createElement("h2");
@@ -57,6 +58,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         let fotoJugador = document.createElement("img");
                         fotoJugador.src = "./imagenes/images.jpeg";
                         fotoJugador.className = "imagenPersona";
+                        fotoJugador.alt = "Imagen " + jugador.nomPersona;
                         tarjetaJugador.appendChild(fotoJugador);
 
                         let nombreJugador = document.createElement("p");
@@ -87,6 +89,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let fotoEntrenador = document.createElement("img");
                     fotoEntrenador.src = "./imagenes/entrenadores/" + infoEntrenador.nomPersona + ".png";
                     fotoEntrenador.className = "imagenPersona";
+                    fotoEntrenador.alt = "Imagen " + infoEntrenador.nomPersona;
                     tarjetaEntrenador.appendChild(fotoEntrenador);
 
                     let nombreEntrenador = document.createElement("p");
@@ -140,6 +143,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let escudo = document.createElement("img");
                     escudo.src = equipo.escut;
                     escudo.className = "escudoEquipoFemenino";
+                    escudo.alt = "Escudo " + equipo.equip;
                     encabezadoDiv.appendChild(escudo);
 
                     let nombreEquipo = document.createElement("h2");
@@ -161,6 +165,7 @@ document.addEventListener("DOMContentLoaded", function () {
                         let fotoJugador = document.createElement("img");
                         fotoJugador.src = jugadora.foto;
                         fotoJugador.className = "imagenPersona";
+                        fotoJugador.alt = "Imagen " + jugadora.nomPersona;
                         tarjetaJugador.appendChild(fotoJugador);
 
                         let nombreJugador = document.createElement("p");
@@ -191,6 +196,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let fotoEntrenadora = document.createElement("img");
                     fotoEntrenadora.src = infoEntrenador.foto;
                     fotoEntrenadora.className = "imagenPersona";
+                    fotoEntrenadora.alt = "Imagen " + infoEntrenador.nomPersona;
                     tarjetaEntrenadora.appendChild(fotoEntrenadora);
 
                     let nombreEntrenadora = document.createElement("p");
