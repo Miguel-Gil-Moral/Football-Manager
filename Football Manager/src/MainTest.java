@@ -40,35 +40,37 @@
 //
 //        assertNotEquals(listaFichajes, listaFichajes2);
 //    }
+///
+//        @Test
+//        void equipoTienePresidente() {
+//            Equipos equipo = new Equipos(
+//                    "FC Barcelona",
+//                    1899,
+//                    "Barcelona",
+//                   "Camp Nou",
+//                    "Joan Laporta"
+//            );
 //
-//    @Test
-//    void modificarPresidente() {
-//        ArrayList<Equipos> listaEquipos = Main.cargarEquipos();
-//        Equipos equipoActual = null;
-//        for (Equipos eq : listaEquipos) {
-//            if (eq.getNOMBRE().equals("Equipo de los atontaos")) {
-//                equipoActual = eq;
-//            }
+//            assertNotNull(equipo.getNombrePresidente());
 //        }
-//        assertNotNull (equipoActual.getNombrePresidente());
 //
 //    }
 //
-//    @Test
-//    void mostrarClasificacion() {
-//        String[][] mediaEquipo = {
-//                {"FC Barcelona", "50", "5"},
-//                {"Real Madrid CF", "50", "5"}
-//        };
+//@Test
+//void equipoFundadoAntesDe2000() {
+//    Equipos equipo = new Equipos(
+//            "FC Barcelona",
+//            1899,
+//            "Barcelona",
+//            "Camp Nou",
+//            "Joan Laporta"
+//    );
 //
-//        String[][] esperado = {
-//                {"FC Barcelona", "0.03"},
-//                {"Real Madrid CF", "0.03"}
-//        };
+//    assertTrue(equipo.getANYO_FUNDACION() < 2000);
+//}
 //
-//        assertArrayEquals(esperado, Main.aumentarProbabilidadGol(mediaEquipo));
-//    }
-//
+
+
 //    @Test
 //    public void equiposNombrePresidente() {
 //        Equipos equipo = new Equipos("FC Barcelona", 1899, "Barcelona", "Camp Nou", "Joan Laporta");
